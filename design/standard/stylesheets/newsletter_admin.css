@@ -1,0 +1,18 @@
+/* newsletter_admin.css */
+
+
+div#cjw_newsletter_list table.list th.name
+{
+    width: 70%;
+}
+
+div#cjw_newsletter_list table.list th.published
+{
+    width: 20%;
+}
+
+tr.newsletter-bounce-item
+{
+    bgcolor: #FF00FF;
+    font-weight: bold;
+}

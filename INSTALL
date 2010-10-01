@@ -1,0 +1,138 @@
+cjw_newsletter INSTALL
+=====================
+
+Copyright (C) 2007-2010 by CJW Network www.cjw-network.com
+
+coolscreen.de - enterprise internet
+JAC Systeme -  http://www.jac-systeme.de
+Webmanufaktur - http://www.webmanufaktur.ch
+
+System requirements:
+====================
+ - ez 4.x
+ - ezComponents
+ - php ( php 5 cli version )
+
+Steps for installing the newsletter:
+====================================
+
+(1.) activate the extension e.g.  cjw_newsletter
+    [ExtensionSettings]
+    ActiveAccessExtensions[]=cjw_newsletter (have to be before ezwt if used)
+    ActiveAccessExtensions[]=ezwt
+
+(2.) update autoload/ezp_extensions.php
+     php bin/php/ezpgenerateautoloads.php -e -v
+
+(3.) create db tables
+     => mysql mydb < cjw_newsletter/sql/mysql/schema.sql
+
+(4.) assign newsletteradmin design in your admin siteaccess
+     only if your ez version is  < ez4.2.0
+
+    [DesignSettings]
+    SiteDesign=jac-example_admin
+    AdditionalSiteDesignList[]=newsletter_admin_ez4.0.0
+    AdditionalSiteDesignList[]=admin
+
+(5.) check if your menu.ini.append.php is override in siteaccess if yes then
+     you have to add the new newsletter tab manually
+
+    menu.ini.append.php
+
+    [TopAdminMenu]
+    Tabs[]=newsletter
+
+(6.) clear cache
+
+(7.) import newsletter contentclasses
+     cjw_newsletter/packages/cjw_newsletter_classes-1.0.1.ezpkg
+
+(8.) Create a Newsletter Root object (e.g. cjw_newsletter_root ) which is used for all newsletter content
+
+(9.) Create a new section 'CJW Newlsetter' and select navigationpart 'CJW Newsletter'
+
+(10.) Assign Section 'Cjw Newsletter' to Newsletter Root object created in (8.) or (7.)
+
+(11.) Create Newsletter Structure
+
+        Newletter Root
+            - Newsletter System
+               - Newsletter List 1
+                    - Newsleter Edition 1
+                        - Newsletter Article 1
+                        - Newsletter Article 2
+                    - Newsletter Edition 2
+               - Newsletter List 2
+(12.) check roles for useraccess
+
+(13.) create cjw_newsletter.ini.append.php for NewsletterSetting e.g.
+
+     check:
+     ======
+     - PhpCli
+     - TransportMethodCronjob
+     - TransportMethodPreview
+     - TransportMethodDirectly
+     - EmailPrefix
+     - Sender settings
+     ...
+
+(14.) update default Newsletter Skin or create a new one
+    e.g. override default templates
+
+    my_design
+    + templates
+      + newsletter
+        + skin
+          + default
+            + outputformat
+              - text.tpl
+              - html.tpl
+
+    A new skin can be created by defining in cjw_newsletter.ini.append.php, The available list is shown when
+    editing an newsletter list object
+
+    [NewsletterSettings]
+    AvailableSkinArray[]=my_custom_skin
+
+    filestructure for custom newsletter
+    ===================================
+    my_design
+    + templates
+      + newsletter
+        + skin
+          + my_custom_skin
+            + outputformat
+              - text.tpl
+              - html.tpl
+
+    !!!! don't forget to clear the cache after adding new templates !!!!!
+
+
+(15.) check SiteURL settings in site.ini of siteaccess which is used for render the newsletter
+    this setting is used to create absolute links to images
+
+    # site.ini.append.php
+    [SiteSettings]
+    # URL of site, often used to link to site in emails etc.
+    SiteURL=example.com
+
+(16.) activate the ts files in cjw_newsletter
+    # this settings you should copy to your siteaccess site.ini
+    # so you have the fully control which ts files are loaded
+    [RegionalSettings]
+    TranslationExtensions[]=cjw_newsletter
+
+(17.) creating all mails for a newsletter edition which is ready for sendout
+
+    php runcronjobs.php -s siteaccess cjw_newsletter_mailqueue_create
+
+(18.) sending out all mails which are in the mail queue create by (15.)
+
+    php runcronjobs.php -s siteaccess cjw_newsletter_mailqueue_process
+
+
+Enjoy :-)
+
+

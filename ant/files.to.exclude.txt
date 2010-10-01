@@ -1,0 +1,14 @@
+.project
+.buildpath
+bootstrap.xml
+build.xml
+CHANGELOG
+svnupdate.sh
+syntax-check.sh
+ts_file_update.sh
+build_extension.sh
+test/
+doc.internal/
+ant/
+build/
+

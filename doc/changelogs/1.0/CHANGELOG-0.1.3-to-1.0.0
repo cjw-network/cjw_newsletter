@@ -1,0 +1,23 @@
+Changes from 0.1-3 to 1.0-0
+
+*Bugs*
+
+*Enhancements*
+
+- blacklist
+- mailbox / bouncing
+- improve csv import / import history
+- personalize content
+- nl user / nl subscriptions has a remote_id + import_id
+
+- nl user managemant (add, delete nl_user admin interface)
+- add subscriptions in admin interface
+- admin2 templates - new icons
+
+*Refactoring*
+
+- renaming all db tables with prefix cjwnewlsetter_ to cjwnl_ + update code because
+  oracle can only have 30 characters for a db table name
+
+- ts files update namespace cjw_newsletter
+- tpl refactoring
