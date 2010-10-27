@@ -167,8 +167,8 @@ class CjwNewsletterList extends eZPersistentObject
     static function getAvailableOutputFormatArray( )
     {
 
-        return array( '0' => ezi18n( 'cjw_newsletter/outputformat', 'HTML' ) ,
-                      '1' => ezi18n( 'cjw_newsletter/outputformat', 'Text' )
+        return array( '0' => ezpI18n::tr( 'cjw_newsletter/outputformat', 'HTML' ) ,
+                      '1' => ezpI18n::tr( 'cjw_newsletter/outputformat', 'Text' )
                     );
     }
 

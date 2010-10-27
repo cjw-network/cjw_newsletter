@@ -58,9 +58,9 @@ else
 
     $Result['content'] = $tpl->fetch( $templateFile );
     $Result['path'] = array( array( 'url' => 'newsletter/mailbox_item_list',
-                                    'text' => ezi18n( 'cjw_newsletter/mailbox_item_view', 'Mailbox item list' ) ),
+                                    'text' => ezpI18n::tr( 'cjw_newsletter/mailbox_item_view', 'Mailbox item list' ) ),
                                 array( 'url' => false,
-                                    'text' => ezi18n( 'cjw_newsletter/mailbox_item_view', 'Mailbox item view' ) ) );
+                                    'text' => ezpI18n::tr( 'cjw_newsletter/mailbox_item_view', 'Mailbox item view' ) ) );
 }
 
 

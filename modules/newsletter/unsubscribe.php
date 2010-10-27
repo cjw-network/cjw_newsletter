@@ -67,7 +67,7 @@ $tpl->setVariable( 'subscription', $subscription );
 $Result = array();
 $Result['content'] = $tpl->fetch( $tplTemplate );
 $Result['path'] = array( array( 'url' => false,
-                                'text' => ezi18n( 'cjw_newsletter/unsubscribe', 'Unsubscribe' ) ) );
+                                'text' => ezpI18n::tr( 'cjw_newsletter/unsubscribe', 'Unsubscribe' ) ) );
 
 
 ?>

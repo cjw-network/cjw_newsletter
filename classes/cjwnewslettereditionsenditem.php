@@ -180,13 +180,13 @@ class CjwNewsletterEditionSendItem extends eZPersistentObject
         switch( $this->attribute('status') )
         {
             case self::STATUS_NEW:
-                $statusString = ezi18n( 'cjw_newsletter/editionsenditem/status', 'New' );
+                $statusString = ezpI18n::tr( 'cjw_newsletter/editionsenditem/status', 'New' );
                 break;
             case self::STATUS_SEND:
-                $statusString = ezi18n( 'cjw_newsletter/editionsenditem/status', 'Send' );
+                $statusString = ezpI18n::tr( 'cjw_newsletter/editionsenditem/status', 'Send' );
                 break;
             case self::STATUS_ABORT:
-                $statusString = ezi18n( 'cjw_newsletter/editionsenditem/status', 'Abort' );
+                $statusString = ezpI18n::tr( 'cjw_newsletter/editionsenditem/status', 'Abort' );
                 break;
         }
 

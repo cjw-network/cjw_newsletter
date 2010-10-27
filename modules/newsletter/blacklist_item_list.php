@@ -55,7 +55,7 @@ $Result = array();
 
 $Result['content'] = $tpl->fetch( $templateFile );
 $Result['path'] =  array( array( 'url'  => 'newsletter/index',
-                                 'text' => ezi18n( 'cjw_newsletter/path', 'Newsletter' ) ),
+                                 'text' => ezpI18n::tr( 'cjw_newsletter/path', 'Newsletter' ) ),
                           array( 'url'  => false,
-                                 'text' => ezi18n( 'cjw_newsletter/blacklist_item_list', 'Blacklists' ) ) );
+                                 'text' => ezpI18n::tr( 'cjw_newsletter/blacklist_item_list', 'Blacklists' ) ) );
 ?>

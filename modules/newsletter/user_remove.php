@@ -77,6 +77,6 @@ $Result = array();
 
 $Result['content'] = $tpl->fetch( $templateFile );
 $Result['path'] = array( array( 'url' => false,
-                                'text' => ezi18n( 'cjw_newsletter/user_remove', 'Remove newsletter user' ) ) );
+                                'text' => ezpI18n::tr( 'cjw_newsletter/user_remove', 'Remove newsletter user' ) ) );
 
 ?>
