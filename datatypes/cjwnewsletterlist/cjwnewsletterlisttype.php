@@ -255,24 +255,16 @@ class CjwNewsletterListType extends eZDataType
     {
         if ( $currentVersion != false )
         {
-            $data = $originalContentObjectAttribute->attribute( "content" );
-            if ( is_object( $data ) )
+            $data = $originalContentObjectAttribute->attribute( 'content' );
+
+            if ( $data instanceof CjwNewsletterList )
             {
                 $data->setAttribute( 'contentobject_attribute_id', $contentObjectAttribute->attribute( 'id' ) );
                 $data->setAttribute( 'contentobject_attribute_version', $contentObjectAttribute->attribute( 'version' ) );
                 $data->setAttribute( 'contentobject_id', $contentObjectAttribute->attribute( 'contentobject_id' ) );
-                $contentObjectAttribute->setAttribute( 'content', $data );
-                $contentObjectAttribute->Content = $data;
+                $contentObjectAttribute->setContent( $data );
                 $contentObjectAttribute->store();
             }
-            else
-            {
-                $contentObjectAttribute->setAttribute( 'content', null );
-            }
-        }
-        else
-        {
-            $contentObjectAttribute->setAttribute( 'content', null );
         }
     }
 
