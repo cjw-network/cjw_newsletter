@@ -6,8 +6,6 @@ document.write("<style type='text/css'>div#contentstructure ul#content_tree_menu
 </script>
 {/literal}
 
-{* tree menu mit newsletter inhalten *}
-<script language="JavaScript" type="text/javascript" src={"javascript/lib/ezjslibie50support.js"|ezdesign}></script>
 <script language="JavaScript" type="text/javascript" src={"javascript/lib/ezjslibcookiesupport.js"|ezdesign}></script>
 <script language="JavaScript" type="text/javascript" src={"javascript/lib/ezjslibdomsupport.js"|ezdesign}></script>
 <script language="JavaScript" type="text/javascript" src={"javascript/lib/ezjslibimagepreloader.js"|ezdesign}></script>
