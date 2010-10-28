@@ -12,6 +12,7 @@
  * @filesource
  */
 
+require_once( 'kernel/common/i18n.php' );
 include_once( 'kernel/common/template.php' );
 
 $module  = $Params['Module'];

@@ -22,7 +22,7 @@
 // - newsletter/user_list               ?RedirectUrl=
 // - newsletter/subscription_list       ?RedirectUrl=
 
-
+require_once( 'kernel/common/i18n.php' );
 include_once( 'kernel/common/template.php' );
 
 $module = $Params['Module'];

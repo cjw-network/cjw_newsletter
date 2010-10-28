@@ -15,6 +15,7 @@
 $module = $Params['Module'];
 $templateFile = 'design:newsletter/blacklist_item_add.tpl';
 
+require_once( 'kernel/common/i18n.php' );
 include_once( 'kernel/common/template.php' );
 
 $http = eZHTTPTool::instance();

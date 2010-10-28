@@ -17,6 +17,9 @@
  * @package cjw_newsletter
  * @subpackage datatypes
  */
+
+require_once( 'kernel/common/i18n.php' );
+
 class CjwNewsletterSubscriptionType extends eZDataType
 {
     const DATA_TYPE_STRING = 'cjwnewslettersubscription';

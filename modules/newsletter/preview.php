@@ -13,6 +13,8 @@
  * @filesource
  */
 
+require_once( 'kernel/common/i18n.php' );
+
 $http = eZHTTPTool::instance();
 $module = $Params["Module"];
 

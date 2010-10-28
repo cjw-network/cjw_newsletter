@@ -14,6 +14,9 @@
  * @version //autogentag//
  * @package cjw_newsletter
  */
+
+require_once( 'kernel/common/i18n.php' );
+
 class CjwNewsletterUser extends eZPersistentObject
 {
     /**

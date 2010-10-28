@@ -14,6 +14,9 @@
  * @version 1.0.0beta
  * @package cjw_newsletter
  */
+
+require_once( 'kernel/common/i18n.php' );
+
 class CjwNewsletterSubscription extends eZPersistentObject
 {
 

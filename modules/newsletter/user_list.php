@@ -13,6 +13,7 @@
 $module = $Params['Module'];
 $templateFile = 'design:newsletter/user_list.tpl';
 
+require_once( 'kernel/common/i18n.php' );
 include_once( 'kernel/common/template.php' );
 
 $tpl = templateInit();

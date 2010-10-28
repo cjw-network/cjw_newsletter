@@ -18,6 +18,7 @@ $http = eZHTTPTool::instance();
 $module = $Params['Module'];
 $templateFile = 'design:newsletter/mailbox_item_view.tpl';
 
+require_once( 'kernel/common/i18n.php' );
 include_once( 'kernel/common/template.php' );
 
 $mailboxItemId = (int) $Params['MailboxItemId'];
