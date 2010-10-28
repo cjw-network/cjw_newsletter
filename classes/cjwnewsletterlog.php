@@ -69,6 +69,7 @@ class CjwNewsletterLog extends ezcLog
         $ini = eZINI::instance();
         $varDir = eZSys::varDirectory();
         $iniLogDir = $ini->variable( 'FileSettings', 'LogDir' );
+        $permissions = octdec( $ini->variable( 'FileSettings', 'LogFilePermissions' ) );
         $logDir = eZDir::path( array( $varDir, $iniLogDir ) );
         $logNamePostfix = '';
 
@@ -84,8 +85,20 @@ class CjwNewsletterLog extends ezcLog
             $logNamePostfix = 'cli_';
 
         // Create the writers
-        $writeAll = new ezcLogUnixFileWriter( $logDir, "cjw_newsletter_".$logNamePostfix."general.log" );
-        $writeErrors = new ezcLogUnixFileWriter( $logDir, "cjw_newsletter_".$logNamePostfix."error.log" );
+        $generalFilename = "cjw_newsletter_".$logNamePostfix."general.log";
+        $errorFilename = "cjw_newsletter_".$logNamePostfix."error.log";
+        $writeAll = new ezcLogUnixFileWriter( $logDir, $generalFilename );
+        $writeErrors = new ezcLogUnixFileWriter( $logDir, $errorFilename );
+
+        // Check file permissions
+        foreach( array( $generalFilename, $errorFilename ) as $file )
+        {
+            $path = eZDir::path( array( $logDir, $file ) );
+            if( substr(decoct(fileperms($path)), 2) !== $permissions )
+            {
+                @chmod($path, $permissions);
+            }
+        }
 
         $errorFilter = new ezcLogFilter;
         $errorFilter->severity = ezcLog::ERROR;
