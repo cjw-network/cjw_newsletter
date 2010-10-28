@@ -5,8 +5,11 @@
      $list_attribute_content = $newsletter_edition_attribute.content.list_attribute_content
      $email_receiver_test = $list_attribute_content.email_receiver_test}
 
-{def $node_id = $object_version.contentobject.main_node_id
-     $node_url = concat( 'content/view/full/', $node_id )
+{if is_unset( $node_id )}
+    {def $node_id = $object_version.contentobject.main_node_id}
+{/if}
+
+{def $node_url = concat( 'content/view/full/', $node_id )
      $node_name = $object_version.contentobject.main_node.name}
 
 <div class="newsletter newsletter-send">

@@ -21,7 +21,7 @@ include_once( 'kernel/common/template.php' );
 $http = eZHTTPTool::instance();
 
 // create new CjwNewsletterMailbox object
-$mailboxObject = new CjwNewsletterMailbox( true );
+$mailboxObject = new CjwNewsletterMailbox();
 
 if ( isset( $Params[ 'MailboxId' ] ) )
 {
@@ -36,23 +36,23 @@ if ( isset( $Params[ 'MailboxId' ] ) )
     }
 
     // set data from edit/add view
-    if ( $http->variable( 'edit' ) )
+    if ( $http->hasPostVariable( 'edit' ) )
     {
         $mailboxData = array(
-                                'email'                    => $http->variable( 'email' ),
-                                'server'                   => $http->variable( 'server' ),
-                                'port'                     => $http->variable( 'port' ),
-                                'user'                     => $http->variable( 'user' ),
-                                'password'                 => $http->variable( 'password' ),
-                                'type'                     => $http->variable( 'type' ),
-                                'is_activated'             => $http->variable( 'is_activated' ),
-                                'is_ssl'                   => $http->variable( 'is_ssl' ),
-                                'delete_mails_from_server' => $http->variable( 'delete_mails_from_server' )
+                                'email'                    => $http->postVariable( 'email' ),
+                                'server'                   => $http->postVariable( 'server' ),
+                                'port'                     => $http->postVariable( 'port' ),
+                                'user'                     => $http->postVariable( 'user' ),
+                                'password'                 => $http->postVariable( 'password' ),
+                                'type'                     => $http->postVariable( 'type' ),
+                                'is_activated'             => $http->postVariable( 'is_activated' ),
+                                'is_ssl'                   => $http->postVariable( 'is_ssl' ),
+                                'delete_mails_from_server' => $http->postVariable( 'delete_mails_from_server' )
                              );
     }
 
     // if PublishButton was pushed than store new data
-    if ( $http->variable( 'PublishButton' ) )
+    if ( $http->hasPostVariable( 'PublishButton' ) )
     {
         // save data
         $resultStoreData = $mailboxObject->storeMailboxData( $Params[ 'MailboxId' ], $mailboxData );
@@ -60,13 +60,13 @@ if ( isset( $Params[ 'MailboxId' ] ) )
         // positiv return, redirect to maibox list
         if ( $resultStoreData )
         {
-            $module->redirectTo( "/".$http->variable( 'redirect' ) );
+            $module->redirectTo( "/".$http->postVariable( 'redirect' ) );
         }
     }
     // Cancel
-    elseif( $http->variable( 'DiscardButton' ) )
+    elseif( $http->hasPostVariable( 'DiscardButton' ) )
     {
-        $module->redirectTo( "/".$http->variable( 'redirect' ) );
+        $module->redirectTo( "/".$http->postVariable( 'redirect' ) );
     }
 }
 

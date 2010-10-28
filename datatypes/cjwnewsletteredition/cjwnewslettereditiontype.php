@@ -86,7 +86,8 @@ class CjwNewsletterEditionType extends eZDataType
 
         // ContentObjectAttribute_CjwNewsletterEdition_MainSiteaccess_123
         $postListData = array();
-        $postListData['status'] = (int) $http->postVariable(  $prefix . 'Status' . $postfix );
+        $postListData['status'] = $http->hasPostVariable(  $prefix . 'Status' . $postfix ) ? (int)$http->postVariable(  $prefix . 'Status' . $postfix ) : 0;
+
         $requireFieldArray = array( 'status' );
 
         foreach ( $postListData as $varName => $varValue )
@@ -170,23 +171,15 @@ class CjwNewsletterEditionType extends eZDataType
         if ( $currentVersion != false )
         {
             $data = $originalContentObjectAttribute->attribute( "content" );
-            if ( is_object( $data ) )
+
+            if ( $data instanceof CjwNewsletterEdition )
             {
                 $data->setAttribute( 'contentobject_attribute_id', $contentObjectAttribute->attribute( 'id' ) );
                 $data->setAttribute( 'contentobject_attribute_version', $contentObjectAttribute->attribute( 'version' ) );
                 $data->setAttribute( 'contentobject_id', $contentObjectAttribute->attribute( 'contentobject_id' ) );
-                $contentObjectAttribute->setAttribute( 'content', $data );
-                $contentObjectAttribute->Content = $data;
+                $contentObjectAttribute->setContent( $data );
                 $contentObjectAttribute->store();
             }
-            else
-            {
-                $contentObjectAttribute->setAttribute( 'content', null );
-            }
-        }
-        else
-        {
-            $contentObjectAttribute->setAttribute( 'content', null );
         }
     }
 

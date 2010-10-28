@@ -267,7 +267,9 @@ function getUrlArray( $siteUrl, $currentHostName, $wwwDir )
     $hostNameAndUri = $siteUrlWithoutHttp;
 
     // testdomian   admin. [example.de] .jac430.fw.lokal - www. [example.de]
-    if ( $currentHostNameExplode[4] == $hostNameExplode[1] && count( $hostNameExplode ) > 1 )
+    if ( isset( $currentHostNameExplode[4] ) 
+            && ( $currentHostNameExplode[4] == $hostNameExplode[1] ) 
+                && count( $hostNameExplode ) > 1 )
     {
         $explodeHostName = explode( '/', $currentHostName );
         $domainName = $explodeHostName[0];

@@ -25,12 +25,12 @@ class CjwNewsletterMailbox extends eZPersistentObject
     /**
      * constructor
      *
-     * @param unkown_type $row
+     * @param mixed $row
      * @return void
      */
-    function CjwNewsletterMailbox( $row )
+    function __construct( $row = array() )
     {
-        $this->eZPersistentObject( $row );
+        parent::__construct( $row );
     }
 
     /**
