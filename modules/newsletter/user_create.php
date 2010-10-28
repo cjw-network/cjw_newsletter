@@ -142,8 +142,8 @@ if ( $module->isCurrentAction( 'CreateEdit' ) )
             {
                 if ( !eZMail::validate( $subscriptionDataArr['email'] ) || $subscriptionDataArr['email'] == '' )
                 {
-                    $warningArr['email'] = array( 'field_key'   => ezpI18n::tr( 'cjw_newsletter/subscription', 'Email'),
-                                                  'message'     => ezpI18n::tr( 'cjw_newsletter/subscription', 'You must provide a valid email address.' ) );
+                    $warningArr['email'] = array( 'field_key'   => ezi18n( 'cjw_newsletter/subscription', 'Email'),
+                                                  'message'     => ezi18n( 'cjw_newsletter/subscription', 'You must provide a valid email address.' ) );
                 }
                 else
                 {
@@ -156,8 +156,8 @@ if ( $module->isCurrentAction( 'CreateEdit' ) )
                         $newsletterUserId = $existingNewsletterUserObject->attribute( 'id' );
                         $msg = 'edit_existing';
 
-                     /*   $warningArr['email'] = array( 'field_key'   => ezpI18n::tr( 'cjw_newsletter/subscription', 'Email' ),
-                                                'message'     => ezpI18n::tr( 'cjw_newsletter/subscription', 'Email is already used by an other newsletter user.' ) );
+                     /*   $warningArr['email'] = array( 'field_key'   => ezi18n( 'cjw_newsletter/subscription', 'Email' ),
+                                                'message'     => ezi18n( 'cjw_newsletter/subscription', 'Email is already used by an other newsletter user.' ) );
                                                 */
                     }
 
@@ -206,11 +206,11 @@ $Result = array();
 
 $Result['content'] = $tpl->fetch( $templateFile );
 $Result['path'] =  array( array( 'url'  => 'newsletter/index',
-                                 'text' => ezpI18n::tr( 'cjw_newsletter/path', 'Newsletter' ) ),
+                                 'text' => ezi18n( 'cjw_newsletter/path', 'Newsletter' ) ),
                           array( 'url'  => 'newsletter/user_list',
-                                 'text' => ezpI18n::tr( 'cjw_newsletter/user_list', 'Users' ) ),
+                                 'text' => ezi18n( 'cjw_newsletter/user_list', 'Users' ) ),
                           array( 'url'  => false,
-                                 'text' => ezpI18n::tr( 'cjw_newsletter/user_create', 'Create' ) ) );
+                                 'text' => ezi18n( 'cjw_newsletter/user_create', 'Create' ) ) );
 
 
 ?>

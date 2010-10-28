@@ -23,7 +23,7 @@ class CjwNewsletterSubscriptionType extends eZDataType
 
     function CjwNewsletterSubscriptionType()
     {
-        $this->eZDataType( self::DATA_TYPE_STRING, ezpI18n::tr( 'cjw_newsletter/datatypes', 'CJW Newsletter Subscription', 'Datatype name' ),
+        $this->eZDataType( self::DATA_TYPE_STRING, ezi18n( 'cjw_newsletter/datatypes', 'CJW Newsletter Subscription', 'Datatype name' ),
                            array( 'serialize_supported' => false,
                                   'object_serialize_map' => array( 'data_text' => 'subscription' ) ) );
     }
@@ -53,7 +53,7 @@ class CjwNewsletterSubscriptionType extends eZDataType
         // if email is not in the system send registration nl email
 
         return eZInputValidator::STATE_ACCEPTED;
-        /*$contentObjectAttribute->setValidationError( ezpI18n::tr( 'kernel/classes/datatypes',
+        /*$contentObjectAttribute->setValidationError( ezi18n( 'kernel/classes/datatypes',
                                                                          'The email address is empty.' ) );
         return eZInputValidator::STATE_INVALID;*/
     }
@@ -150,7 +150,7 @@ class CjwNewsletterSubscriptionType extends eZDataType
             $userDataArray = $this->fetchCurrentContentObjectData( $contentObjectAttribute );
             if( is_array( $userDataArray ) == false )
             {
-                $contentObjectAttribute->setValidationError( ezpI18n::tr( 'cjw_newsletter/datatype/cjwnewslettersubcription/validation_error',
+                $contentObjectAttribute->setValidationError( ezi18n( 'cjw_newsletter/datatype/cjwnewslettersubcription/validation_error',
                                                                      'Datatype can not be used here - user_account required.' ) );
                 return eZInputValidator::STATE_INVALID;
             }
@@ -182,7 +182,7 @@ class CjwNewsletterSubscriptionType extends eZDataType
                     // the email is emty
                     break;
                 case -1:
-                    $contentObjectAttribute->setValidationError( ezpI18n::tr( 'cjw_newsletter/datatype/cjwnewslettersubcription/validation_error',
+                    $contentObjectAttribute->setValidationError( ezi18n( 'cjw_newsletter/datatype/cjwnewslettersubcription/validation_error',
                                                                          'No user account found' ) );
                     return eZInputValidator::STATE_INVALID;
                     break;

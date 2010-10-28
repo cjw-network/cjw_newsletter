@@ -69,7 +69,7 @@ if ( $http->hasVariable( 'AddButton' ) )
         if( is_object( $newsletterUserObject ) )
         {
 
-            $message = ezpI18n::tr( 'cjw_newsletter/blacklist_item_add', 'Successfully adding newsletter user %nl_user_id with email %email to blacklist', '',
+            $message = ezi18n( 'cjw_newsletter/blacklist_item_add', 'Successfully adding newsletter user %nl_user_id with email %email to blacklist', '',
                      array( '%nl_user_id' => $newsletterUserObject->attribute('id'),
                             '%email' => $newsletterUserObject->attribute('email') ));
 
@@ -77,7 +77,7 @@ if ( $http->hasVariable( 'AddButton' ) )
         }
         else
         {
-            $message = ezpI18n::tr( 'cjw_newsletter/blacklist_item_add', 'Successfully adding email address %email to blacklist', '',
+            $message = ezi18n( 'cjw_newsletter/blacklist_item_add', 'Successfully adding email address %email to blacklist', '',
                      array( '%email' => $blacklistItemObject->attribute('email') ));
             $isBlacklistDone = true;
         }
@@ -111,7 +111,7 @@ $Result = array();
 $Result[ 'content' ] = $tpl->fetch( $templateFile );
 //$Result[ 'ui_context' ] = 'edit';
 $Result['path'] =  array( array( 'url'  => false,
-                                 'text' => ezpI18n::tr( 'cjw_newsletter/path', 'Newsletter' ) ),
+                                 'text' => ezi18n( 'cjw_newsletter/path', 'Newsletter' ) ),
                           array( 'url'  => false,
-                                 'text' => ezpI18n::tr( 'cjw_newsletter/blacklist_item_add', 'Blacklist add' ) ) );
+                                 'text' => ezi18n( 'cjw_newsletter/blacklist_item_add', 'Blacklist add' ) ) );
 ?>

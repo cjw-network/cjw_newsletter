@@ -28,8 +28,8 @@ $tpl->setVariable( 'current_siteaccess', $viewParameters );
 $Result = array();
 $Result['content'] = $tpl->fetch( "design:newsletter/index.tpl" );
 $Result['path'] = array( array( 'url'  => false,
-                                'text' => ezpI18n::tr( 'cjw_newsletter', 'Newsletter' ) ),
+                                'text' => ezi18n( 'cjw_newsletter', 'Newsletter' ) ),
                          array( 'url'  => false,
-                                'text' => ezpI18n::tr( 'cjw_newsletter/index', 'Dashboard' ) ) );
+                                'text' => ezi18n( 'cjw_newsletter/index', 'Dashboard' ) ) );
 
 ?>

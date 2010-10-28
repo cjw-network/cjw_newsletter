@@ -579,28 +579,28 @@ class CjwNewsletterUser extends eZPersistentObject
         switch( $this->attribute('status') )
         {
             case self::STATUS_PENDING_EZ_USER_REGISTER:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/user/status', 'Pending eZ User Register' );
+                $statusString = ezi18n( 'cjw_newsletter/user/status', 'Pending eZ User Register' );
                 break;
             case self::STATUS_PENDING:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/user/status', 'Pending' );
+                $statusString = ezi18n( 'cjw_newsletter/user/status', 'Pending' );
                 break;
             case self::STATUS_CONFIRMED:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/user/status', 'Confirmed' );
+                $statusString = ezi18n( 'cjw_newsletter/user/status', 'Confirmed' );
                 break;
             case self::STATUS_REMOVED_SELF:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/user/status', 'Removed by user' );
+                $statusString = ezi18n( 'cjw_newsletter/user/status', 'Removed by user' );
                 break;
             case self::STATUS_REMOVED_ADMIN:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/user/status', 'Removed by admin' );
+                $statusString = ezi18n( 'cjw_newsletter/user/status', 'Removed by admin' );
                 break;
             case self::STATUS_BOUNCED_SOFT:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/user/status', 'Bounced soft' );
+                $statusString = ezi18n( 'cjw_newsletter/user/status', 'Bounced soft' );
                 break;
             case self::STATUS_BOUNCED_HARD:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/user/status', 'Bounced hard' );
+                $statusString = ezi18n( 'cjw_newsletter/user/status', 'Bounced hard' );
                 break;
             case self::STATUS_BLACKLISTED:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/user/status', 'Blacklisted' );
+                $statusString = ezi18n( 'cjw_newsletter/user/status', 'Blacklisted' );
                 break;
         }
         return $statusString;
@@ -1090,7 +1090,7 @@ class CjwNewsletterUser extends eZPersistentObject
             if( isSet( $salutationKeyExplode[1] ))
             {
                 $salutationId = (int) $salutationKeyExplode[1];
-                $salutationNameArray[ $salutationId ] = ezpI18n::tr( 'cjw_newsletter/user/salutation', $languageString );
+                $salutationNameArray[ $salutationId ] = ezi18n( 'cjw_newsletter/user/salutation', $languageString );
             }
         }
         return $salutationNameArray;

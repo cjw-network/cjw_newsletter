@@ -343,28 +343,28 @@ class CjwNewsletterSubscription extends eZPersistentObject
         switch( $this->attribute('status') )
         {
             case self::STATUS_PENDING:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Pending' );
+                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Pending' );
                 break;
             case self::STATUS_CONFIRMED:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Confirmed' );
+                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Confirmed' );
                 break;
             case self::STATUS_APPROVED:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Approved' );
+                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Approved' );
                 break;
             case self::STATUS_REMOVED_SELF:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Removed by user' );
+                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Removed by user' );
                 break;
             case self::STATUS_REMOVED_ADMIN:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Removed by admin' );
+                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Removed by admin' );
                 break;
             case self::STATUS_BOUNCED_SOFT:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Bounced soft' );
+                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Bounced soft' );
                 break;
             case self::STATUS_BOUNCED_HARD:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Bounced hard' );
+                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Bounced hard' );
                 break;
             case self::STATUS_BLACKLISTED:
-                $statusString = ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Blacklisted' );
+                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Blacklisted' );
                 break;
         }
 

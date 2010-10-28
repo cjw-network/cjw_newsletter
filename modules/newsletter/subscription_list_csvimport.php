@@ -396,7 +396,7 @@ if ( isset( $warning ) )
 $Result = array();
 $Result['content'] = $tpl->fetch( 'design:newsletter/subscription_list_csvimport.tpl' );
 $Result['path'] =  array( array( 'url'  => 'newsletter/index',
-                                 'text' => ezpI18n::tr( 'cjw_newsletter/path', 'Newsletter' ) ),
+                                 'text' => ezi18n( 'cjw_newsletter/path', 'Newsletter' ) ),
 
                           array( 'url'  => $systemNode->attribute( 'url_alias' ),
                                  'text' => $systemNode->attribute( 'name' ) ),
@@ -405,10 +405,10 @@ $Result['path'] =  array( array( 'url'  => 'newsletter/index',
                                  'text' => $listNode->attribute( 'name' ) ),
 
                           array( 'url'  => 'newsletter/subscription_list/' . $nodeId,
-                                 'text' => ezpI18n::tr( 'cjw_newsletter/subscription_list', 'Subscriptions' ) ),
+                                 'text' => ezi18n( 'cjw_newsletter/subscription_list', 'Subscriptions' ) ),
 
                           array( 'url'  => false,
-                                 'text' => ezpI18n::tr( 'cjw_newsletter/subscription_list_csvimport', 'CSV import' ) ) );
+                                 'text' => ezi18n( 'cjw_newsletter/subscription_list_csvimport', 'CSV import' ) ) );
 
 
 

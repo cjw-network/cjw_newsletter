@@ -41,9 +41,9 @@ $Result = array();
 
 $Result['content'] = $tpl->fetch( $templateFile );
 $Result['path'] =  array( array( 'url'  => 'newsletter/index',
-                                 'text' => ezpI18n::tr( 'cjw_newsletter/path', 'Newsletter' ) ),
+                                 'text' => ezi18n( 'cjw_newsletter/path', 'Newsletter' ) ),
                           array( 'url'  => 'newsletter/user_list',
-                                 'text' => ezpI18n::tr( 'cjw_newsletter/user_list', 'Users' ) ),
+                                 'text' => ezi18n( 'cjw_newsletter/user_list', 'Users' ) ),
                           array( 'url'  => false,
                                  'text' => $newsletterUserObject->attribute('name') ) );
 

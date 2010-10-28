@@ -39,11 +39,11 @@ if ( !is_object( $editionSendObject ) )
 
 if ( $editionSendObject->attribute('status') == CjwNewsletterEditionSend::STATUS_MAILQUEUE_PROCESS_FINISHED )
 {
-    $message_warning = ezpI18n::tr( 'cjw_newsletter/send_abort', 'Send out process is finished, can not abort anymore!', null , array(  ) );
+    $message_warning = ezi18n( 'cjw_newsletter/send_abort', 'Send out process is finished, can not abort anymore!', null , array(  ) );
 }
 elseif ( $editionSendObject->attribute('status') == CjwNewsletterEditionSend::STATUS_ABORT )
 {
-    $message_warning = ezpI18n::tr( 'cjw_newsletter/send_abort', 'Send out process was already aborted!', null , array(  ) );
+    $message_warning = ezi18n( 'cjw_newsletter/send_abort', 'Send out process was already aborted!', null , array(  ) );
 }
 else
 {
@@ -52,9 +52,9 @@ else
         $abortResult = $editionSendObject->abortAllSendItems();
 
         if ( $abortResult == true )
-            $message_feedback = ezpI18n::tr( 'cjw_newsletter/send_abort', 'Abort successfull', null , array(  ) );
+            $message_feedback = ezi18n( 'cjw_newsletter/send_abort', 'Abort successfull', null , array(  ) );
         else
-            $message_feedback =  ezpI18n::tr( 'cjw_newsletter/send_abort', 'Abort not successfull', null , array(  ) );
+            $message_feedback =  ezi18n( 'cjw_newsletter/send_abort', 'Abort not successfull', null , array(  ) );
 
         $tpl->setVariable( 'send_abort_result', $abortResult );
     }
@@ -90,11 +90,11 @@ $tpl->setVariable( 'has_message', $has_message );
 
 $Result['content'] = $tpl->fetch( "design:newsletter/send_abort.tpl" );
 $Result['path'] = array( array( 'url' => false,
-                                    'text' => ezpI18n::tr('cjw_newsletter/send', 'Newsletter Send') )
+                                    'text' => ezi18n('cjw_newsletter/send', 'Newsletter Send') )
                               );
 
 $Result['path'] =  array( array( 'url'  => 'newsletter/index',
-                                 'text' => ezpI18n::tr( 'cjw_newsletter/path', 'Newsletter' ) ),
+                                 'text' => ezi18n( 'cjw_newsletter/path', 'Newsletter' ) ),
 
                           array( 'url'  => $systemNode->attribute( 'url_alias' ),
                                  'text' => $systemNode->attribute( 'name' ) ),
@@ -106,7 +106,7 @@ $Result['path'] =  array( array( 'url'  => 'newsletter/index',
                                  'text' => $editionNode->attribute( 'name' ) ),
 
                           array( 'url'  => false,
-                                 'text' => ezpI18n::tr('cjw_newsletter/send_abort', 'Abort sent out process') ) );
+                                 'text' => ezi18n('cjw_newsletter/send_abort', 'Abort sent out process') ) );
 
 
 
