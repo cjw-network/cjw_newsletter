@@ -47,6 +47,16 @@ list all blacklist items
                                 <div class="message-warning">
                                     <h2>{$warning|wash}</h2>
                                 </div>
+                                {elseif is_set( $view_parameters.error )}
+                                <div class="message-warning">
+                                    <h2>
+                                        {switch match=$view_parameters.error}
+                                            {case match='CSV_DELIM_ERROR'}
+                                                {'Unsupported CSV delimiter. Please use one of the following: ",", ";", "|"'|i18n( 'cjw_newsletter/subscription_list_csvimport' )}
+                                            {/case}
+                                        {/switch}
+                                    </h2>
+                                </div>
                                 {/if}
 
                                 {* DESIGN: Header END *}
@@ -112,7 +122,7 @@ user4@example.com;Max;Mustermann;1</pre>{* Output format. *}
                             </div>
                             <div class="block">
                                 <label>
-                                    {'CSV field delimiter'|i18n( 'cjw_newsletter/subscription_list_csvimport' )}: <input style="text-align:center" type="text" size="1" maxlength="1" name="CsvDelimiter" value="{$csv_delimiter}" />
+                                    {'CSV field delimiter'|i18n( 'cjw_newsletter/subscription_list_csvimport' )}: <input style="text-align:center" type="text" size="1" maxlength="1" name="CsvDelimiter" value="{$csv_delimiter}" /> {'(supported CSV delimiters: ",", ";", "|")'|i18n( 'cjw_newsletter/subscription_list_csvimport' )}
                                 </label>
                             </div>
                             {if $import_object.is_imported|not}

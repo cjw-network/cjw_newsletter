@@ -29,6 +29,7 @@ $systemNode = $listNode->attribute( 'parent' );
 
 $csvDataArray = array();
 $csvDelimiter = ';';
+$csvSupportedDelims = array( ',', ';', '|' );
 $csvFilePath = false;
 $importCsvFile = false;
 $selectedOutputFormatArray = array( 0 );
@@ -52,6 +53,8 @@ if ( $http->hasPostVariable( 'SelectedOutputFormatArray' ) )
 if ( $http->hasPostVariable( 'CsvDelimiter' ) )
 {
     $csvDelimiter = $http->variable( 'CsvDelimiter' );
+    if ( !in_array( $csvDelimiter, $csvSupportedDelims  ) )
+        return $module->redirectToView( 'subscription_list_csvimport', array( $nodeId, $importId ), null, array( 'error' => 'CSV_DELIM_ERROR' ) );
 }
 if ( $http->hasPostVariable( 'FirstRowIsLabel' ) )
 {
