@@ -1342,7 +1342,7 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%parsed_mails_count mails parsed</source>
+        <source>E-mails parsed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1450,7 +1450,7 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Collect Emails from bounce accounts and parse them. You may then accept the detected bounce status or manually adjust it.</source>
+        <source>Collect emails from bounce accounts and parse them. You may then accept the detected bounce status or manually adjust it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

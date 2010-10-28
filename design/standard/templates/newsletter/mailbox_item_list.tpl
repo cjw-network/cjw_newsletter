@@ -43,11 +43,11 @@
                     <div class="context-attributes">
 
                         <p>
-                        {'Collect Emails from bounce accounts and parse them. You may then accept the detected bounce status or manually adjust it.'|i18n( 'cjw_newsletter/mailbox_item_list',, hash() )}
+                        {'Collect emails from bounce accounts and parse them. You may then accept the detected bounce status or manually adjust it.'|i18n( 'cjw_newsletter/mailbox_item_list',, hash() )}
                         </p>
 
                         <div class="block float-break">
-                            {if is_set( $collect_mail_result )}<h2>{'Mailbox collect mail result'|i18n( 'cjw_newsletter/mailbox_item_list',, hash() )}</h2>
+                            {if is_set( $collect_mail_result )}<h3>{'Mailbox collect mail result'|i18n( 'cjw_newsletter/mailbox_item_list',, hash() )}</h3>
                             {foreach $collect_mail_result as $mailbox_id => $mailbox_items_status}
                             {'Collection result for mailbox %mailbox_id.'|i18n( 'cjw_newsletter/mailbox_item_list',,
                             hash( '%mailbox_id', $mailbox_id ) )}
@@ -57,10 +57,10 @@
                                     {'Added'|i18n('cjw_newsletter/mailbox_item_list')}: {$collect_mail_result[$mailbox_id]['added']|count()}
                                 </li>
                                 <li>
-                                    {'Already exists'|i18n('cjw_newsletter/mailbox_item_list')} {$collect_mail_result[$mailbox_id]['exists']|count()}
+                                    {'Already exists'|i18n('cjw_newsletter/mailbox_item_list')}: {$collect_mail_result[$mailbox_id]['exists']|count()}
                                 </li>
                                 <li>
-                                    {'Failed'|i18n('cjw_newsletter/mailbox_item_list')} {$collect_mail_result[$mailbox_id]['failed']|count()}
+                                    {'Failed'|i18n('cjw_newsletter/mailbox_item_list')}: {$collect_mail_result[$mailbox_id]['failed']|count()}
                                 </li>
                                 {else}
                                 <li>
@@ -70,8 +70,8 @@
                             </ul>
                             {/foreach}
                             {/if}
-                            {if is_set( $parse_result )}<h2>{'Mailbox item parse result'|i18n( 'cjw_newsletter/mailbox_item_list',, hash() )}</h2>
-                            {'%parsed_mails_count mails parsed'|i18n( 'cjw_newsletter/mailbox_item_list',, hash('%parsed_mails_count', $parse_result|count() ) )}
+                            {if is_set( $parse_result )}<h3>{'Mailbox item parse result'|i18n( 'cjw_newsletter/mailbox_item_list',, hash() )}</h3>
+                            {'E-mails parsed'|i18n('cjw_newsletter/mailbox_item_list')}: {$parse_result|count() }
                             {/if}
                         </div>
                     </div>

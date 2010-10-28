@@ -1324,8 +1324,8 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
         <translation>Ergebnis E-Mail-Auswertung</translation>
     </message>
     <message>
-        <source>%parsed_mails_count mails parsed</source>
-        <translation>%parsed_mails_count E-Mail untersucht</translation>
+        <source>E-mails parsed</source>
+        <translation>E-Mails untersucht</translation>
     </message>
     <message>
         <source>Collect all mails</source>
@@ -1432,7 +1432,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
         <translation>Rückläufer bearbeiten</translation>
     </message>
     <message>
-        <source>Collect Emails from bounce accounts and parse them. You may then accept the detected bounce status or manually adjust it.</source>
+        <source>Collect emails from bounce accounts and parse them. You may then accept the detected bounce status or manually adjust it.</source>
         <translation>E-Mails vom Rückläufer (Bounces) Account abholen. Sie können die erkannten Rückläufer akzeptieren oder manuell anpassen.</translation>
     </message>
     <message>
