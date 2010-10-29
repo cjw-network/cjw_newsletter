@@ -587,7 +587,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
 
         $firstName = $subscriptionDataArr['first_name'];
         $lastName = $subscriptionDataArr['last_name'];
-        $eZUserId = (int) $subscriptionDataArr['ez_user_id'];
+        $eZUserId = isset( $subscriptionDataArr['ez_user_id'] ) ? (int)$subscriptionDataArr['ez_user_id'] : 0;
 
          // new value form POST
         $newEzUserId = $eZUserId;
