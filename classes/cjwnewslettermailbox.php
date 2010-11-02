@@ -56,7 +56,7 @@ class CjwNewsletterMailbox extends eZPersistentObject
                                                         'datatype' => 'integer',
                                                         'default'  => 0,
                                                         'required' => true ),
-                                         'user' => array( 'name'   => 'User',
+                                         'user_name' => array( 'name'   => 'User',
                                                         'datatype' => 'string',
                                                         'default'  => '',
                                                         'required' => true ),
@@ -309,7 +309,7 @@ class CjwNewsletterMailbox extends eZPersistentObject
 
         // login data
         $server                = $this->attribute( 'server' );
-        $user                  = $this->attribute( 'user' );
+        $user                  = $this->attribute( 'user_name' );
         $password              = $this->attribute( 'password' );
         $port                  = $this->attribute( 'port' );
         $ssl                   = (boolean) $this->attribute( 'is_ssl' );

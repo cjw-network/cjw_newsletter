@@ -145,7 +145,7 @@ CREATE TABLE cjwnl_mailbox (
   email varchar(255) DEFAULT NULL,
   server varchar(255) DEFAULT NULL,
   port int(11) DEFAULT NULL,
-  user varchar(255) DEFAULT NULL,
+  user_name varchar(255) DEFAULT NULL,
   password varchar(255) DEFAULT NULL,
   type varchar(10) DEFAULT 'imap' COMMENT 'pop3, imap',
   delete_mails_from_server tinyint(1) NOT NULL DEFAULT '0',
