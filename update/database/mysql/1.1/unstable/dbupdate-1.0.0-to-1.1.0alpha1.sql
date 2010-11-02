@@ -1,0 +1,1 @@
+ALTER TABLE cjwnl_mailbox CHANGE user user_name VARCHAR(255) NULL DEFAULT NULL;
