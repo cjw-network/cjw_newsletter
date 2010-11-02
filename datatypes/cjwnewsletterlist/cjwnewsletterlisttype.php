@@ -107,21 +107,14 @@ class CjwNewsletterListType extends eZDataType
 
         $postListData = array();
         $postListData['main_siteaccess'] = $http->postVariable(  $prefix . 'MainSiteaccess' . $postfix );
-        $postListData['siteaccess_array'] = $http->postVariable(  $prefix . 'SiteaccessArray' . $postfix );
-        if ( !is_array( $postListData['siteaccess_array'] ) )
-            $postListData['siteaccess_array'] = array();
-        $postListData['output_format_array'] = $http->postVariable(  $prefix . 'OutputFormatArray' . $postfix );
-        if ( !is_array( $postListData['output_format_array'] ) )
-            $postListData['output_format_array'] = array();
+        $postListData['siteaccess_array'] = $http->hasPostVariable(  $prefix . 'SiteaccessArray' . $postfix ) ? $http->postVariable(  $prefix . 'SiteaccessArray' . $postfix ) : array();
+        $postListData['output_format_array'] = $http->hasPostVariable(  $prefix . 'OutputFormatArray' . $postfix ) ? $http->postVariable(  $prefix . 'OutputFormatArray' . $postfix ) : array();
         $postListData['email_sender'] = $http->postVariable(  $prefix . 'EmailSender' . $postfix );
         $postListData['email_sender_name'] = $http->postVariable(  $prefix . 'EmailSenderName' . $postfix );
         $postListData['email_receiver_test'] = $http->postVariable(  $prefix . 'EmailReceiverTest' . $postfix );
         $postListData['auto_approve_registered_user'] = $http->postVariable(  $prefix . 'AutoApproveRegisterdUser' . $postfix );
-
-        $postListData['skin_name'] = $http->postVariable(  $prefix . 'SkinName' . $postfix );
-
+        $postListData['skin_name'] = $http->hasPostVariable(  $prefix . 'SkinName' . $postfix ) ? $http->postVariable(  $prefix . 'SkinName' . $postfix ) : '';
         $postListData['personalize_content'] = (int) $http->postVariable(  $prefix . 'PersonalizeContent' . $postfix );
-
 
         $requireFieldArray = array( 'main_siteaccess', 'siteaccess_array', 'output_format_array', 'email_sender' );
 
