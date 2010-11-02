@@ -1,7 +1,7 @@
 {* design:newsletter/send.tpl *}
 
 {if is_unset( $node_id )}
-    {def $node_id = $node_id = $object_version.contentobject.main_node_id}
+    {def $node_id = $object_version.contentobject.main_node_id}
 {/if}
 
 {def $newsletter_edition_attribute = $object_version.data_map.newsletter_edition
