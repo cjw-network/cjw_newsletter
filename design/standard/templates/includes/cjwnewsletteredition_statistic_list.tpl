@@ -29,21 +29,13 @@
             <th class="status">{'Status'|i18n( 'cjw_newsletter/cjw_newsletter_list_children_list' )}</th>
 
             <th>{'Mails'|i18n( 'cjw_newsletter/index' )}</th>
-            <th>{'Opened'|i18n( 'cjw_newsletter/index' )}</th>
             <th>{'Bounced'|i18n( 'cjw_newsletter/index' )}</th>
-
-            {* Class type column *}
-            {*<th class="class">{'Type'|i18n( 'design/admin/node/view/full' )}</th>*}
             <th class="modified">{'Modified'|i18n( 'cjw_newsletter/cjw_newsletter_list_children_list' )}</th>
 
             {if $show_actions_colum}
 
-
             {* Copy column *}
             <th class="copy">&nbsp;</th>
-
-            {* Move column *}
-           {* <th class="move">&nbsp;</th>*}
 
             {* Edit column *}
             <th class="edit">&nbsp;</th>
@@ -90,8 +82,6 @@
                 {/if}
             </td>
             <td nowrap>
-            </td>
-            <td nowrap>
                 {if $edition_status|ne('draft')}
                     {$current_send_statistic.items_bounced|wash}
                 {/if}
@@ -133,6 +123,4 @@
         {/foreach}
     </table>
 </div>
-
-
 
