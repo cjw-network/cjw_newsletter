@@ -44,7 +44,7 @@ class CjwNewsletterMail
      * @var array assosiative array for additional email Header with some variables
      *      for better bounce parsing
      *      for example
-     *      array['X-CJWNL-Edition']=lsjdfo1ß3uru32s
+     *      array['X-CJWNL-Edition']=lsjdfo13uru32s
      */
     private $ExtraEmailHeaderItemArray = array();
 
@@ -120,7 +120,7 @@ class CjwNewsletterMail
         $sendResult = array();
         $this->setTransportMethodPreviewFromIni();
 
-        // für jede version eine email verschicken
+        // send one mail for every version
         foreach ( $outputFormatTextArray as $outputFormat )
         {
             $result = $this->sendEmail( $outputFormat['email_sender'],

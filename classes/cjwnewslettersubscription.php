@@ -172,7 +172,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
                        'status' => $status );
 
         $object = new CjwNewsletterSubscription( $rows );
-        // status nochmals setzen, damit evtl. automatisches status änderung funzt
+        // set status again so automatic status change is working
         $object->setAttribute( 'status', $status );
         return $object;
     }
@@ -789,7 +789,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
         }
         else if (  $listCount > 1 )
         {
-            // TODO error mehrere Einträge gefunden
+            // TODO error more than 1 items found
             return $objectList[0];
         }
         else

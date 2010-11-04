@@ -332,7 +332,6 @@
 {* DESIGN: Control bar START *}<div class="box-bc"><div class="box-ml"><div class="box-mr"><div class="box-tc"><div class="box-bl"><div class="box-br">
 
 {*
-    TODO: löschen, bearbeiten
     <input class="button" type="submit" name="RemoveSubscriptionButton" value="{'Remove selected'|i18n( 'cjw_newsletter/subscription_list' )}" title="{'Remove selected subscription.'|i18n( 'cjw_newsletter/subscription_list' )}" />
     <input class="button" type="submit" name="CreateSubscriptionButton" value="{'New subscription'|i18n( 'cjw_newsletter/subscription_list' )}" title="{'Create a new subscription.'|i18n( 'cjw_newsletter/subscription_list' )}" />
 *}

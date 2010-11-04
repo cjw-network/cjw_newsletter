@@ -123,10 +123,9 @@ if( is_array( $Params['UserParameters'] ) )
     $viewParameters = array_merge( $viewParameters, $Params['UserParameters'] );
 }
 
-// Parameter der View als Array dem Template übergeben
 $tpl->setVariable( 'view_parameters', $viewParameters );
 
-  // validate data if new user will be created
+// validate data if new user will be created
 if ( $module->isCurrentAction( 'CreateEdit' ) )
 {
 

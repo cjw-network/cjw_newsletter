@@ -107,15 +107,6 @@
 
 {*
 
-<br />
-Wenn ja: Auswahlbox der verfügbaren userdata felder  z.B. Geburtsdatum, Adresse, Tel ...
-Oder über contentobjekt ezuser erfassen ezuser login required? ???
-
-- name
-- vorname
-- addresse
-</ul>
-
 <h1>class content</h1>
 {$attribute.class_content|attribute(show)}
 

@@ -94,7 +94,7 @@ class CjwNewsletterCsvExport extends eZPersistentObject
         // else all keys
         else
         {
-            // swap identifier with values, required für writeCsv()
+            // swap identifier with values, required for writeCsv()
             $this->ChoosenKeys = array_flip( $this->AllKeys );
         }
     }

@@ -1,7 +1,3 @@
---
--- Tabellenstruktur für Tabelle 'cjwnl_blacklist_item'
---
-
 CREATE TABLE cjwnl_blacklist_item (
   id int(11) NOT NULL AUTO_INCREMENT,
   email_hash varchar(255) DEFAULT NULL,
@@ -14,11 +10,6 @@ CREATE TABLE cjwnl_blacklist_item (
   KEY cjwnewsletter_user_id (newsletter_user_id)
 ) COMMENT='table with blacklisted user emails';
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle 'cjwnl_edition'
---
 
 CREATE TABLE cjwnl_edition (
   contentobject_attribute_id int(11) NOT NULL,
@@ -31,11 +22,6 @@ CREATE TABLE cjwnl_edition (
   KEY contentobject_attribute_version (contentobject_attribute_version)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle 'cjwnl_edition_send'
---
 
 CREATE TABLE cjwnl_edition_send (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -62,11 +48,6 @@ CREATE TABLE cjwnl_edition_send (
   KEY list_contentobject_id (list_contentobject_id)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle 'cjwnl_edition_send_item'
---
 
 CREATE TABLE cjwnl_edition_send_item (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -85,11 +66,6 @@ CREATE TABLE cjwnl_edition_send_item (
   KEY subscription_id (subscription_id)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle 'cjwnl_import'
---
 
 CREATE TABLE cjwnl_import (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -107,11 +83,6 @@ CREATE TABLE cjwnl_import (
   PRIMARY KEY (id)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle 'cjwnl_list'
---
 
 CREATE TABLE cjwnl_list (
   contentobject_attribute_id int(11) NOT NULL,
@@ -134,11 +105,6 @@ CREATE TABLE cjwnl_list (
   KEY contentobject_attribute_version (contentobject_attribute_version)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle 'cjwnl_mailbox'
---
 
 CREATE TABLE cjwnl_mailbox (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -155,11 +121,6 @@ CREATE TABLE cjwnl_mailbox (
   PRIMARY KEY (id)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle 'cjwnl_mailbox_item'
---
 
 CREATE TABLE cjwnl_mailbox_item (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -183,11 +144,6 @@ CREATE TABLE cjwnl_mailbox_item (
   KEY newsletter_user_id (newsletter_user_id)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle 'cjwnl_subscription'
---
 
 CREATE TABLE cjwnl_subscription (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -211,11 +167,6 @@ CREATE TABLE cjwnl_subscription (
   KEY import_id (import_id)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle 'cjwnl_user'
---
 
 CREATE TABLE cjwnl_user (
   id int(11) NOT NULL AUTO_INCREMENT,

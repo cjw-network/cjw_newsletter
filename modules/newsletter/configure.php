@@ -8,8 +8,6 @@
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
- * @todo pruefen ob an übergebene Listen sich angemeldet werden kann
- * @todo doppeltes abschicken durch session var verhindern ....spam
  * @subpackage modules
  * @filesource
  */

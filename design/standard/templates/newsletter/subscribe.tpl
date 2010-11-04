@@ -31,7 +31,7 @@
     <h1>{'Newsletter subscribe'|i18n( 'cjw_newsletter/subscribe' )}</h1>
 
 
-    {* Prüfen ob es ein Newslettersystem gibt *}
+    {* check if nl system is available *}
     {if or( $newsletter_system_node_list|count()|eq(0), $newsletter_list_count|eq(0) )}
         <div class="block">
             <p>
@@ -59,13 +59,9 @@
             <div class="block">
                 <p>
                     {'Here you can subscribe to one of our newsletters.'|i18n( 'cjw_newsletter/subscribe' )}
-                            {* Hier k&ouml;nnen Sie sich zu einem unserer Newsletter anmelden. *}
                 </p>
                 <p>
                     {'Please fill in the boxes "first name" and "last name" and enter your e-mail address in the corresponding field. Then, select the newsletter you are interested in and the format you prefer.'|i18n( 'cjw_newsletter/subscribe' )}
-                    {* Dazu f&uuml;llen Sie bitte das K&auml;stchen "Vorname" und "Nachname" aus und tragen Ihre E-Mail Adresse in das vorgegebene Feld ein.
-                       Anschlie&szlig;end w&auml;hlen Sie bitte den ensprechenden Newsletter
-                       und das von Ihnen gew&uuml;nschte Format des Newsletters aus. *}
                 </p>
             </div>
 
@@ -128,11 +124,10 @@
                                         {/if}
 
                                     {else}
-                                    {* nix *}
-
+                                    {* do nothing *}
                                     {/if}
 
-                                    {* fehlende td erzeugen *}
+                                    {* create missing  <td> *}
                                     {while $td_counter|lt( $available_output_formats )}
                                     <td>&nbsp;{*$td_counter} < {$available_output_formats*}</td>
                                     {set $td_counter = $td_counter|inc}
@@ -187,14 +182,10 @@
 
             <div class="block">
                 <h3>{'Data Protection'|i18n( 'cjw_newsletter/subscribe' )}:</h3>
-                        {* Hinweis zum Datenschutz *}
-                <p>
-                {'Your e-mail address will under no circumstances be passed on to unauthorized third parties.'|i18n( 'cjw_newsletter/subscribe' )}
-                        {* Die Weitergabe Ihrer E-Mail-Adresse an unberechtigte Dritte ist grunds&auml;tzlich ausgeschlossen. *}
-                </p>
+                <p>{'Your e-mail address will under no circumstances be passed on to unauthorized third parties.'|i18n( 'cjw_newsletter/subscribe' )}</p>
 
                 <h3>{'Further Options'|i18n( 'cjw_newsletter/subscribe' )}:</h3>
-                        {* Weitere Optionen *}
+
                 <p>
                 {def $link = concat('<a href=', '/newsletter/subscribe_infomail'|ezurl() ,'>' ) }
 

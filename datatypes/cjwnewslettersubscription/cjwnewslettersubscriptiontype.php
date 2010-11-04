@@ -78,10 +78,7 @@ class CjwNewsletterSubscriptionType extends eZDataType
                                                                                              false,
                                                                                              $context );
 
-            // TODO hier alle gesammelten daten speichern bzw. die subscriptions im klartext die
-            // getätigt wurden und evtl. eine methode bereitstellen die diese auswertet, damit
-            // im mail steht newsletter angemeldet ja / nein ( bei einem )
-
+            // store all collected information into db
             $newsletterSelectionSerialize = serialize( $dataArray );
             // if newsletter active set collection attribute
             if( $newsletterSelectionSerialize )

@@ -44,7 +44,7 @@
 </div>
 
 </div>
-{* links für vorschau einblenden *}
+
 {*include uri="design:includes/cjwnewsletteredition_preview.tpl" newsletter_edition_attribute=$editionAttribute show_iframes=false()*}
 
 {* DESIGN: Content END *}</div></div></div></div></div></div>

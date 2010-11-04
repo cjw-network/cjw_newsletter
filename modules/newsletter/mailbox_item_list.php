@@ -38,8 +38,6 @@ $db = eZDB::instance();
 $viewParameters = array( 'offset' => 0,
                          'namefilter' => '' );
 
-// variablen mit () in der url in viewparameter übernehmen
-// z.B.  ../list/(offset)/4  setzt die viewparametervariable $offset = 3
 $userParameters = $Params['UserParameters'];
 $viewParameters = array_merge( $viewParameters, $userParameters );
 

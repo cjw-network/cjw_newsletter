@@ -77,7 +77,7 @@
                                                     {def $can_create_languages = $node.object.can_create_languages
                                                          $languages            = fetch( 'content', 'prioritized_languages' )}
                                                     {if $node.can_edit}
-                                                        {* standard sprache wählen *}
+                                                        {* seledt default language *}
                                                         {if is_set( $languages[0] )}<input name="ContentObjectLanguageCode" value="{$languages[0].locale}" type="hidden" />{/if}
                                                         {*
                                                         {if and(eq( $languages|count, 1 ), is_set( $languages[0] ) )}<input name="ContentObjectLanguageCode" value="{$languages[0].locale}" type="hidden" />{else}
@@ -89,7 +89,7 @@
                                                         </select>
                                                         {/if}
                                                         *}
-                                                        {* edit button nur anzeigen wenn nicht im versendeprocess *}
+                                                        {* edit button only show if nl edition not in sending process *}
                                                         {if $node.data_map.newsletter_edition.content.is_draft|not}<input class="button-disabled" type="submit" name="EditButton" value="{'Edit'|i18n( 'design/admin/node/view/full' )}" title="{'The edition %child_name is already in sending process.'|i18n( 'cjw_newsletter/design/admin/node/view/full',, hash( '%child_name', $child_name ) )|wash}" disabled="disabled" />{else}<input class="button" type="submit" name="EditButton" value="{'Edit'|i18n( 'design/admin/node/view/full' )}" title="{'Edit the contents of this item.'|i18n( 'design/admin/node/view/full' )}" />{/if}
                                                     {else}
                                                         <select name="ContentObjectLanguageCode" disabled="disabled">

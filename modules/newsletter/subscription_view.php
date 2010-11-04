@@ -57,7 +57,6 @@ $systemNode = $listNode->attribute( 'parent' );
 $tpl->setVariable( 'newsletter_list_node', $listNode );
 $tpl->setVariable( 'newsletter_list_node_id', $listNodeId );
 
-// Parameter der View als Array dem Template übergeben
 $tpl->setVariable( 'view_parameters', $viewParameters );
 
 $tpl->setVariable( 'subscription', $subscriptionObject );

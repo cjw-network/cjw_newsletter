@@ -14,10 +14,10 @@
 
 
     {def $newsletter_root_node_id = 2
-         $available_output_formats = 2} {* für tabellen *}
+         $available_output_formats = 2} {* settings for html table *}
 
 
-    {* Alle Listen fetchen die ich sehen darf *}
+    {* Fetch all list the current user has access to*}
 
     {def $newsletter_system_node_list = fetch( 'content', 'tree', hash('parent_node_id', $newsletter_root_node_id,
                                                             'class_filter_type', 'include',
@@ -25,14 +25,14 @@
                                                             'sort_by', array( 'name', true() ),
                                                             'limitation', hash( ) )) }
 
-    {* Prüfen ob es ein Newslettersystem gibt *}
+    {* check if a nl system is available *}
     {if $newsletter_system_node_list|count|eq(0)}
         <p>
             {'No newsletters available.'|i18n( 'cjw_newsletter/datatype/cjwnewslettersubscription' )}
         </p>
     {else}
-    {* wenn es ein oder mehrere Newslettersysteme gibt, dann prüfe, ob es eine für den siteaccess gültige Liste im Newslettersystem gibt
-            -> wenn ja dann setze das Flag '$newsletter_available=true()' *}
+    {* if one or several newsletter systems exists, check for current siteaccess if valid list are available
+            -> if yes ja set '$newsletter_available=true()' *}
         {def $newsletter_list_node_list = fetch( 'content', 'tree', hash('parent_node_id', $newsletter_system_node_list.0.node_id,
                                                                 'extended_attribute_filter',
                                                                       hash( 'id', 'CjwNewsletterListFilter',
@@ -57,12 +57,10 @@
         {/foreach}
         {undef $newsletter_list_node_list}
 
-        {* wenn es keine gültigen Listen in den Newslettersystemen gibt *}
         {if $newsletter_available|not()}
             <p>
                 {'No newsletters available for configure now.'|i18n( 'cjw_newsletter/datatype/cjwnewslettersubscription' )}
             </p>
-        {* wenn es gültige Listen in den Newslettersystemen gibt *}
         {else}
 
                 {foreach $newsletter_system_node_list as $system_node}
@@ -137,7 +135,7 @@
                             {/if*}
                         {/if}
 
-                        {* fehlende td erzeugen *}
+                        {* create missing <td>*}
                         {while $td_counter|lt( $available_output_formats )}
                         <td>&nbsp;{*$td_counter} < {$available_output_formats*}</td>
                         {set $td_counter = $td_counter|inc}

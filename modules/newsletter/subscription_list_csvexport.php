@@ -121,8 +121,6 @@ $viewParameters = array(
              'namefilter'   => ''
              );
 
-// variablen mit () in der url in viewparameter übernehmen
-// z.B.  ../list/(offset)/4  setzt die viewparametervariable $offset = 3
 $userParameters = $Params['UserParameters'];
 $viewParameters = array_merge( $viewParameters, $userParameters );
 
@@ -156,7 +154,7 @@ $Result['path'] =  array( array( 'url'  => 'newsletter/index',
 
 
 /**
- * fetch data für csv export
+ * fetch data for csv export
  *
  * @param integer $listContentObjectId
  * @return array with data
@@ -174,7 +172,7 @@ function getDataForCsv( $listContentObjectId, $limit = 0 )
         else
             $qryLimit = '';
 
-        // query for fetch user data of one liste, with optional limit parameter
+        // query for fetch user data of one list, with optional limit parameter
         // u.id, u.email, u.first_name, u.last_name, u.salutation
         $qryGetData = "SELECT s.id as s_id,
                               u.email,

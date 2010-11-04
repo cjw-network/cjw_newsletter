@@ -18,7 +18,7 @@ class CjwNewsletterEditionSend extends eZPersistentObject
 {
     const STATUS_WAIT_FOR_PROCESS = 0;
     const STATUS_MAILQUEUE_CREATED = 1;
-    const STATUS_MAILQUEUE_PROCESS_STARTED = 2; // ist dieser Status nötig?
+    const STATUS_MAILQUEUE_PROCESS_STARTED = 2;
     const STATUS_MAILQUEUE_PROCESS_FINISHED = 3;
     const STATUS_ABORT = 9;
 

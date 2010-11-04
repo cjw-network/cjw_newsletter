@@ -174,7 +174,6 @@ if( is_array( $Params['UserParameters'] ) )
     $viewParameters = array_merge( $viewParameters, $Params['UserParameters'] );
 }
 
-// Parameter der View als Array dem Template übergeben
 $tpl->setVariable( 'view_parameters', $viewParameters );
 
 $dryRun = true;

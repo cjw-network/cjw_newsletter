@@ -299,7 +299,7 @@ class CjwNewsletterList extends eZPersistentObject
 
         $cmd = "\"$phpCli\" extension/cjw_newsletter/bin/php/iniloader.php -s $siteAccess site.ini";
 
-        // für WINDOS   / =>\ umwandeln
+        // for WINDOWS replace   / => \
         $fileSep = eZSys::fileSeparator();
         $cmd = str_replace( '/', $fileSep, $cmd );
 

@@ -93,7 +93,7 @@ foreach ( $sendObjectList as $sendObject )
             $newsletterSubscriptionObject = $sendItem->attribute('newsletter_subscription_object');
             $newsletterUnsubscribeHash = $newsletterSubscriptionObject->attribute('hash');
 
-            // ### newsletter user data über send_item_object
+            // ### get newsletter user data through send_item_object
             $newsletterUserObject = $sendItem->attribute('newsletter_user_object');
             $emailReceiver = $newsletterUserObject->attribute('email');
             $emailReceiverName = $newsletterUserObject->attribute('email_name');

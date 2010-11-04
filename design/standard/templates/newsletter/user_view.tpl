@@ -3,6 +3,7 @@
     full view of a newsletter user - with all related data
 *}
 <div class="newsletter newsletter-user_view">
+
     <div class="context-block">
         {* DESIGN: Header START *}
         <div class="box-header">
@@ -286,235 +287,232 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>{* =============  list of all subscriptions ============ *}
+    </div>{* =============  list of all subscriptions ============ *}
     <div class="context-block">
-    {def $subscription_array = $newsletter_user.subscription_array
-         $subscription_array_count = $subscription_array|count}
-    {* DESIGN: Header START *}
-    <div class="box-header">
-        <div class="box-tc">
-            <div class="box-ml">
-                <div class="box-mr">
-                    <div class="box-tl">
-                        <div class="box-tr">
-                            <h2 class="context-title">{'Newsletter subscriptions'|i18n( 'cjw_newsletter/user_view',, hash( ) )} [{$subscription_array_count}]</h2>
-                            {* DESIGN: Subline *}
-                            <div class="header-subline">
+        {def $subscription_array = $newsletter_user.subscription_array
+             $subscription_array_count = $subscription_array|count}
+        {* DESIGN: Header START *}
+        <div class="box-header">
+            <div class="box-tc">
+                <div class="box-ml">
+                    <div class="box-mr">
+                        <div class="box-tl">
+                            <div class="box-tr">
+                                <h2 class="context-title">{'Newsletter subscriptions'|i18n( 'cjw_newsletter/user_view',, hash( ) )} [{$subscription_array_count}]</h2>
+                                {* DESIGN: Subline *}
+                                <div class="header-subline">
+                                </div>
+                                {* DESIGN: Header END *}
                             </div>
-                            {* DESIGN: Header END *}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {* DESIGN:  START *}
-    <div class="box-ml">
-        <div class="box-mr">
-            <div class="box-content">
-                <div class="context-attributes">
-                    <div class="overflow-table">
-                        <table class="list" cellspacing="0">
-                            <tr>
-                                <th class="tight">
-                                    {'Id'|i18n( 'cjw_newsletter/subscription_list' )}
-                                </th>
-                                <th class="tight">
-                                    {'List name'|i18n( 'cjw_newsletter/subscription_list' )}
-                                </th>
-                                <th>
-                                    {'Format'|i18n( 'cjw_newsletter/subscription_list' )}
-                                </th>
-                                <th>
-                                    {'Status'|i18n( 'cjw_newsletter/subscription_list' )}
-                                </th>
-                                <th>
-                                    {'Created'|i18n( 'cjw_newsletter/subscription_list' )}
-                                </th>
-                                <th>
-                                    {'Modified'|i18n( 'cjw_newsletter/subscription_list' )}
-                                </th>
-                                <th>
-                                    {'Confirmed'|i18n( 'cjw_newsletter/subscription_list' )}
-                                </th>
-                                <th>
-                                    {'Approved'|i18n( 'cjw_newsletter/subscription_list' )}
-                                </th>
-                                <th>
-                                    {'Removed'|i18n( 'cjw_newsletter/subscription_list' )}
-                                </th>
-                              {*  <th>
-                                    {'Hash'|i18n( 'cjw_newsletter/subscription_list' )}
-                                </th> *}
-                            </tr>
-                            {foreach $subscription_array as $subscription sequence array( bglight, bgdark ) as $style}
-                            <tr class="{$style}">
-                                <td>
-                                    <a href={concat('newsletter/subscription_view/', $subscription.id)|ezurl}>{$subscription.id|wash} </a>
-                                </td>
-                                <td>
-                                    <a href={concat('content/view/full/', $subscription.newsletter_list.main_node_id)|ezurl}>{$subscription.newsletter_list.name|wash} </a>
-                                </td>
-                                <td>
-                                    {$subscription.output_format_array|implode(', ')}
-                                </td>
-                                <td title="{$subscription.status|wash}">
-                                    {$subscription.status_string|wash}
-                                </td>
-                                <td>
-                                    {cond( $subscription.created|gt(0), $subscription.created|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}
-                                </td>
-                                <td>
-                                    {cond( $subscription.modified|gt(0), $subscription.modified|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}
-                                </td>
-                                <td>
-                                    {cond( $subscription.confirmed|gt(0), $subscription.confirmed|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}
-                                </td>
-                                <td>
-                                    {cond( $subscription.approved|gt(0), $subscription.approved|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}
-                                </td>
-                                <td>
-                                    {cond( $subscription.removed|gt(0), $subscription.removed|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}
-                                </td>
-                                {*<td>
-                                    {$subscription.hash|wash}
-                                </td>*}
+        {* DESIGN:  START *}
+        <div class="box-ml">
+            <div class="box-mr">
+                <div class="box-content">
+                    <div class="context-attributes">
+                        <div class="overflow-table">
+                            <table class="list" cellspacing="0">
+                                <tr>
+                                    <th class="tight">
+                                        {'Id'|i18n( 'cjw_newsletter/subscription_list' )}
+                                    </th>
+                                    <th class="tight">
+                                        {'List name'|i18n( 'cjw_newsletter/subscription_list' )}
+                                    </th>
+                                    <th>
+                                        {'Format'|i18n( 'cjw_newsletter/subscription_list' )}
+                                    </th>
+                                    <th>
+                                        {'Status'|i18n( 'cjw_newsletter/subscription_list' )}
+                                    </th>
+                                    <th>
+                                        {'Created'|i18n( 'cjw_newsletter/subscription_list' )}
+                                    </th>
+                                    <th>
+                                        {'Modified'|i18n( 'cjw_newsletter/subscription_list' )}
+                                    </th>
+                                    <th>
+                                        {'Confirmed'|i18n( 'cjw_newsletter/subscription_list' )}
+                                    </th>
+                                    <th>
+                                        {'Approved'|i18n( 'cjw_newsletter/subscription_list' )}
+                                    </th>
+                                    <th>
+                                        {'Removed'|i18n( 'cjw_newsletter/subscription_list' )}
+                                    </th>
+                                  {*  <th>
+                                        {'Hash'|i18n( 'cjw_newsletter/subscription_list' )}
+                                    </th> *}
+                                </tr>
+                                {foreach $subscription_array as $subscription sequence array( bglight, bgdark ) as $style}
+                                <tr class="{$style}">
+                                    <td>
+                                        <a href={concat('newsletter/subscription_view/', $subscription.id)|ezurl}>{$subscription.id|wash} </a>
+                                    </td>
+                                    <td>
+                                        <a href={concat('content/view/full/', $subscription.newsletter_list.main_node_id)|ezurl}>{$subscription.newsletter_list.name|wash} </a>
+                                    </td>
+                                    <td>
+                                        {$subscription.output_format_array|implode(', ')}
+                                    </td>
+                                    <td title="{$subscription.status|wash}">
+                                        {$subscription.status_string|wash}
+                                    </td>
+                                    <td>
+                                        {cond( $subscription.created|gt(0), $subscription.created|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}
+                                    </td>
+                                    <td>
+                                        {cond( $subscription.modified|gt(0), $subscription.modified|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}
+                                    </td>
+                                    <td>
+                                        {cond( $subscription.confirmed|gt(0), $subscription.confirmed|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}
+                                    </td>
+                                    <td>
+                                        {cond( $subscription.approved|gt(0), $subscription.approved|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}
+                                    </td>
+                                    <td>
+                                        {cond( $subscription.removed|gt(0), $subscription.removed|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}
+                                    </td>
+                                    {*<td>
+                                        {$subscription.hash|wash}
+                                    </td>*}
 
-                            </tr>{/foreach}
-                        </table>
-                    </div>{* DESIGN: Table END *}
-                </div>
-            </div>
-        </div>
-        <div class="controlbar">
-            {* DESIGN: Control bar START *}
-            <div class="box-bc">
-                <div class="box-ml">
-                    <div class="box-mr">
-                        <div class="box-tc">
-                            <div class="box-bl">
-                                <div class="box-br">
-                                {*
-                                TODO: löschen, bearbeiten<input class="button" type="submit" name="RemoveSubscriptionButton" value="{'Remove selected'|i18n( 'cjw_newsletter/user_list' )}" title="{'Remove selected subscription.'|i18n( 'cjw_newsletter/user_list' )}" /><input class="button" type="submit" name="CreateSubscriptionButton" value="{'New subscription'|i18n( 'cjw_newsletter/user_list' )}" title="{'Create a new subscription.'|i18n( 'cjw_newsletter/user_list' )}" />
-                                </form>*}
-                            </div>{* DESIGN: Control bar END *}
-                        </div>
+                                </tr>{/foreach}
+                            </table>
+                        </div>{* DESIGN: Table END *}
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>{* =============  list of all send items ============ *}
-<div class="context-block">
-    {def $edition_send_item_array = fetch( 'newsletter', 'edition_send_item_list', hash('newsletter_user_id', $newsletter_user.id ) )
-         $edition_send_item_count = fetch( 'newsletter', 'edition_send_item_list_count', hash('newsletter_user_id', $newsletter_user.id ) )}
-    {* DESIGN: Header START *}
-    <div class="box-header">
-        <div class="box-tc">
-            <div class="box-ml">
-                <div class="box-mr">
-                    <div class="box-tl">
-                        <div class="box-tr">
-                            <h2 class="context-title">{'Newsletter received'|i18n( 'cjw_newsletter/user_view',, hash() )} [{$edition_send_item_count}]</h2>
-                            {* DESIGN: Subline *}
-                            <div class="header-subline">
+            <div class="controlbar">
+                {* DESIGN: Control bar START *}
+                <div class="box-bc">
+                    <div class="box-ml">
+                        <div class="box-mr">
+                            <div class="box-tc">
+                                <div class="box-bl">
+                                    <div class="box-br">
+
+                                    </div>{* DESIGN: Control bar END *}
+                                </div>
                             </div>
-                            {* DESIGN: Header END *}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {* DESIGN:  START *}
-    <div class="box-ml">
-        <div class="box-mr">
-            <div class="box-content">
-                <div class="context-attributes">
-                    <div class="overflow-table">
-                        <table class="list" cellspacing="0">
-                            <tr>
-                                <th class="tight">
-                                    {'Id'|i18n( 'cjw_newsletter/user_view' )}
-                                </th>
-                                <th>
-                                    {'Edition sent id'|i18n( 'cjw_newsletter/user_view' )}
-                                </th>
-                                <th>
-                                    {'Format'|i18n( 'cjw_newsletter/user_view' )}
-                                </th>
-                                <th>
-                                    {'Status'|i18n( 'cjw_newsletter/user_view' )}
-                                </th>
-                                <th>
-                                    {'Created'|i18n( 'cjw_newsletter/user_view' )}
-                                </th>
-                                <th>
-                                    {'Processed'|i18n( 'cjw_newsletter/user_view' )}
-                                </th>
-                                <th>
-                                    {'Opened'|i18n( 'cjw_newsletter/user_view' )}
-                                </th>
-                                <th>
-                                    {'Bounced'|i18n( 'cjw_newsletter/user_view' )}
-                                </th>
-                            </tr>
-                            {foreach $edition_send_item_array as $send_item sequence array( bglight, bgdark ) as $style}
-                            <tr class="{$style}">
-                                <td>
-                                    <a target="_blank" href={concat( 'newsletter/preview_archive/', $send_item.edition_send_id,  '/', $send_item.output_format_id,  '/', $send_item.newsletter_user_id )|ezurl}>{$send_item.id|wash} </a>
-                                </td>
-                                <td>
-                                    {$send_item.edition_send_id|wash}
-                                </td>
-                                <td>
-                                    {$send_item.output_format_id|wash}
-                                </td>
-                                <td title="{$send_item.status|wash}">
-                                    {$send_item.status_string|wash}
-                                </td>
-                                <td>
-                                    {cond( $send_item.created|gt(0), $send_item.created|l10n( shortdatetime ), '-' )}
-                                </td>
-                                <td>
-                                    {cond( $send_item.processed|gt(0), $send_item.processed|l10n( shortdatetime ), '-' )}
-                                </td>
-                                <td>
-                                {* TODO opened *}
-                                    -
-                                </td>
-                                <td>
-                                    {cond( $send_item.bounced|gt(0), $send_item.bounced|l10n( shortdatetime ), '-' )}
-                                </td>
-                            </tr>
-                            {/foreach}
-                        </table>
-                    </div>
-                    {* DESIGN: Table END *}
-                </div>
-            </div>
-        </div>
-        <div class="controlbar">
-            {* DESIGN: Control bar START *}
-            <div class="box-bc">
+    </div>{* =============  list of all send items ============ *}
+
+    <div class="context-block">
+        {def $edition_send_item_array = fetch( 'newsletter', 'edition_send_item_list', hash('newsletter_user_id', $newsletter_user.id ) )
+             $edition_send_item_count = fetch( 'newsletter', 'edition_send_item_list_count', hash('newsletter_user_id', $newsletter_user.id ) )}
+        {* DESIGN: Header START *}
+        <div class="box-header">
+            <div class="box-tc">
                 <div class="box-ml">
                     <div class="box-mr">
-                        <div class="box-tc">
-                            <div class="box-bl">
-                                <div class="box-br">
-                                {*
-                                TODO: löschen, bearbeiten<input class="button" type="submit" name="RemoveSubscriptionButton" value="{'Remove selected'|i18n( 'cjw_newsletter/user_list' )}" title="{'Remove selected subscription.'|i18n( 'cjw_newsletter/user_list' )}" /><input class="button" type="submit" name="CreateSubscriptionButton" value="{'New subscription'|i18n( 'cjw_newsletter/user_list' )}" title="{'Create a new subscription.'|i18n( 'cjw_newsletter/user_list' )}" />
-                                </form>*}
-                            </div>{* DESIGN: Control bar END *}
+                        <div class="box-tl">
+                            <div class="box-tr">
+                                <h2 class="context-title">{'Newsletter received'|i18n( 'cjw_newsletter/user_view',, hash() )} [{$edition_send_item_count}]</h2>
+                                {* DESIGN: Subline *}
+                                <div class="header-subline">
+                                </div>
+                                {* DESIGN: Header END *}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {* DESIGN:  START *}
+        <div class="box-ml">
+            <div class="box-mr">
+                <div class="box-content">
+                    <div class="context-attributes">
+                        <div class="overflow-table">
+                            <table class="list" cellspacing="0">
+                                <tr>
+                                    <th class="tight">
+                                        {'Id'|i18n( 'cjw_newsletter/user_view' )}
+                                    </th>
+                                    <th>
+                                        {'Edition sent id'|i18n( 'cjw_newsletter/user_view' )}
+                                    </th>
+                                    <th>
+                                        {'Format'|i18n( 'cjw_newsletter/user_view' )}
+                                    </th>
+                                    <th>
+                                        {'Status'|i18n( 'cjw_newsletter/user_view' )}
+                                    </th>
+                                    <th>
+                                        {'Created'|i18n( 'cjw_newsletter/user_view' )}
+                                    </th>
+                                    <th>
+                                        {'Processed'|i18n( 'cjw_newsletter/user_view' )}
+                                    </th>
+                                    <th>
+                                        {'Opened'|i18n( 'cjw_newsletter/user_view' )}
+                                    </th>
+                                    <th>
+                                        {'Bounced'|i18n( 'cjw_newsletter/user_view' )}
+                                    </th>
+                                </tr>
+                                {foreach $edition_send_item_array as $send_item sequence array( bglight, bgdark ) as $style}
+                                <tr class="{$style}">
+                                    <td>
+                                        <a target="_blank" href={concat( 'newsletter/preview_archive/', $send_item.edition_send_id,  '/', $send_item.output_format_id,  '/', $send_item.newsletter_user_id )|ezurl}>{$send_item.id|wash} </a>
+                                    </td>
+                                    <td>
+                                        {$send_item.edition_send_id|wash}
+                                    </td>
+                                    <td>
+                                        {$send_item.output_format_id|wash}
+                                    </td>
+                                    <td title="{$send_item.status|wash}">
+                                        {$send_item.status_string|wash}
+                                    </td>
+                                    <td>
+                                        {cond( $send_item.created|gt(0), $send_item.created|l10n( shortdatetime ), '-' )}
+                                    </td>
+                                    <td>
+                                        {cond( $send_item.processed|gt(0), $send_item.processed|l10n( shortdatetime ), '-' )}
+                                    </td>
+                                    <td>
+                                    {* TODO opened *}
+                                        -
+                                    </td>
+                                    <td>
+                                        {cond( $send_item.bounced|gt(0), $send_item.bounced|l10n( shortdatetime ), '-' )}
+                                    </td>
+                                </tr>
+                                {/foreach}
+                            </table>
+                        </div>
+                        {* DESIGN: Table END *}
+                    </div>
+                </div>
+            </div>
+            <div class="controlbar">
+                {* DESIGN: Control bar START *}
+                <div class="box-bc">
+                    <div class="box-ml">
+                        <div class="box-mr">
+                            <div class="box-tc">
+                                <div class="box-bl">
+                                    <div class="box-br">
+
+                                    </div>{* DESIGN: Control bar END *}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>{* DESIGN: Content END *}
     </div>
-</div>{* DESIGN: Content END *}
-</div>
-</div>
+
 </div>
 {*$newsletter_user|attribute(show)*}
