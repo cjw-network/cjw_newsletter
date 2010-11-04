@@ -1,5 +1,5 @@
 {* Preview window *}
-{if $preview_enabled}
+{if $tabs_disabled|not}
 
 {* archive view *}
 
@@ -27,7 +27,7 @@
 {/if}
 
 
-<div id="node-tab-preview-content" class="tab-content{if $node_tab_index|ne('preview')} hide{else} selected{/if}">
+<div id="node-tab-view-content" class="tab-content{if $node_tab_index|ne('view')} hide{else} selected{/if}">
     {include uri='design:preview.tpl'}
 <div class="break"></div>
 </div>
@@ -55,5 +55,11 @@
 {* Relations window *}
 <div id="node-tab-relations-content" class="tab-content{if $node_tab_index|ne('relations')} hide{else} selected{/if}">
     {include uri='design:relations.tpl'}
+<div class="break"></div>
+</div>
+
+{* Published ordering window *}
+<div id="node-tab-ordering-content" class="tab-content{if $node_tab_index|ne('ordering')} hide{else} selected{/if}">
+    {include uri='design:ordering.tpl'}
 <div class="break"></div>
 </div>
