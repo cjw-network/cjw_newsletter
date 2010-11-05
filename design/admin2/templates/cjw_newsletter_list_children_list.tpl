@@ -91,7 +91,7 @@
                 {* Edit button *}
                 <td>
                    {if $child.can_edit}
-                       {* nur edit button anzeigen wenn edition nicht in process*}
+                       {* show edit button only if nl edition is not in sending process *}
                        {if $editionAttributeContent.is_draft|not}
                            <img src={'edit-disabled.gif'|ezimage} alt="{'Edit'|i18n( 'cjw_newsletter/cjw_newsletter_list_children_list' )}" title="{'The edition %child_name is already in sending process.'|i18n( 'cjw_newsletter/cjw_newsletter_list_children_list',, hash( '%child_name', $child_name ) )|wash}" />
                        {else}

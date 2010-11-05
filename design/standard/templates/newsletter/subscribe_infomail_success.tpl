@@ -8,11 +8,9 @@ $back_url_input
 
     <p class="newsletter-maintext">
         {'E-mail has been sent!'|i18n( 'cjw_newsletter/subscribe_infomail_success' )}
-                {* Email gesendet! *}
     </p>
     <p>
        {'If you are a valid newsletter user, an e-mail has been sent to you with all information required!'|i18n( 'cjw_newsletter/subscribe_infomail_success' )}
-            {* Wenn Sie an ein g&uuml;ltiger Newsletternutzer sind, wurde ihnen eine E-Mail mit den gew&uuml;nschten Informationen zugeschickt. *}
     </p>
 
     <p><a href="{$back_url_input}">{'back'|i18n( 'cjw_newsletter/subscribe_infomail_success' )}</a></p>

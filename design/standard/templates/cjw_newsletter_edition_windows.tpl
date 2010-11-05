@@ -14,11 +14,11 @@
     {* Newsletter testmail *}
     {include uri='design:cjw_newsletter_edition_send_statistic.tpl'}
 
-    {* Newsletter spezialvorschau iframes *}
+    {* Newsletter preview iframes *}
     {include uri='design:cjw_newsletter_edition_preview_archive.tpl'}
 
 {else}
-    {* Newsletter spezialvorschau iframes *}
+    {* Newsletter preview iframes *}
     {include uri='design:cjw_newsletter_edition_preview.tpl'}
 {/if}
 

@@ -1,11 +1,10 @@
 {* subsribe_infomail -
- template mit email input feld zum Anfodern des configure links
+ template with email input field to request the configure link
 
 *}
 
 <div class="newsletter newsletter-subscribe_infomail">
 <h1>{'Newsletter - Edit profile'|i18n( 'cjw_newsletter/subscribe_infomail' )}</h1>
-        {* Newsletter - Profil bearbeiten *}
     {* warnings *}
     {if and( is_set( $warning_array ), $warning_array|count|ne( 0 ) )}
     <div class="block">
@@ -22,7 +21,6 @@
 
     <p>
         {'Enter the e-mail address you originally used to subscribe and you will be sent a link to edit you data.'|i18n( 'cjw_newsletter/subscribe_infomail' )}
-                {* Geben Sie die E-Mail-Adresse ein, mit der Sie angemeldet sind und Ihnen wird ein Link zur Bearbeitung der Daten zugeschickt. *}
     </p>
 
     <form action={'newsletter/subscribe_infomail'|ezurl()} method="post">

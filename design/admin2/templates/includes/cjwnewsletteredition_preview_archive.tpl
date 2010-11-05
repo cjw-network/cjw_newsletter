@@ -1,7 +1,6 @@
 {*
     {include uri="design:includes/cjwnewsletteredition_preview.tpl" $newsletter_edition_attribute=$object show_iframes=true()}
 
-newsletter edition vorschau in iframes oder nur links zu den full views
 *}
 {*if is_set( $show_iframes )|not() }
     {def $show_iframes = true()}
@@ -11,9 +10,8 @@ newsletter edition vorschau in iframes oder nur links zu den full views
     {def $iframe_height = 200}
 {/if}
 
-{* siehe template weiter oben def $newsletter_edition_attribute_content = $newsletter_edition_attribute.content*}
 
-{*def $list_attribute_content = $newsletter_edition_attribute_content.list_attribute_content *}
+{* @see in calling tpl def $list_attribute_content = $newsletter_edition_attribute_content.list_attribute_content *}
 
 {def
      $edition_send_current = $newsletter_edition_attribute_content.edition_send_current

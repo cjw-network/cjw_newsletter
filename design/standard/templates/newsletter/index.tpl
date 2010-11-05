@@ -17,12 +17,7 @@
         {* DESIGN: Content START *}<div class="box-bc"><div class="box-ml"><div class="box-mr"><div class="box-bl"><div class="box-br"><div class="box-content">
 
 
-
-
-
-    {* Newsletter Sysem Boxen *}
-
-
+    {* Newsletter system boxes *}
     {def $newsletter_system_node_list = fetch('content', 'tree',
                                                 hash( 'parent_node_id', $newsletter_root_node_id,
                                                       'class_filter_type', 'include',
