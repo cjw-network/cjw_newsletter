@@ -14,7 +14,7 @@
             </tr>
             <tr>
                 <td style="padding: 20px 0 0 15px">
-                    {* Titel *}
+                    {* Title *}
                     {if $edition_data_map.title.has_content}
                         <h1>{$edition_data_map.title.content|wash()}</h1>
                     {/if}
@@ -29,33 +29,25 @@
                     <br />
                 </td>
             </tr>
+            {def $list_items = fetch('content', 'list', hash( 'parent_node_id', $contentobject.contentobject.main_node_id,
+                                                              'sort_by', array( 'priority' , true() ),
+                                                              'class_filter_type', 'include',
+                                                              'class_filter_array', array( 'cjw_newsletter_article' ) ) )
+            }
             {if $list_items|count|ne(0)}
             <tr>
-                {*
-                   mainarea
-                *}
+                {* mainarea *}
                 <td style="padding: 0 30px 0 15px">
-                    {def $list_items = fetch('content', 'list', hash( 'parent_node_id', $contentobject.contentobject.main_node_id,
-                                                                      'sort_by', array( 'priority' , true() ),
-                                                                      'class_filter_type', 'include',
-                                                                      'class_filter_array', array( 'cjw_newsletter_article' ) ) )
-                    }
 
-                    {*
-                        show subarticles
-                    *}
+                    {* show subarticles *}
                     {foreach $list_items as $attribute}
 
-                        {*
-                            title
-                        *}
+                        {* title *}
                         {if $attribute.data_map.title.has_content}
                             <h2>{attribute_view_gui attribute=$attribute.data_map.title}</h2>
                         {/if}
 
-                        {*
-                            text
-                        *}
+                        {* text *}
                         {if $attribute.data_map.short_description.has_content}
                             {attribute_view_gui attribute=$attribute.data_map.short_description}
                         {/if}

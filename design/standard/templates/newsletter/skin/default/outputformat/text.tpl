@@ -5,11 +5,31 @@
 <h1>{$edition_data_map.title.content|wash()}</h1>
 {/if}
 
-{*
-    Text
-*}
+{* Text *}
 {if $edition_data_map.description.has_content}
      {attribute_view_gui attribute=$edition_data_map.description}
+{/if}
+
+{def $list_items = fetch('content', 'list', hash( 'parent_node_id', $contentobject.contentobject.main_node_id,
+                                                  'sort_by', array( 'priority' , true() ),
+                                                  'class_filter_type', 'include',
+                                                  'class_filter_array', array( 'cjw_newsletter_article' ) ) )
+}
+{if $list_items|count|ne(0)}
+{* show subarticles *}
+{foreach $list_items as $attribute}
+
+    {* title *}
+    {if $attribute.data_map.title.has_content}
+        <h2>{attribute_view_gui attribute=$attribute.data_map.title}</h2>
+    {/if}
+
+    {* text *}
+    {if $attribute.data_map.short_description.has_content}
+        {attribute_view_gui attribute=$attribute.data_map.short_description}
+    {/if}
+
+{/foreach}
 {/if}
 
 <hr>
