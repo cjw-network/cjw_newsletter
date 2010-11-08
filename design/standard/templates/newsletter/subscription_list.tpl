@@ -262,22 +262,15 @@
         {*
             <th class="tight"><img src={'toggle-button-16x16.gif'|ezimage} alt="{'Invert selection'|i18n( 'cjw_newsletter/subscription_list' )}" title="{'Invert selection'|i18n( 'cjw_newsletter/subscription_list' )}" onclick="ezjs_toggleCheckboxes( document.subscription_list, 'SubscriptionIDArray[]' ); return false;" /></th>
         *}
-            <th class="tight">{'SID'|i18n('cjw_newsletter/subscription_list')}</th>
-
+            <th class="tight">{'ID'|i18n('cjw_newsletter/subscription_list')}</th>
             <th>{'Email'|i18n( 'cjw_newsletter/subscription_list' )}</th>
             <th>{'First name'|i18n( 'cjw_newsletter/subscription_list' )}</th>
             <th>{'Last name'|i18n( 'cjw_newsletter/subscription_list' )}</th>
-
-            <th>{'eZ ID'|i18n('cjw_newsletter/subscription_list')}</th>
+            <th>{'eZ Publish User'|i18n('cjw_newsletter/subscription_list')}</th>
             <th>{'Format'|i18n( 'cjw_newsletter/subscription_list' )}</th>
             <th>{'Status'|i18n( 'cjw_newsletter/subscription_list' )}</th>
-            <th>{'Created'|i18n( 'cjw_newsletter/subscription_list' )}</th>
             <th>{'Modified'|i18n( 'cjw_newsletter/subscription_list' )}</th>
-            <th>{'Confirmed'|i18n( 'cjw_newsletter/subscription_list' )}</th>
-            <th>{'Approved'|i18n( 'cjw_newsletter/subscription_list' )}</th>
-            <th>{'Removed'|i18n( 'cjw_newsletter/subscription_list' )}</th>
-            <th>{'Import Id'|i18n( 'cjw_newsletter/subscription_list' )}</th>
-            <th class="edit"></th>
+            <th></th>
         </tr>
 
 
@@ -287,28 +280,30 @@
         {*
             <td><input type="checkbox" name="SubscriptionIDArray[]" value="{$subscription.id|wash}" title="{'Select subscriber for removal'|i18n( 'cjw_newsletter/subscription_list' )}" /></td>
         *}
-            <td class="number" align="right"><a href={concat('newsletter/subscription_view/',$subscription.id )|ezurl()} title="{'Subscription Id'|i18n( 'cjw_newsletter/subscription_list' )}">{$subscription.id|wash}</a></td>
-
+            <td>{$subscription.id|wash}</td>
             <td><a href={concat('newsletter/user_view/',$subscription.newsletter_user.id)|ezurl} title="{$subscription.newsletter_user.first_name} {$subscription.newsletter_user.last_name}">{$subscription.newsletter_user.email}</a></td>
             <td>{$subscription.newsletter_user.first_name|wash}</td>
             <td>{$subscription.newsletter_user.last_name|wash}</td>
-
-            <td>{$subscription.newsletter_user.ez_user_id|wash}</td>
-            <td>{$subscription.output_format_array|implode(', ')}</td>
-            <td title="{$subscription.status_string|wash} ({$subscription.status|wash})"><img src={'16x16.gif'|ezimage} alt="{$subscription.status_string|wash}" class="{$subscription_icon_css_class_array[$subscription.status]}" /></td>
-            <td>{cond( $subscription.created|gt(0), $subscription.created|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}</td>
-            <td>{cond( $subscription.modified|gt(0), $subscription.modified|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}</td>
-            <td>{cond( $subscription.confirmed|gt(0), $subscription.confirmed|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}</td>
-            <td>{cond( $subscription.approved|gt(0), $subscription.approved|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}</td>
-            <td>{cond( $subscription.removed|gt(0), $subscription.removed|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}</td>
-            <td>{if $subscription.import_id|ne(0)}
-                    <a href={concat('newsletter/import_view/', $subscription.import_id)|ezurl}>{$subscription.import_id|wash}</a>
-                {/if}
-            </td>
             <td>
-                <a href={concat( 'newsletter/user_edit/', $subscription.newsletter_user.id, '?RedirectUrl=', $base_uri, '/(offset)/', $view_parameters.offset )|ezurl}>
-                    <img title="{'Edit newsletter user'|i18n( 'cjw_newsletter/user_list' )}" alt="{'Edit newsletter user'|i18n( 'cjw_newsletter/user_list' )}" src={'edit.gif'|ezimage()} />
-                </a>
+                {def $user_object = fetch( 'content', 'object', hash( 'object_id', $subscription.newsletter_user.ez_user_id ) )}
+                {if $user_object}
+                    <a href="{$user_object.main_node.url_alias|ezurl( 'no' )}">{$user_object.name|wash}</a>
+                {/if}
+                {undef $user_object}
+            </td>
+            <td>{$subscription.output_format_array|implode(', ')}</td>
+            <td><img src={'16x16.gif'|ezimage} alt="{$subscription.status_string|wash}" class="{$subscription_icon_css_class_array[$subscription.status]}" title="{$subscription.status_string|wash} ({$subscription.status|wash})" /></td>
+            <td>{cond( $subscription.modified|gt(0), $subscription.modified|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}</td>
+            <td style="white-space: nowrap;">
+                <form class="inline" action="{concat('newsletter/subscription_view/', $subscription.id )|ezurl( 'no' )}">
+                    <input class="button" type="submit" value="{'Details'|i18n( 'cjw_newsletter/user_list' )}" title="{'Subscription details'|i18n( 'cjw_newsletter/user_list' )}" name="SubscriptionDetails" />
+                </form>
+                <form class="inline" action="{concat( '/newsletter/subscription_view/', $subscription.id )|ezurl( 'no' )}" method="post">
+                    <input  {if or( $subscription.status|eq(2), $subscription.status|eq(3), $subscription.status|eq(8) )}class="button-disabled" disabled="disabled"{else}class="button"{/if} type="submit" value="{'Approve'|i18n( 'cjw_newsletter/subscription_list' )}" name="SubscriptionApproveButton" title="{'Approve subscription'|i18n( 'cjw_newsletter/subscription_list' )}" />
+                </form>
+                <form class="inline" action="{concat( 'newsletter/user_edit/', $subscription.newsletter_user.id, '?RedirectUrl=', $base_uri, '/(offset)/', $view_parameters.offset )|ezurl( 'no' )}" method="post">
+                    <input class="button" type="submit" value="{'Edit'|i18n( 'cjw_newsletter/user_list' )}" title="{'Edit newsletter user'|i18n( 'cjw_newsletter/user_list' )}" name="EditNewsletterUser" />
+                </form>
             </td>
         </tr>
         {/foreach}
