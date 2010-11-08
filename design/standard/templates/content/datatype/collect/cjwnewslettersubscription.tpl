@@ -55,7 +55,7 @@ content/datatype/collect/cjwnewslettersubscription.tpl
 
         {if $newsletter_available|not()}
             <p>
-                {'No newsletters available for configure now.'|i18n( 'cjw_newsletter/datatype/cjwnewslettersubscription' )}
+                {'No newsletters available.'|i18n( 'cjw_newsletter/datatype/cjwnewslettersubscription' )}
             </p>
 
         {else}

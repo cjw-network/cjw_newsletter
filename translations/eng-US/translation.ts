@@ -606,10 +606,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No newsletters available for configure now.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>First name of the subscriber.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -862,10 +858,6 @@
     <name>cjw_newsletter/datatype/cjwnewslettersubscription</name>
     <message>
         <source>No newsletters available.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No newsletters available for configure now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1991,10 +1983,6 @@ To edit your newsletter settings please visit the following link:
     </message>
     <message>
         <source>Newsletter subscribe</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No newsletters available for subscribe.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -35,7 +35,7 @@
     {if or( $newsletter_system_node_list|count()|eq(0), $newsletter_list_count|eq(0) )}
         <div class="block">
             <p>
-                {'No newsletters available for subscribe.'|i18n( 'cjw_newsletter/subscribe' )}
+                {'No newsletters available.'|i18n( 'cjw_newsletter/subscribe' )}
             </p>
         </div>
     {else}

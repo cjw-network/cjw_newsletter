@@ -606,10 +606,6 @@
         <translation>Newsletterbestätigung erfolgreich</translation>
     </message>
     <message>
-        <source>No newsletters available for configure now.</source>
-        <translation>Zur Zeit ist kein Newsletter zur Konfiguration verfügbar.</translation>
-    </message>
-    <message>
         <source>First name of the subscriber.</source>
         <translation>Hier den Vorname des Abonnenten eintragen.</translation>
     </message>
@@ -863,10 +859,6 @@
     <message>
         <source>No newsletters available.</source>
         <translation>Zur Zeit ist kein Newsletter zur Anmeldung verfügbar.</translation>
-    </message>
-    <message>
-        <source>No newsletters available for configure now.</source>
-        <translation>Zur Zeit ist kein Newsletter zur Konfiguration verfügbar.</translation>
     </message>
     <message>
         <source>Email of the subscriber.</source>
@@ -2004,10 +1996,6 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     <message>
         <source>Newsletter subscribe</source>
         <translation>Newsletter abonnieren</translation>
-    </message>
-    <message>
-        <source>No newsletters available for subscribe.</source>
-        <translation>Kein Newsletter zum Abonnieren verfügbar.</translation>
     </message>
     <message>
         <source>First name</source>

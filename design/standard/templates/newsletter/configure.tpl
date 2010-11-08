@@ -44,7 +44,7 @@
     {* check if a newsletter_system is available *}
     {if $newsletter_system_node_list|count|eq(0)}
         <p>
-            {'No newsletters available for configure now.'|i18n( 'cjw_newsletter/configure' )}
+            {'No newsletters available.'|i18n( 'cjw_newsletter/configure' )}
         </p>
     {else}
     {* for every newsletter_system check if there are newsletter_list where a subscription for current siteaccess is possible *}
@@ -75,7 +75,7 @@
         {* no nl_list available *}
         {if $newsletter_available|not()}
             <p>
-                {'No newsletters available for configure now.'|i18n( 'cjw_newsletter/configure' )}
+                {'No newsletters available.'|i18n( 'cjw_newsletter/configure' )}
             </p>
         {* nl_list available *}
         {else}

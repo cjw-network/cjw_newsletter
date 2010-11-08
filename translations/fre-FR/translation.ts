@@ -606,10 +606,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>No newsletters available for configure now.</source>
-        <translation>Aucune newsletter disponible pour configuration.</translation>
-    </message>
-    <message>
         <source>First name of the subscriber.</source>
         <translation>Prénom du souscripteur</translation>
     </message>
@@ -867,10 +863,6 @@
     <message>
         <source>No newsletters available.</source>
         <translation>Pas de newsletter disponible.</translation>
-    </message>
-    <message>
-        <source>No newsletters available for configure now.</source>
-        <translation>Aucune newsletter disponible pour configuration.</translation>
     </message>
     <message>
         <source>Email of the subscriber.</source>
@@ -2022,10 +2014,6 @@ To edit your newsletter settings please visit the following link:
     <message>
         <source>Newsletter subscribe</source>
         <translation>Souscription à la newsletter</translation>
-    </message>
-    <message>
-        <source>No newsletters available for subscribe.</source>
-        <translation>Aucune newsletter disponible pour souscription.</translation>
     </message>
     <message>
         <source>First name</source>
