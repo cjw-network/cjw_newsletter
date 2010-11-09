@@ -175,7 +175,7 @@
         </div>
 
 
-        <div class="button-left">
+        <div class="button-right">
             {* newsletter list selection *}
         <p class="table-preferences">
 
@@ -255,7 +255,7 @@
     </div>
 
     {* Subscription list table. *}
-    <div class="content-navigation-childlist overflow-table">
+    <div class="box-content">
 
         <table class="list" cellspacing="0">
         <tr>
@@ -270,7 +270,7 @@
             <th>{'Format'|i18n( 'cjw_newsletter/subscription_list' )}</th>
             <th>{'Status'|i18n( 'cjw_newsletter/subscription_list' )}</th>
             <th>{'Modified'|i18n( 'cjw_newsletter/subscription_list' )}</th>
-            <th></th>
+            <th class="tight">&nbsp;</th>
         </tr>
 
 
@@ -296,7 +296,7 @@
             <td>{$subscription.output_format_array|implode(', ')}</td>
             <td><img src={'16x16.gif'|ezimage} alt="{$subscription.status_string|wash}" class="{$subscription_icon_css_class_array[$subscription.status]}" title="{$subscription.status_string|wash} ({$subscription.status|wash})" /></td>
             <td>{cond( $subscription.modified|gt(0), $subscription.modified|l10n( shortdatetime ), 'n/a'|i18n( 'cjw_newsletter/subscription_list' ) )}</td>
-            <td style="white-space: nowrap;">
+            <td class="tight" style="white-space: nowrap;">
                 <form class="inline" action="{concat('newsletter/subscription_view/', $subscription.id )|ezurl( 'no' )}">
                     <input class="button" type="submit" value="{'Details'|i18n( 'cjw_newsletter/user_list' )}" title="{'Subscription details'|i18n( 'cjw_newsletter/user_list' )}" name="SubscriptionDetails" />
                 </form>

@@ -91,7 +91,7 @@
         {/switch}
 </p>
 </div>
-<div class="button-left">
+<div class="button-right">
     {* newsletter list selection *}
     <p class="table-preferences">
 
@@ -139,30 +139,6 @@
 
 {if $children_count}
 
-<div class="button-right">
-    <p class="table-preferences">
-        {switch match=$admin_children_viewmode}
-        {case match='thumbnail'}
-        <a href={'/user/preferences/set/admin_children_viewmode/list'|ezurl} title="{'Display sub items using a simple list.'|i18n( 'design/admin/node/view/full' )}">{'List'|i18n( 'design/admin/node/view/full' )}</a>
-        <span class="current">{'Thumbnail'|i18n( 'design/admin/node/view/full' )}</span>
-        <a href={'/user/preferences/set/admin_children_viewmode/detailed'|ezurl} title="{'Display sub items using a detailed list.'|i18n( 'design/admin/node/view/full' )}">{'Detailed'|i18n( 'design/admin/node/view/full' )}</a>
-        {/case}
-
-        {case match='detailed'}
-        <a href={'/user/preferences/set/admin_children_viewmode/list'|ezurl} title="{'Display sub items using a simple list.'|i18n( 'design/admin/node/view/full' )}">{'List'|i18n( 'design/admin/node/view/full' )}</a>
-        <a href={'/user/preferences/set/admin_children_viewmode/thumbnail'|ezurl} title="{'Display sub items as thumbnails.'|i18n( 'design/admin/node/view/full' )}">{'Thumbnail'|i18n( 'design/admin/node/view/full' )}</a>
-        <span class="current">{'Detailed'|i18n( 'design/admin/node/view/full' )}</span>
-        {/case}
-
-        {case}
-        <span class="current">{'List'|i18n( 'design/admin/node/view/full' )}</span>
-        <a href={'/user/preferences/set/admin_children_viewmode/thumbnail'|ezurl} title="{'Display sub items as thumbnails.'|i18n( 'design/admin/node/view/full' )}">{'Thumbnail'|i18n( 'design/admin/node/view/full' )}</a>
-        <a href={'/user/preferences/set/admin_children_viewmode/detailed'|ezurl} title="{'Display sub items using a detailed list.'|i18n( 'design/admin/node/view/full' )}">{'Detailed'|i18n( 'design/admin/node/view/full' )}</a>
-        {/case}
-        {/switch}
-    </p>
-</div>
-
 <div class="float-break"></div>
 </div>
 
@@ -188,29 +164,13 @@
 
 
     {* Display the actual list of nodes. *}
-    {switch match=$admin_children_viewmode}
-
-    {case match='thumbnail'}
-        {include uri='design:children_thumbnail.tpl'}
-    {/case}
-
-    {case match='detailed'}
-        {include uri='design:children_detailed.tpl'}
-    {/case}
-
-    {case}
-        {*include uri='design:cjw_newsletter_list_children_list.tpl'*}
-
-        {include uri = 'design:includes/cjwnewsletteredition_statistic_list.tpl'
+    {include uri = 'design:includes/cjwnewsletteredition_statistic_list.tpl'
                  name = 'EditionList'
                  edition_node_list = $children
                  edition_node_list_count = $children_count
                  show_actions_colum = true()}
 
         {def $viewmode_newsletter=true()}
-
-    {/case}
-    {/switch}
 
 {* Else: there are no children. *}
 {else}
