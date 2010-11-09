@@ -285,11 +285,13 @@
             <td>{$subscription.newsletter_user.first_name|wash}</td>
             <td>{$subscription.newsletter_user.last_name|wash}</td>
             <td>
-                {def $user_object = fetch( 'content', 'object', hash( 'object_id', $subscription.newsletter_user.ez_user_id ) )}
-                {if $user_object}
-                    <a href="{$user_object.main_node.url_alias|ezurl( 'no' )}">{$user_object.name|wash}</a>
+                {if $subscription.newsletter_user.ez_user_id|gt( '0' )}
+                    {def $user_object = fetch( 'content', 'object', hash( 'object_id', $subscription.newsletter_user.ez_user_id ) )}
+                    {if $user_object}
+                        <a href="{$user_object.main_node.url_alias|ezurl( 'no' )}">{$user_object.name|wash}</a>
+                    {/if}
+                    {undef $user_object}
                 {/if}
-                {undef $user_object}
             </td>
             <td>{$subscription.output_format_array|implode(', ')}</td>
             <td><img src={'16x16.gif'|ezimage} alt="{$subscription.status_string|wash}" class="{$subscription_icon_css_class_array[$subscription.status]}" title="{$subscription.status_string|wash} ({$subscription.status|wash})" /></td>
