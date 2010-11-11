@@ -602,7 +602,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Newsletter confirmation successfull</source>
+        <source>Newsletter confirmation successful</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -638,11 +638,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Here you can edit your attitutes for newsletter.</source>
+        <source>Here you can edit your newsletter attributes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please select the newsletter for subscribe or unselect the newsletter for unsubsucribe.</source>
+        <source>Please select the newsletter you wish to subscribe to. Deselect to unsubscribe.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -650,7 +650,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You can not edit your email address. Please, announce yourselves once more to newsletter to use another email address.</source>
+        <source>Please register another email address to subscribe to the same newsletter twice.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

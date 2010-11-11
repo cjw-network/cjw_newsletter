@@ -602,7 +602,7 @@
         <translation>Configuration de la newsletter</translation>
     </message>
     <message>
-        <source>Newsletter confirmation successfull</source>
+        <source>Newsletter confirmation successful</source>
         <translation></translation>
     </message>
     <message>
@@ -638,11 +638,11 @@
         <translation>Confirmer</translation>
     </message>
     <message>
-        <source>Here you can edit your attitutes for newsletter.</source>
+        <source>Here you can edit your newsletter attributes.</source>
         <translation>Ici, vous pouvez éditer les attributs de la newsletter.</translation>
     </message>
     <message>
-        <source>Please select the newsletter for subscribe or unselect the newsletter for unsubsucribe.</source>
+        <source>Please select the newsletter you wish to subscribe to. Deselect to unsubscribe.</source>
         <translation>Veuillez sélectionner les newsletter auxquelles vous voulez souscrire, et désélectionner celles que vous ne voulez pas recevoir.</translation>
     </message>
     <message>
@@ -650,7 +650,7 @@
         <translation>Vous pouvez aussi éditer votre prénom et nom.</translation>
     </message>
     <message>
-        <source>You can not edit your email address. Please, announce yourselves once more to newsletter to use another email address.</source>
+        <source>Please register another email address to subscribe to the same newsletter twice.</source>
         <translation>Vous ne pouvez pas éditer votre adresse email. Veuillez vous réinscrire à la newsletter pour utiliser une autre adresse email.</translation>
     </message>
     <message>

@@ -8,7 +8,7 @@
 
     {if is_set( $confirm_all_result )}
     <div class="message-feedback">
-         <h2>{'Newsletter confirmation successfull'|i18n( 'cjw_newsletter/configure' )}</h2>
+         <h2>{'Newsletter confirmation successful'|i18n( 'cjw_newsletter/configure' )}</h2>
     </div>
     {/if}
 
@@ -79,10 +79,10 @@
             </p>
         {* nl_list available *}
         {else}
-                <p>{'Here you can edit your attitutes for newsletter.'|i18n( 'cjw_newsletter/configure' )}</p>
-                <p>{'Please select the newsletter for subscribe or unselect the newsletter for unsubsucribe.'|i18n( 'cjw_newsletter/configure' )}</p>
+                <p>{'Here you can edit your newsletter attributes.'|i18n( 'cjw_newsletter/configure' )}</p>
+                <p>{'Please select the newsletter you wish to subscribe to. Deselect to unsubscribe.'|i18n( 'cjw_newsletter/configure' )}</p>
                 <p>{'You can also edit the small boxes "first name" and "last name".'|i18n( 'cjw_newsletter/configure' )}</p>
-                <p>{'You can not edit your email address. Please, announce yourselves once more to newsletter to use another email address.'|i18n( 'cjw_newsletter/configure' )}</p>
+                <p>{'Please register another email address to subscribe to the same newsletter twice.'|i18n( 'cjw_newsletter/configure' )}</p>
 
                 {foreach $newsletter_system_node_list as $system_node}
                     {def $newsletter_list_node_list = fetch( 'content', 'tree',

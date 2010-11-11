@@ -602,7 +602,7 @@
         <translation>Konfiguration der Newslettereinstellungen</translation>
     </message>
     <message>
-        <source>Newsletter confirmation successfull</source>
+        <source>Newsletter confirmation successful</source>
         <translation>Newsletterbestätigung erfolgreich</translation>
     </message>
     <message>
@@ -638,11 +638,11 @@
         <translation>Bestätigen</translation>
     </message>
     <message>
-        <source>Here you can edit your attitutes for newsletter.</source>
+        <source>Here you can edit your newsletter attributes.</source>
         <translation>Hier können Sie Ihre Einstellungen zum Newsletter bearbeiten.</translation>
     </message>
     <message>
-        <source>Please select the newsletter for subscribe or unselect the newsletter for unsubsucribe.</source>
+        <source>Please select the newsletter you wish to subscribe to. Deselect to unsubscribe.</source>
         <translation>Wählen sie einen Newsletter aus um ihn zu abonnieren oder entfernen Sie die Auswahl eines Newsletter um das Abonnent zu beenden.</translation>
     </message>
     <message>
@@ -650,7 +650,7 @@
         <translation>Außerdem können Sie die Felder &quot;Vorname&quot; und &quot;Nachname&quot; bearbeiten.</translation>
     </message>
     <message>
-        <source>You can not edit your email address. Please, announce yourselves once more to newsletter to use another email address.</source>
+        <source>Please register another email address to subscribe to the same newsletter twice.</source>
         <translation>Ein Bearbeiten der E-Mail-Adresse ist nicht möglich. Bitte melden Sie sich erneut an den Newsletter, um eine andere E-Mail-Adresse zu verwenden.</translation>
     </message>
     <message>
