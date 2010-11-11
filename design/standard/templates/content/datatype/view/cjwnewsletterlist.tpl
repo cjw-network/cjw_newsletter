@@ -40,7 +40,7 @@
     <div class="block float-break">
         {* Auto approve registered users. *}
         <div class="element">
-            <label>{'Approve subscription after user registration?'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}:</label>
+            <label>{'Automatically approve subscription after user registration?'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}:</label>
             {$newsletter_list_content.auto_approve_registered_user|choose( 'No'|i18n( 'cjw_newsletter/datatype/cjwnewsletterlist' ), 'Yes'|i18n( 'cjw_newsletter/datatype/cjwnewsletterlist' ) )}
         </div>
     </div>

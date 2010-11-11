@@ -767,7 +767,7 @@
         <translation>Verfügbare Ausgabeformate</translation>
     </message>
     <message>
-        <source>Approve subscription after user registration?</source>
+        <source>Automatically approve subscription after user registration?</source>
         <translation>Neue Newslettereinträge nach Anmeldung automatisch bestätigen?</translation>
     </message>
     <message>

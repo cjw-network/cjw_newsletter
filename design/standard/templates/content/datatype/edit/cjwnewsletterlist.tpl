@@ -70,7 +70,7 @@
 
 <hr>
 {* auto_approve_registerd_user *}
-<label>{'Approve subscription after user registration?'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}</label>
+<label>{'Automatically approve subscription after user registration?'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}</label>
 <input type="radio" name="{$attribute_base}_CjwNewsletterList_AutoApproveRegisterdUser_{$attribute.id}" value="0"{$auto_approve_registered_user|choose(' checked', '')}/> {'no'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}
 <input type="radio" name="{$attribute_base}_CjwNewsletterList_AutoApproveRegisterdUser_{$attribute.id}" value="1"{$auto_approve_registered_user|choose('', ' checked')}/> {'yes'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}
 

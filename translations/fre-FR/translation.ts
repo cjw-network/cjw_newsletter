@@ -767,7 +767,7 @@
         <translation>Formats de sortie pour newsletters disponibles</translation>
     </message>
     <message>
-        <source>Approve subscription after user registration?</source>
+        <source>Automatically approve subscription after user registration?</source>
         <translation>Approbation automatique après l&apos;enregistrement d&apos;un nouvel utilisateur?</translation>
     </message>
     <message>

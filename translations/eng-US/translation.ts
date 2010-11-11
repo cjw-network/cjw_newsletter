@@ -767,7 +767,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Approve subscription after user registration?</source>
+        <source>Automatically approve subscription after user registration?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
