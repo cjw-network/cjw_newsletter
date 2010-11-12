@@ -64,7 +64,7 @@ list all import sets
                     <div class="box-mr">
                         <div class="box-tl">
                             <div class="box-tr">
-                                <h2 class="context-title">{'Imports'|i18n( 'cjw_newsletter/import_list',, hash( )} [{$$import_list_count}]</h2>
+                                <h2 class="context-title">{'Imports [%import_list_count] '|i18n( 'cjw_newsletter/import_list',, hash( '%import_list_count', $import_list_count )}</h2>
                                 {* DESIGN: Subline *}
                                 <div class="header-subline">
                                 </div>
