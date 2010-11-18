@@ -165,6 +165,7 @@
                                                              $removed = 0
                                                              $subscription = null
                                                              $list_selected_output_format_array = array()
+                                                             $selected_output_format_array = array()
 
                                                              $status = 0
                                                              $is_removed = false()
@@ -208,7 +209,7 @@
                                                             {/foreach}
                                                             </td>
 
-                                                        {undef $list_id $list_selected_output_format_array $selected_output_format_array $subscription_array $subscription $confirmed $subscription $removed $approved $status $is_removed $subscription_hash $td_counter}
+                                                        {undef $list_id $list_selected_output_format_array $subscription_array $subscription $confirmed $subscription $removed $approved $status $is_removed $subscription_hash $td_counter}
                                                         </tr>
                                                     {/foreach}
                                                     </table>

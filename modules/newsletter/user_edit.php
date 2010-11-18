@@ -245,7 +245,7 @@ if ( $userIsBlacklisted === false
     foreach ( $listArray as $listId )
     {
         $outputFormatArray = $listOutputFormatArray[ $listId ];
-        $status = CjwNewsletterSubscription::STATUS_PENDING;
+        $status = CjwNewsletterSubscription::STATUS_APPROVED;
         $newsletter_user_subscription_array[ $listId ] = CjwNewsletterSubscription::createUpdateNewsletterSubscription(
                                                                                                     $listId,
                                                                                                     $existingNewsletterUserId,
