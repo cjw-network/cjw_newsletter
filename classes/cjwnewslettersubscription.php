@@ -223,14 +223,16 @@ class CjwNewsletterSubscription extends eZPersistentObject
                     {
                         $this->setAttribute( 'removed', 0 );
                         $this->setAttribute( 'confirmed', $currentTimeStamp );
-                        $newsletterListAttributeContent = $this->attribute( 'newsletter_list_attribute_content' );
+                        //$newsletterListAttributeContent = $this->attribute( 'newsletter_list_attribute_content' );
 
                         // set approve automatically if defined in list config
+                        /*
                         if ( is_object( $newsletterListAttributeContent ) and (int) $newsletterListAttributeContent->attribute('auto_approve_registered_user') == 1 )
                         {
                             $this->setAttribute( 'approved', $currentTimeStamp );
                             $value = CjwNewsletterSubscription::STATUS_APPROVED;
                         }
+                        */
 
                     } break;
 
