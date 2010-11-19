@@ -235,7 +235,7 @@ $schema = array (
       ),
       'output_xml' =>
       array (
-        'type' => 'text',
+        'type' => 'longtext',
         'not_null' => '1',
         'default' => false,
       ),
@@ -713,7 +713,7 @@ $schema = array (
         'type' => 'varchar',
         'default' => NULL,
       ),
-      'user' =>
+      'user_name' =>
       array (
         'length' => 255,
         'type' => 'varchar',
