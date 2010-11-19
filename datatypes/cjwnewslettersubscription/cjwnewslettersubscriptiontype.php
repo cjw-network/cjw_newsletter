@@ -282,18 +282,12 @@ class CjwNewsletterSubscriptionType extends eZDataType
              }
         }
 
-        if ( $isNewObjectDraft === true )
-        {
-            $existingNewsletterUser = false;
-        }
+        $existingNewsletterUserObject = false;
+        $subscriptionResultArray = false;
 
         if ( $subscriptionDataArr['email'] != '' )
         {
             $existingNewsletterUserObject = CjwNewsletterUser::fetchByEmail( $subscriptionDataArr['email'] );
-        }
-        else
-        {
-            $existingNewsletterUserObject = false;
         }
 
         // email exist but subscription for email is done again
@@ -323,7 +317,7 @@ class CjwNewsletterSubscriptionType extends eZDataType
         $returnArray = array(
                               'subscription_data_array' => $subscriptionDataArr,
                               'subscription_data_result_array' => $subscriptionResultArray,
-                              'existing_newsletter_user' => $existingNewsletterUser,
+                              'existing_newsletter_user' => $existingNewsletterUserObject,
                               'mail_send_result' => $mailSendResult
                                );
 

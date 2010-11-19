@@ -538,6 +538,7 @@ class CjwNewsletterUser extends eZPersistentObject
         // $template = 'design:newsletter/mail/subscription_confirmation.tpl';
         $template = $mailTemplate;
         $newsletterUser = $this;
+        include_once( 'kernel/common/template.php' );
         $tpl = templateInit();
         $tpl->setVariable( 'newsletter_user', $newsletterUser );
         $tpl->setVariable( 'hostname', $hostName );
