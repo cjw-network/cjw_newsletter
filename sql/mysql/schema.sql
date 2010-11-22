@@ -8,7 +8,7 @@ CREATE TABLE cjwnl_blacklist_item (
   note text,
   PRIMARY KEY (id),
   KEY cjwnewsletter_user_id (newsletter_user_id)
-) COMMENT='table with blacklisted user emails';
+) COMMENT='table with blacklisted user emails' ENGINE=InnoDB;
 
 
 CREATE TABLE cjwnl_edition (
@@ -20,7 +20,7 @@ CREATE TABLE cjwnl_edition (
   KEY contentobject_id (contentobject_id),
   KEY contentobject_attribute_id (contentobject_attribute_id),
   KEY contentobject_attribute_version (contentobject_attribute_version)
-);
+) ENGINE=InnoDB;
 
 
 CREATE TABLE cjwnl_edition_send (
@@ -46,7 +46,7 @@ CREATE TABLE cjwnl_edition_send (
   KEY edition_contentobject_id (edition_contentobject_id),
   KEY edition_contentobject_version (edition_contentobject_version),
   KEY list_contentobject_id (list_contentobject_id)
-);
+) ENGINE=InnoDB;
 
 
 CREATE TABLE cjwnl_edition_send_item (
@@ -64,7 +64,7 @@ CREATE TABLE cjwnl_edition_send_item (
   KEY edition_send_id (edition_send_id),
   KEY newsletter_user_id (newsletter_user_id),
   KEY subscription_id (subscription_id)
-);
+) ENGINE=InnoDB;
 
 
 CREATE TABLE cjwnl_import (
@@ -81,7 +81,7 @@ CREATE TABLE cjwnl_import (
   imported_user_count int(11) NOT NULL,
   imported_subscription_count int(11) NOT NULL,
   PRIMARY KEY (id)
-);
+) ENGINE=InnoDB;
 
 
 CREATE TABLE cjwnl_list (
@@ -103,7 +103,7 @@ CREATE TABLE cjwnl_list (
   KEY contentobject_id (contentobject_id),
   KEY contentobject_attribute_id (contentobject_attribute_id),
   KEY contentobject_attribute_version (contentobject_attribute_version)
-);
+) ENGINE=InnoDB;
 
 
 CREATE TABLE cjwnl_mailbox (
@@ -119,7 +119,7 @@ CREATE TABLE cjwnl_mailbox (
   is_activated tinyint(1) DEFAULT '1',
   last_server_connect int(11) DEFAULT NULL,
   PRIMARY KEY (id)
-);
+) ENGINE=InnoDB;
 
 
 CREATE TABLE cjwnl_mailbox_item (
@@ -142,7 +142,7 @@ CREATE TABLE cjwnl_mailbox_item (
   KEY edition_send_id (edition_send_id),
   KEY mailbox_id (mailbox_id),
   KEY newsletter_user_id (newsletter_user_id)
-);
+) ENGINE=InnoDB;
 
 
 CREATE TABLE cjwnl_subscription (
@@ -165,7 +165,7 @@ CREATE TABLE cjwnl_subscription (
   KEY list_contentobject_id (list_contentobject_id),
   KEY newsletter_user_id (newsletter_user_id),
   KEY import_id (import_id)
-);
+) ENGINE=InnoDB;
 
 
 CREATE TABLE cjwnl_user (
@@ -196,4 +196,4 @@ CREATE TABLE cjwnl_user (
   PRIMARY KEY (id),
   KEY ez_user_id (ez_user_id),
   KEY import_id (import_id)
-);
+) ENGINE=InnoDB;
