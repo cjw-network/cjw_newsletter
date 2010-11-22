@@ -60,41 +60,41 @@
                         <div class="block float-break">
                             <table class="list">
                                 <tr>
-                                    <th>
+                                    <td>
                                         {'Name'|i18n( 'cjw_newsletter/user_view' )}
-                                    </th>
+                                    </td>
                                     <td>
                                         {$newsletter_user.name|wash}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>
+                                    <td>
                                         {'Id'|i18n( 'cjw_newsletter/user_view' )}
-                                    </th>
+                                    </td>
                                     <td>
                                         {$newsletter_user.id|wash}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>
+                                    <td>
                                         {'Status'|i18n( 'cjw_newsletter/user_view' )}
-                                    </th>
+                                    </td>
                                     <td title="{$newsletter_user.status|wash}">
                                         {$newsletter_user.status_string|wash}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>
+                                    <td>
                                         {'Email'|i18n( 'cjw_newsletter/user_view' )}
-                                    </th>
+                                    </td>
                                     <td>
                                         <input  class="halfbox" type="text" name="Subscription_Email" value="{$newsletter_user.email|wash}">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>
+                                    <td>
                                         {'Salutation'|i18n( 'cjw_newsletter/user_view' )}
-                                    </th>
+                                    </td>
                                     <td title="{'Salutation'|i18n( 'cjw_newsletter/user_view' )}">
                                         {foreach $available_salutation_array as $salutation_id => $salutataion_name}
                                             <input type="radio" name="Subscription_Salutation" value="{$salutation_id|wash}"{if $newsletter_user.salutation|eq( $salutation_id )} checked="checked"{/if} title="{$salutataion_name|wash}" />{$salutataion_name|wash}&nbsp;
@@ -102,34 +102,34 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>
+                                    <td>
                                         {'First name'|i18n( 'cjw_newsletter/user_view' )}
-                                    </th>
+                                    </td>
                                     <td>
                                         <input class="halfbox" type="text" name="Subscription_FirstName" value="{$newsletter_user.first_name|wash}" title="{'First name of newsletter user.'|i18n( 'cjw_newsletter/user_edit' )}"
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>
+                                    <td>
                                         {'Last name'|i18n( 'cjw_newsletter/user_view' )}
-                                    </th>
+                                    </td>
                                     <td>
                                         <input class="halfbox" type="text" name="Subscription_LastName" value="{$newsletter_user.last_name|wash}" title="{'Last name of newsletter user.'|i18n( 'cjw_newsletter/user_edit' )}"
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>
+                                    <td>
                                         {'Note'|i18n( 'cjw_newsletter/user_view' )}
-                                    </th>
+                                    </td>
                                     <td>
                                         <textarea class="box" name="Subscription_Note" cols="50" rows="10">{$newsletter_user.note|wash}</textarea>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <th>
+                                    <td>
                                         {'Subscriptions'|i18n( 'cjw_newsletter/user_edit' )}
-                                    </th>
+                                    </td>
                                     <td>
 
 
