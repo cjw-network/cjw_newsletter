@@ -1155,6 +1155,11 @@ class CjwNewsletterUser extends eZPersistentObject
         {
             $subscription->remove();
         }
+        $blackListItem = CjwNewsletterBlacklistItem::fetchByEmail( $this->attribute( 'email' ) );
+        if ( is_object( $blackListItem ) )
+        {
+            $blackListItem->remove();
+        }
         parent::remove( $conditions, $extraConditions );
     }
 
