@@ -1195,6 +1195,7 @@ class CjwNewsletterUser extends eZPersistentObject
                                      );
 
         $this->setAttribute( 'status', self::STATUS_CONFIRMED );
+        $this->setAttribute( 'blacklisted', 0 );
 
         // set all subscriptions and all open senditems to blacklisted
         $this->setAllNewsletterUserRelatedItemsToStatus( CjwNewsletterSubscription::STATUS_CONFIRMED );
