@@ -241,18 +241,22 @@ if ( $userIsBlacklisted === false
     $listOutputFormatArray = $subscriptionDataArr['list_output_format_array'];
     $existingNewsletterUserId = $newsletterUserObject->attribute('id');
 
-    // list_subscribe
-    foreach ( $listArray as $listId )
+    // Approve all subscriptions for the new user
+    // Keep existing subscriptions for existing users as is
+    if ( $contextCreateNewsletterUser === true )
     {
-        $outputFormatArray = $listOutputFormatArray[ $listId ];
-        $status = CjwNewsletterSubscription::STATUS_APPROVED;
-        $newsletter_user_subscription_array[ $listId ] = CjwNewsletterSubscription::createUpdateNewsletterSubscription(
+        foreach ( $listArray as $listId )
+        {
+            $outputFormatArray = $listOutputFormatArray[ $listId ];
+            $status = CjwNewsletterSubscription::STATUS_APPROVED;
+            $newsletter_user_subscription_array[ $listId ] = CjwNewsletterSubscription::createUpdateNewsletterSubscription(
                                                                                                     $listId,
                                                                                                     $existingNewsletterUserId,
                                                                                                     $outputFormatArray,
                                                                                                     $status,
                                                                                                     $dryRun,
                                                                                                     $context );
+        }
     }
 
     $listRemoveArray =  array_diff( $idArray, $listArray );
