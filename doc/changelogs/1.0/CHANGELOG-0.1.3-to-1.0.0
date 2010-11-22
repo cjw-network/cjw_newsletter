@@ -1,6 +1,7 @@
 Changes from 0.1-3 to 1.0-0
 
 *Bugs*
+- fixed bug #17661: blacklisted users can't be restored as regular users
 
 *Enhancements*
 

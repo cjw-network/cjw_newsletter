@@ -57,18 +57,26 @@ $ViewList['mailbox_item_view'] = array(
 
 $ViewList['blacklist_item_list'] = array(
     'script' => 'blacklist_item_list.php',
-    'functions' => array( 'blacklist_item_list' ),
+    'functions' => array( 'blacklist_item' ),
     'default_navigation_part' => 'eznewsletternavigationpart',
     'params' => array( )
     );
 
 $ViewList['blacklist_item_add'] = array(
     'script' => 'blacklist_item_add.php',
-    'functions' => array( 'blacklist_item_add' ),
+    'functions' => array( 'blacklist_item' ),
     'default_navigation_part' => 'eznewsletternavigationpart',
     'ui_context' => 'edit',
     'params' => array( )
     );
+
+$ViewList['blacklist_item_remove'] = array(
+    'script' => 'blacklist_item_remove.php',
+    'functions' => array( 'blacklist_item' ),
+    'default_navigation_part' => 'eznewsletternavigationpart',
+    'ui_context' => 'edit',
+    'params' => array( )
+);
 
 $ViewList['import_list'] = array(
     'script' => 'import_list.php',
@@ -272,8 +280,8 @@ $FunctionList['mailbox_item_list'] = array();
 $FunctionList['mailbox_item_view'] = array();
 $FunctionList['mailbox_list'] = array();
 $FunctionList['mailbox_edit'] = array();
-$FunctionList['blacklist_item_list'] = array();
-$FunctionList['blacklist_item_add'] = array();
+$FunctionList['blacklist_item'] = array();
+$FunctionList['blacklist_item'] = array();
 $FunctionList['import_list'] = array();
 $FunctionList['import_view'] = array();
 

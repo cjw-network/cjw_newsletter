@@ -283,6 +283,19 @@ class CjwNewsletterBlacklistItem extends eZPersistentObject
         parent::store( $fieldFilters );
     }
 
+    /**
+     * When a blacklist item is removed, remove the blacklist entries for the user
+     */
+    public function remove( $conditions = null, $extraConditions = null )
+    {
+        $newsletterUserObject = $this->getNewsletterUserObject();
+        if( is_object( $newsletterUserObject ) )
+        {
+            $newsletterUserObject->setNonBlacklisted();
+        }
+        return parent::remove( $conditions = null, $extraConditions = null );
+    }
+
 }
 
 ?>

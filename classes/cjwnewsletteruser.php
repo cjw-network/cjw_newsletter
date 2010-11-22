@@ -1160,7 +1160,8 @@ class CjwNewsletterUser extends eZPersistentObject
 
     /**
      * set current object blacklisted
-     * @return unknown_type
+     * Called from CJWNewsletterBackListItem::store()
+     * @return void
      */
     public function setBlacklisted()
     {
@@ -1174,7 +1175,29 @@ class CjwNewsletterUser extends eZPersistentObject
         $this->setAttribute( 'status', self::STATUS_BLACKLISTED );
 
         // set all subscriptions and all open senditems to blacklisted
-        $this->setAllNewsletterUserRelatedItemsToStatus( self::STATUS_BLACKLISTED );
+        $this->setAllNewsletterUserRelatedItemsToStatus( CjwNewsletterSubscription::STATUS_BLACKLISTED );
+
+        $this->store();
+    }
+
+    /**
+     * Set current object non-blacklisted
+     * User and subscriptions will be set to confirmed
+     * @return void
+     */
+    public function setNonBlacklisted()
+    {
+        CjwNewsletterLog::writeDebug(
+                                    'CjwNewsletterUser::setNonBlacklisted',
+                                    'user',
+                                    'blacklist',
+                                     array( 'nl_user' => $this->attribute( 'id' ) )
+                                     );
+
+        $this->setAttribute( 'status', self::STATUS_CONFIRMED );
+
+        // set all subscriptions and all open senditems to blacklisted
+        $this->setAllNewsletterUserRelatedItemsToStatus( CjwNewsletterSubscription::STATUS_CONFIRMED );
 
         $this->store();
     }
@@ -1292,6 +1315,14 @@ class CjwNewsletterUser extends eZPersistentObject
                                                             'nl_user' => $newsletterUserId ) );
                                                             */
                     }
+                }
+            break;
+
+            case CjwNewsletterSubscription::STATUS_CONFIRMED:
+                foreach( CjwNewsletterSubscription::fetchSubscriptionListByNewsletterUserId( $newsletterUserId ) as $subscription )
+                {
+                    $subscription->setAttribute( 'status', $status );
+                    $subscription->store();
                 }
             break;
         }
