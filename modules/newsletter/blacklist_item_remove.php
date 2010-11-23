@@ -39,10 +39,9 @@ if( !is_object( $blackListItem ) )
 // fetch the matching user to perform the redirection after deleting
 $newsletterUserObject = $blackListItem->attribute( 'newsletter_user_object' );
 
-    // if AddButton was pushed than store new data
-if ( $http->hasVariable( 'RemoveBlacklistEntryButton' ) )
+if ( is_object( $newsletterUserObject ) )
 {
-    $blackListItem->remove();
+    $newsletterUserObject->setNonBlacklisted();
 }
 
 if ( is_object( $newsletterUserObject ) )
