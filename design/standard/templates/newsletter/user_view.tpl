@@ -270,13 +270,15 @@
 
                                         {* status is not blacklisted *}
                                         {if $newsletter_user.status|ne(8)}
-                                        <form method="post" style="display:inline;" action={'newsletter/blacklist_item_add'|ezurl}>
-                                            <input class="button" type="hidden" name="Email" value="{$newsletter_user.email|wash}" />
+                                            <form method="post" style="display:inline;" action={'newsletter/blacklist_item_add'|ezurl}>
+                                            <input type="hidden" name="Email" value="{$newsletter_user.email|wash}" />
                                             <input class="button" type="submit" name="CreateBlacklistEntryButton" value="{'Add to blacklist'|i18n( 'cjw_newsletter/user_view' )}" title="{'Add to blacklist'|i18n( 'cjw_newsletter/user_view' )}" />
-                                        </form>
+                                            </form>
                                         {else}
-                                            <input class="button-disabled" type="button" name="CreateBlacklistEntryButton" value="{'Add to blacklist'|i18n( 'cjw_newsletter/user_view' )}" title="{'Add to blacklist'|i18n( 'cjw_newsletter/user_view' )}" />
-
+                                            <form method="post" style="display:inline;" action={'newsletter/blacklist_item_remove'|ezurl}>
+                                            <input type="hidden" name="Email" value="{$newsletter_user.email|wash}" />
+                                            <input class="button" type="submit" name="RemoveBlacklistEntryButton" value="{'Remove from blacklist'|i18n( 'cjw_newsletter/user_view' )}" title="{'Remove from blacklist'|i18n( 'cjw_newsletter/user_view' )}" />
+                                            </form>
                                         {/if}
 
                                     </div>
