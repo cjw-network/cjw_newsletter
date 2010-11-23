@@ -1093,7 +1093,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
                 break;
 
                 case self::STATUS_APPROVED:
-                    $statistikArray[ 'to' ] += $count;
+                    $statistikArray[ 'approved' ] += $count;
                 break;
 
                 case self::STATUS_REMOVED_ADMIN:
