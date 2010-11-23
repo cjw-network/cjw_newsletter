@@ -160,6 +160,8 @@ list all blacklist items
                                     <td>
                                         {if $blacklist_item.newsletter_user_id|ne( 0 )}
                                         <a href={concat('newsletter/user_view/',$blacklist_item.newsletter_user_id)|ezurl}>{$blacklist_item.newsletter_user_id|wash} </a>
+                                        {else}
+                                        N/A
                                         {/if}
                                     </td>
                                     <td>

@@ -215,18 +215,18 @@ class CjwNewsletterUser extends eZPersistentObject
 
 
 
-  /**
-   * Create or update Newsletter User identified by email
-   * store the changes to Database
-   *
-   * @param string $email
-   * @param int $salutation
-   * @param string $firstName
-   * @param string $lastName
-   * @param int $eZUserId
-   * @param int $newNewsletterUserStatus the status for new created Newsletter users CjwNewsletterUser::STATUS_PENDING
-   * @return object
-   */
+    /**
+     * Create or update Newsletter User identified by email
+     * store the changes to Database
+     *
+     * @param string $email
+     * @param int $salutation
+     * @param string $firstName
+     * @param string $lastName
+     * @param int $eZUserId
+     * @param int $newNewsletterUserStatus the status for new created Newsletter users CjwNewsletterUser::STATUS_PENDING
+     * @return object
+     */
     static function createUpdateNewsletterUser( $email,
                                                 $salutation,
                                                 $firstName,
@@ -1158,7 +1158,8 @@ class CjwNewsletterUser extends eZPersistentObject
         $blackListItem = CjwNewsletterBlacklistItem::fetchByEmail( $this->attribute( 'email' ) );
         if ( is_object( $blackListItem ) )
         {
-            $blackListItem->remove();
+            $blackListItem->setAttribute( 'newsletter_user_id', 0 );
+            $blackListItem->store();
         }
         parent::remove( $conditions, $extraConditions );
     }
