@@ -2192,7 +2192,7 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You must choose a list for subsription.</source>
+        <source>You must choose a list for subscription.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

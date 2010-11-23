@@ -2192,7 +2192,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
         <translation>Newsletter</translation>
     </message>
     <message>
-        <source>You must choose a list for subsription.</source>
+        <source>You must choose a list for subscription.</source>
         <translation>Bitte wählen Sie einen Newsletter aus an den Sie sich anmelden möchten.</translation>
     </message>
     <message>

@@ -105,7 +105,7 @@ if ( $module->isCurrentAction( 'Subscribe' ) )
     }
 
     $messageArray['list_array'] = array( 'field_key'   => ezi18n( 'cjw_newsletter/subscription', 'Newsletter'),
-                                         'message'     => ezi18n( 'cjw_newsletter/subscription', 'You must choose a list for subsription.' ) );
+                                         'message'     => ezi18n( 'cjw_newsletter/subscription', 'You must choose a list for subscription.' ) );
     $messageArray['first_name'] = array( 'field_key'   => ezi18n( 'cjw_newsletter/subscription', 'First name'),
                                          'message'     => ezi18n( 'cjw_newsletter/subscription', 'You must enter a first name.' ) );
     $messageArray['last_name']  = array( 'field_key'   => ezi18n( 'cjw_newsletter/subscription', 'Last name'),

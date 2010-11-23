@@ -2222,7 +2222,7 @@ To edit your newsletter settings please visit the following link:
         <translation>Newsletter</translation>
     </message>
     <message>
-        <source>You must choose a list for subsription.</source>
+        <source>You must choose a list for subscription.</source>
         <translation>Vous devez choisir une liste de souscription.</translation>
     </message>
     <message>
