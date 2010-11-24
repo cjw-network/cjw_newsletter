@@ -17,39 +17,45 @@ $module = $Params['Module'];
 require_once( 'kernel/common/i18n.php' );
 
 $http = eZHTTPTool::instance();
+$blackListItemArray = array();
+$deleteIDArray = $http->hasVariable( 'BlacklistIDArray' ) ? $http->variable( 'BlacklistIDArray' ) : array();
+$email = $http->hasVariable( 'Email' ) ? trim( $http->variable( 'Email' ) ) : '';
 
-if( $http->hasVariable( 'Email' ) )
+if ( $email )
 {
-    $email = trim( $http->variable( 'Email' ) );
+    $itemByEmail = CjwNewsletterBlacklistItem::fetchByEmail( $email );
+    if( !is_object( $itemByEmail ) )
+    {
+        eZDebug::writeError( "Given email ($email) isn't blacklisted", 'newsletter/blacklist_item_remove' );
+        return $module->handleError( eZError::KERNEL_NOT_FOUND, 'kernel' );
+    }
+    $blackListItemArray[] = $itemByEmail;
 }
+
+if ( $deleteIDArray )
+{
+    foreach ( $deleteIDArray as $id )
+    {
+        $itemByID = CjwNewsletterBlacklistItem::fetch( $id );
+        if( !is_object( $itemByID ) )
+        {
+            eZDebug::writeError( "Given id ($id) isn't blacklisted", 'newsletter/blacklist_item_remove' );
+            return $module->handleError( eZError::KERNEL_NOT_FOUND, 'kernel' );
+        }
+        $blackListItemArray[] = $itemByID;
+    }
+}
+
+foreach ( $blackListItemArray as $blackListItem )
+{
+    $blackListItem->remove();
+}
+
+if ( $http->hasVariable( 'RedirectURI' ) )
+    $module->redirectTo( trim( $http->variable( 'RedirectURI' ) ) );
+elseif ( $http->hasSessionVariable( 'LastAccessesURI' ) )
+    $module->redirectTo( $http->sessionVariable( 'LastAccessesURI' ) );
 else
-{
-    eZDebug::writeError( "Missing email parameter", 'newsletter/blacklist_item_remove' );
-    return $module->handleError( eZError::KERNEL_NOT_FOUND, 'kernel' );
-}
-
-$blackListItem = CjwNewsletterBlacklistItem::fetchByEmail( $email );
-
-if( !is_object( $blackListItem ) )
-{
-    eZDebug::writeError( "Given email ($email) isn't blacklisted", 'newsletter/blacklist_item_remove' );
-    return $module->handleError( eZError::KERNEL_NOT_FOUND, 'kernel' );
-}
-
-// fetch the matching user to perform the redirection after deleting
-$newsletterUserObject = $blackListItem->attribute( 'newsletter_user_object' );
-
-if ( is_object( $newsletterUserObject ) )
-{
-    $newsletterUserObject->setNonBlacklisted();
-}
-
-if ( is_object( $newsletterUserObject ) )
-{
-    $module->redirectToView( 'user_view', array( $newsletterUserObject->attribute( 'id' ) ) );
-}
-else
-{
     $module->redirectToView( 'blacklist_item_list' );
-}
+
 ?>

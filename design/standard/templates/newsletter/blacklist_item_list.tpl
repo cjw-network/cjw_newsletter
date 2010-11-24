@@ -80,6 +80,7 @@ list all blacklist items
             </div>
         </div>
         {* DESIGN:  START *}
+        <form name="Blacklist" method="post" action={'newsletter/blacklist_item_remove'|ezurl} style="display:inline;">
         <div class="box-ml">
             <div class="box-mr">
                 <div class="box-content">
@@ -112,12 +113,12 @@ list all blacklist items
                         </div>
 
 
-                        <div class="content-navigation-childlist overflow-table">
+                        <div class="box-content">
                             <table class="list" cellspacing="0">
                                 <tr>
-                              {*  <th class="tight">
-                                    <img src={'toggle-button-16x16.gif'|ezimage}  alt="{'Invert selection'|i18n( 'cjw_newsletter/blacklist_item_list' )}" title="{'Invert selection'|i18n( 'cjw_newsletter/blacklist_item_list' )}" onclick="ezjs_toggleCheckboxes( document.user_list, 'SubscriptionIDArray[]' ); return false;" />
-                                </th>*}
+                                <th class="tight">
+                                    <img src={'toggle-button-16x16.gif'|ezimage}  alt="{'Invert selection'|i18n( 'cjw_newsletter/blacklist_item_list' )}" title="{'Invert selection'|i18n( 'cjw_newsletter/blacklist_item_list' )}" onclick="ezjs_toggleCheckboxes( document.Blacklist, 'BlacklistIDArray[]' ); return false;" />
+                                </th>
                                 <th class="tight">
                                     {'ID'|i18n('cjw_newsletter/blacklist_item_list')}
                                 </th>
@@ -145,10 +146,10 @@ list all blacklist items
                                 {foreach $blacklist_item_list as $blacklist_item sequence array( bglight, bgdark ) as $style}
 
                                 <tr class="{$style}">
-                                  {*  <td>
-                                        <input type="checkbox" name="SubscriptionIDArray[]" value="{$blacklist_item.id|wash}" title="{'Select items for removal'|i18n( 'cjw_newsletter/blacklist_item_list' )}" />
-                                    </td> *}
-                                    <td class="number" align="right" title="{$blacklist_item.email_hash|wash}">
+                                    <td>
+                                        <input type="checkbox" name="BlacklistIDArray[]" value="{$blacklist_item.id|wash}" title="{'Select items for removal'|i18n( 'cjw_newsletter/blacklist_item_list' )}" />
+                                    </td>
+                                    <td title="{$blacklist_item.email_hash|wash}">
                                         {$blacklist_item.id|wash}
                                     </td>
                                    {* <td>
@@ -201,7 +202,8 @@ list all blacklist items
                             <div class="box-tc">
                                 <div class="box-bl">
                                     <div class="box-br">
-
+                                    <input type="hidden" name="RedirectURI" value="newsletter/blacklist_item_list">
+                                    <input class="button" type="submit" name="RemoveBlacklistedButton" value="{'Remove selected'|i18n( 'cjw_newsletter/blacklist_item_list' )}" title="{'Remove the selected items from the list above.'|i18n( 'cjw_newsletter/blacklist_item_list' )}" />
                                     </div>{* DESIGN: Control bar END *}
                                 </div>
                             </div>
@@ -209,6 +211,7 @@ list all blacklist items
                     </div>
                 </div>
             </div>
-        </div>{* DESIGN: Content END *}
+        </div>
+        </form>{* DESIGN: Content END *}
     </div>
 </div>
