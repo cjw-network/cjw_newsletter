@@ -97,7 +97,7 @@
 <label>{'Newsletter skin name'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}</label>
 
 {foreach $available_skin_array as $skin_name_2}
-<input type="radio" name="{$attribute_base}_CjwNewsletterList_SkinName_{$attribute.id}" value="{$skin_name_2}" {if $skin_name|eq($skin_name_2)}checked="checked"{/if} />{$skin_name_2|wash}
+<input type="radio" name="{$attribute_base}_CjwNewsletterList_SkinName_{$attribute.id}" value="{$skin_name_2}" {if or( eq( $skin_name, $skin_name_2), eq( $available_skin_array|count(), 1) ) }checked="checked"{/if} />{$skin_name_2|wash}
 {/foreach}
 
 <hr>
