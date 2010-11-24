@@ -234,6 +234,7 @@ class CjwNewsletterBlacklistItem extends eZPersistentObject
     }
 
     /**
+     * Fetches the newsletter object the blacklist object is attached to
      *
      * @return CjwNewsletterUser
      */
@@ -253,7 +254,7 @@ class CjwNewsletterBlacklistItem extends eZPersistentObject
     /**
      * Get Creator user object
      *
-     * @return unknown_type
+     * @return eZContentObject
      */
     function getCreatorUserObject()
     {
