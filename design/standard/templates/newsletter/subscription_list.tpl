@@ -117,8 +117,7 @@
         <div class="left">
 
             <form name="CreateNewNewsletterUser" method="post" style="display:inline;" action={'newsletter/user_create'|ezurl}>
-                <input type="hidden" name="Subscription_IdArray[]" value="{$node.contentobject_id}" />
-                <input type="hidden" name="Subscription_ListArray[]" value="{$node.contentobject_id}" />
+                <input type="hidden" name="AddSubscriptionForListId" value="{$node.contentobject_id}" />
                 <input type="hidden" name="RedirectUrlActionCancel" value="newsletter/subscription_list/{$node.node_id}" />
                 <input type="hidden" name="RedirectUrlActionStore" value="newsletter/subscription_list/{$node.node_id}" />
                 <input class="defaultbutton" type="submit" name="NewSubscriptionButton" value="{'Create new Subscription'|i18n( 'cjw_newsletter/subscription_list' )}" />
@@ -145,7 +144,7 @@
 <div class="context-block">
 
 {* DESIGN: Header START *}<div class="box-header"><div class="box-tc"><div class="box-ml"><div class="box-mr"><div class="box-tl"><div class="box-tr">
-<h2 class="context-title">{'Subscriptions'|i18n( 'cjw_newsletter/subscription_list' )} [{$subscription_list_count}]</h2>
+<h2 class="context-title">{'Subscribers'|i18n( 'cjw_newsletter/subscription_list' )} [{$subscription_list_count}]</h2>
 {* DESIGN: Subline *}<div class="header-subline"></div>
 {* DESIGN: Header END *}</div></div></div></div></div></div>
 {* DESIGN:  START *}<div class="box-ml"><div class="box-mr"><div class="box-content">

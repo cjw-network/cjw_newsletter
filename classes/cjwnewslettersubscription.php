@@ -136,7 +136,8 @@ class CjwNewsletterSubscription extends eZPersistentObject
                                                       'is_blacklisted' => 'isBlacklisted',
                                                       'creator' => 'getCreatorUserObject',
                                                       'modifier' => 'getModifierUserObject',
-                                                      'status_string' => 'getStatusString'
+                                                      'status_string' => 'getStatusString',
+                                                      //'available_status_id_name_array' => 'availableStatusIdNameArray',
                                                       // 'usersubscriptiondata' => 'userSubscriptionData'
                                                       ),
                       // 'keys' => array( 'list_contentobject_id', 'newsletter_user_id' ),
@@ -169,7 +170,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
                        'creator_contentobject_id' => eZUser::currentUserID(),
                        'hash' => CjwNewsletterUtils::generateUniqueMd5Hash( $newsletterUserId ),
                        'remote_id' => 'cjwnl:'. $context .':' .CjwNewsletterUtils::generateUniqueMd5Hash( $newsletterUserId ),
-                       'status' => $status );
+                       'status' => 0 );
 
         $object = new CjwNewsletterSubscription( $rows );
         // set status again so automatic status change is working
@@ -215,8 +216,14 @@ class CjwNewsletterSubscription extends eZPersistentObject
         {
             case 'status':
             {
+                // only update timestamp and status if status id is changed
+                if( $this->attribute('status') == $value )
+                {
+                    return;
+                }
+
                 $currentTimeStamp = time();
-                // status timestamps setzen
+                // set status timestamps
                 switch ( $value )
                 {
                     case CjwNewsletterSubscription::STATUS_CONFIRMED :
@@ -231,6 +238,11 @@ class CjwNewsletterSubscription extends eZPersistentObject
                             $this->setAttribute( 'approved', $currentTimeStamp );
                             $value = CjwNewsletterSubscription::STATUS_APPROVED;
                         }
+                        else
+                        {
+                            // if subscription status is changed from approved to confirmed the approved timestamp should be removed
+                            $this->setAttribute( 'approved', 0 );
+                        }
 
                     } break;
 
@@ -242,7 +254,11 @@ class CjwNewsletterSubscription extends eZPersistentObject
 
                     case CjwNewsletterSubscription::STATUS_REMOVED_ADMIN:
                     case CjwNewsletterSubscription::STATUS_REMOVED_SELF:
+                    case CjwNewsletterSubscription::STATUS_BLACKLISTED:
+                    case CjwNewsletterSubscription::STATUS_BOUNCED_SOFT:
+                    case CjwNewsletterSubscription::STATUS_BOUNCED_HARD:
                     {
+                        $this->setAttribute( 'approved', 0 );
                         $this->setAttribute( 'removed', $currentTimeStamp );
                     } break;
                 }
@@ -333,76 +349,41 @@ class CjwNewsletterSubscription extends eZPersistentObject
     }
 
     /**
-     * Reverts the blacklisted status by checking the various operation timestamps
-     */
-    public function setNonBlacklisted()
-    {
-        if ( $this->attribute( 'confirmed' ) != 0 )
-        {
-            if ( $this->attribute( 'removed' ) != 0 )
-            {
-                $this->setAttribute( 'status', self::STATUS_REMOVED_ADMIN );
-            }
-            elseif ( $this->attribute( 'approved' ) != 0 )
-            {
-                $this->setAttribute( 'status', self::STATUS_APPROVED );
-            }
-            else
-            {
-                $this->setAttribute( 'status', self::STATUS_CONFIRMED );
-            }
-        }
-        else
-        {
-            if ( $this->attribute( 'removed' ) != 0 )
-            {
-                $this->setAttribute( 'status', self::STATUS_REMOVED_ADMIN );
-            }
-            else
-            {
-                $this->setAttribute( 'status', self::STATUS_PENDING );
-            }
-        }
-        $this->store();
-    }
-
-    /**
      * get a translated string for the status code
      * @return unknown_type
      */
     function getStatusString()
     {
         $statusString = '-';
-        switch( $this->attribute('status') )
-        {
-            case self::STATUS_PENDING:
-                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Pending' );
-                break;
-            case self::STATUS_CONFIRMED:
-                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Confirmed' );
-                break;
-            case self::STATUS_APPROVED:
-                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Approved' );
-                break;
-            case self::STATUS_REMOVED_SELF:
-                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Removed by user' );
-                break;
-            case self::STATUS_REMOVED_ADMIN:
-                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Removed by admin' );
-                break;
-            case self::STATUS_BOUNCED_SOFT:
-                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Bounced soft' );
-                break;
-            case self::STATUS_BOUNCED_HARD:
-                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Bounced hard' );
-                break;
-            case self::STATUS_BLACKLISTED:
-                $statusString = ezi18n( 'cjw_newsletter/subscription/status', 'Blacklisted' );
-                break;
-        }
 
+        $availableStatusArray = self::availableStatusIdNameArray();
+        $currentStatusId = $this->attribute('status');
+
+        if( array_key_exists( $currentStatusId, $availableStatusArray ) )
+        {
+            $statusString = $availableStatusArray[ $currentStatusId ];
+        }
         return $statusString;
     }
+
+    /**
+     * get an array of all available subscription status id with translated Names
+     * @return array
+     */
+    static function availableStatusIdNameArray()
+    {
+        return array(
+            self::STATUS_PENDING        => ezi18n( 'cjw_newsletter/subscription/status', 'Pending' ),
+            self::STATUS_CONFIRMED      => ezi18n( 'cjw_newsletter/subscription/status', 'Confirmed' ),
+            self::STATUS_APPROVED       => ezi18n( 'cjw_newsletter/subscription/status', 'Approved' ),
+            self::STATUS_REMOVED_SELF   => ezi18n( 'cjw_newsletter/subscription/status', 'Removed by user' ),
+            self::STATUS_REMOVED_ADMIN  => ezi18n( 'cjw_newsletter/subscription/status', 'Removed by admin' ),
+            self::STATUS_BOUNCED_SOFT   => ezi18n( 'cjw_newsletter/subscription/status', 'Bounced soft' ),
+            self::STATUS_BOUNCED_HARD   => ezi18n( 'cjw_newsletter/subscription/status', 'Bounced hard' ),
+            self::STATUS_BLACKLISTED    => ezi18n( 'cjw_newsletter/subscription/status', 'Blacklisted' )
+        );
+    }
+
 
     /**
      * Return user newsletterUserObject
@@ -762,22 +743,25 @@ class CjwNewsletterSubscription extends eZPersistentObject
         $existingSubscriptionObject = CjwNewsletterSubscription::fetchByListIdAndNewsletterUserId( $listContentObjectId, $newsletterUserId );
         $newsletterUser = CjwNewsletterUser::fetch( $newsletterUserId );
 
-        // wenn user confirmed neue subscription auch gleich confirmen
+        // if nl user status is confirmed set all nl subscription with status pending to confirmed
         if ( is_object( $newsletterUser )
             && (int) $newsletterUser->attribute('status') == CjwNewsletterUser::STATUS_CONFIRMED
             && $status == CjwNewsletterSubscription::STATUS_PENDING )
         {
             $status = CjwNewsletterSubscription::STATUS_CONFIRMED;
         }
+
         // update existing
         if ( is_object( $existingSubscriptionObject ) )
         {
+
             $existingSubscriptionObject->setAttribute('output_format_array_string', CjwNewsletterSubscription::arrayToString(  $outputFormatArray ) );
             $existingSubscriptionObject->setAttribute('status', $status );
             if ( $dryRun === false )
             {
-                $existingSubscriptionObject->store();
+                $existingSubscriptionObject->sync();
             }
+
             return $existingSubscriptionObject;
         }
         // create new object

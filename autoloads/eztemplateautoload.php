@@ -15,6 +15,6 @@ $eZTemplateOperatorArray = array();
 // $text|cjw_newsletter_preg_replace( $search_string, $replace_string )
 $eZTemplateOperatorArray[] = array( 'script' => 'extension/cjw_newsletter/autoloads/cjwnewsletteroperators.php',
                                     'class' => 'CjwNewsletterOperators',
-                                    'operator_names' => array( 'cjw_newsletter_preg_replace', 'cjw_newsletter_str_replace' ) );
+                                    'operator_names' => array( 'cjw_newsletter_preg_replace', 'cjw_newsletter_str_replace', 'cjw_newsletter_variable' ) );
 
 ?>

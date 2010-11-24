@@ -35,6 +35,7 @@ $tpl = templateInit();
 $templateFile = 'design:newsletter/user_edit.tpl';
 $newsletterUserId = (int) $Params['NewsletterUserId'];
 $contextCreateNewsletterUser = false;
+$addSubscriptionForListId = false;
 
 $subscriptionDataArr = array(    'first_name' => '' ,
                                  'last_name' => '',
@@ -158,7 +159,9 @@ if ( $http->hasPostVariable( 'Subscription_ListArray' ) )
 foreach ( $subscriptionDataArr['id_array'] as $listId )
 {
     if ( $http->hasPostVariable( "Subscription_OutputFormatArray_$listId" ) )
+    {
         $subscriptionDataArr['list_output_format_array'][ $listId ] = $http->postVariable( "Subscription_OutputFormatArray_$listId" );
+    }
     else
     {
         $defaultOutputFormatId = 0;
@@ -238,11 +241,18 @@ if ( $userIsBlacklisted === false
 
     $idArray = $subscriptionDataArr['id_array'];
     $listArray = $subscriptionDataArr['list_array'];
+
+
+    if( $http->hasPostVariable( 'AddSubscriptionForListId' ) )
+    {
+        $addSubscriptionForListId = $http->postVariable( 'AddSubscriptionForListId' );
+    }
+
     $listOutputFormatArray = $subscriptionDataArr['list_output_format_array'];
     $existingNewsletterUserId = $newsletterUserObject->attribute('id');
 
     // list_subscribe
-    foreach ( $listArray as $listId )
+    /*    foreach ( $listArray as $listId )
     {
         $outputFormatArray = $listOutputFormatArray[ $listId ];
         $status = CjwNewsletterSubscription::STATUS_APPROVED;
@@ -273,6 +283,33 @@ if ( $userIsBlacklisted === false
             $newsletter_user_subscription_array[ $listId ] = CjwNewsletterSubscription::removeSubscriptionByAdmin( $listId, $existingNewsletterUserId );
         }
     }
+*/
+
+    // modifing nl subscriptions
+    // e.g.  add non existingl  subscription or modify existing
+    foreach ( $idArray as $listId )
+    {
+        $outputFormatArray = $listOutputFormatArray[ $listId ];
+
+        $subscriptionStatusIdPostVarName = 'Subscription_StatusId_'. $listId;
+        $status = -1;
+
+        if ( $http->hasPostVariable( $subscriptionStatusIdPostVarName ) )
+        {
+            $status = (int) $http->postVariable( $subscriptionStatusIdPostVarName );
+        }
+
+        if ( $status >= 0 )
+        {
+            $newsletter_user_subscription_array[ $listId ] = CjwNewsletterSubscription::createUpdateNewsletterSubscription(
+                                                                                                        $listId,
+                                                                                                        $existingNewsletterUserId,
+                                                                                                        $outputFormatArray,
+                                                                                                        $status,
+                                                                                                        $dryRun,
+                                                                                                        $context );
+        }
+    }
 }
 
 if ( $module->isCurrentAction( 'Store' ) && count( $warningArr ) == 0 )
@@ -290,6 +327,7 @@ if ( $module->isCurrentAction( 'Store' ) && count( $warningArr ) == 0 )
 
     // if all is ok
     $module->redirectTo( $redirectUrlStore );
+
 }
 elseif ( $module->isCurrentAction( 'Cancel' ) )
 {
@@ -302,6 +340,8 @@ elseif ( $module->isCurrentAction( 'Cancel' ) )
 
 //$newsletterUserObject = CjwNewsletterUser::fetch( $newsletterUserId );
 
+
+$tpl->setVariable( 'add_subscription_for_list_id', $addSubscriptionForListId );
 
 $tpl->setVariable( 'newsletter_user_subscription_array', $newsletter_user_subscription_array );
 $tpl->setVariable( 'subscription_data_array', $subscriptionDataArr );

@@ -215,18 +215,18 @@ class CjwNewsletterUser extends eZPersistentObject
 
 
 
-    /**
-     * Create or update Newsletter User identified by email
-     * store the changes to Database
-     *
-     * @param string $email
-     * @param int $salutation
-     * @param string $firstName
-     * @param string $lastName
-     * @param int $eZUserId
-     * @param int $newNewsletterUserStatus the status for new created Newsletter users CjwNewsletterUser::STATUS_PENDING
-     * @return object
-     */
+  /**
+   * Create or update Newsletter User identified by email
+   * store the changes to Database
+   *
+   * @param string $email
+   * @param int $salutation
+   * @param string $firstName
+   * @param string $lastName
+   * @param int $eZUserId
+   * @param int $newNewsletterUserStatus the status for new created Newsletter users CjwNewsletterUser::STATUS_PENDING
+   * @return object
+   */
     static function createUpdateNewsletterUser( $email,
                                                 $salutation,
                                                 $firstName,
@@ -1158,8 +1158,7 @@ class CjwNewsletterUser extends eZPersistentObject
         $blackListItem = CjwNewsletterBlacklistItem::fetchByEmail( $this->attribute( 'email' ) );
         if ( is_object( $blackListItem ) )
         {
-            $blackListItem->setAttribute( 'newsletter_user_id', 0 );
-            $blackListItem->store();
+            $blackListItem->remove();
         }
         parent::remove( $conditions, $extraConditions );
     }
@@ -1200,37 +1199,11 @@ class CjwNewsletterUser extends eZPersistentObject
                                      array( 'nl_user' => $this->attribute( 'id' ) )
                                      );
 
-        // we determine the actual status by checking the various timestamps
-        if ( $this->attribute( 'confirmed' ) != 0 )
-        {
-            if ( $this->attribute( 'bounced' ) != 0 || $this->attribute( 'removed' ) != 0 )
-            {
-                if ( $this->attribute( 'removed' ) > $this->attribute( 'bounced' ) )
-                    $this->setRemoved();
-                else
-                    $this->setBounced();
-            }
-            // confirmed, and not deleted nor bounced
-            else
-                $this->setAttribute( 'status', self::STATUS_CONFIRMED );
-        }
-        // not confirmed
-        else
-        {
-            // might have been removed by admin
-            if ( $this->attribute( 'removed' ) != 0 )
-                $this->setRemoved( true );
-            else
-                $this->setAttribute( 'status', self::STATUS_PENDING );
-        }
+        $this->setAttribute( 'status', self::STATUS_CONFIRMED );
         $this->setAttribute( 'blacklisted', 0 );
 
         // set all subscriptions and all open senditems to blacklisted
-        foreach( CjwNewsletterSubscription::fetchSubscriptionListByNewsletterUserId( $this->attribute( 'id' ) )
-            as $subscription )
-        {
-            $subscription->setNonBlacklisted();
-        }
+        $this->setAllNewsletterUserRelatedItemsToStatus( CjwNewsletterSubscription::STATUS_CONFIRMED );
 
         $this->store();
     }
@@ -1348,6 +1321,14 @@ class CjwNewsletterUser extends eZPersistentObject
                                                             'nl_user' => $newsletterUserId ) );
                                                             */
                     }
+                }
+            break;
+
+            case CjwNewsletterSubscription::STATUS_CONFIRMED:
+                foreach( CjwNewsletterSubscription::fetchSubscriptionListByNewsletterUserId( $newsletterUserId ) as $subscription )
+                {
+                    $subscription->setAttribute( 'status', $status );
+                    $subscription->store();
                 }
             break;
         }

@@ -109,7 +109,9 @@ if ( $http->hasPostVariable( 'Subscription_ListArray' ) )
 foreach ( $subscriptionDataArr['id_array'] as $listId )
 {
     if ( $http->hasPostVariable( "Subscription_OutputFormatArray_$listId" ) )
+    {
         $subscriptionDataArr['list_output_format_array'][ $listId ] = $http->postVariable( "Subscription_OutputFormatArray_$listId" );
+    }
     else
     {
         $defaultOutputFormatId = 0;

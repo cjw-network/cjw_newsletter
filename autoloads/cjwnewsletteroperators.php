@@ -24,7 +24,7 @@ class CjwNewsletterOperators
 
     function __construct()
     {
-        $this->Operators = array( 'cjw_newsletter_preg_replace', 'cjw_newsletter_str_replace' );
+        $this->Operators = array( 'cjw_newsletter_preg_replace', 'cjw_newsletter_str_replace', 'cjw_newsletter_variable' );
     }
 
     /*! Returns the template operators.
@@ -52,7 +52,10 @@ class CjwNewsletterOperators
                                                                                        'default' => '' ),
                                                              'string_replace' => array( 'type' => 'string',
                                                                                        'required' => true,
-                                                                                       'default' => '' ) )
+                                                                                       'default' => '' ) ),
+                      'cjw_newsletter_variable' => array( 'variable_name' => array( 'type' => 'string',
+                                                                                    'required' => true,
+                                                                                    'default' => '' ) )
                      );
     }
 
@@ -68,6 +71,25 @@ class CjwNewsletterOperators
             case 'cjw_newsletter_str_replace':
             {
                 $operatorValue = str_replace( $namedParameters['string_search'], $namedParameters['string_replace'], $operatorValue );
+            }
+            break;
+
+            case 'cjw_newsletter_variable':
+            {
+                $returnValue = false;
+
+                // {cjw_newsletter_variable( $namedParameters['variable_name'] )}
+                switch( $namedParameters['variable_name'] )
+                {
+                    // {cjw_newsletter_variable( 'available_subscription_status_id_name_array' )}
+                    case 'available_subscription_status_id_name_array';
+                    {
+                        $returnValue = CjwNewsletterSubscription::availableStatusIdNameArray();
+                    }
+                    break;
+                }
+
+                $operatorValue = $returnValue;
             }
             break;
         }
