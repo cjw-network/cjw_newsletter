@@ -1199,11 +1199,37 @@ class CjwNewsletterUser extends eZPersistentObject
                                      array( 'nl_user' => $this->attribute( 'id' ) )
                                      );
 
-        $this->setAttribute( 'status', self::STATUS_CONFIRMED );
+        // we determine the actual status by checking the various timestamps
+        if ( $this->attribute( 'confirmed' ) != 0 )
+        {
+            if ( $this->attribute( 'bounced' ) != 0 || $this->attribute( 'removed' ) != 0 )
+            {
+                if ( $this->attribute( 'removed' ) > $this->attribute( 'bounced' ) )
+                    $this->setRemoved();
+                else
+                    $this->setBounced();
+            }
+            // confirmed, and not deleted nor bounced
+            else
+                $this->setAttribute( 'status', self::STATUS_CONFIRMED );
+        }
+        // not confirmed
+        else
+        {
+            // might have been removed by admin
+            if ( $this->attribute( 'removed' ) != 0 )
+                $this->setRemoved( true );
+            else
+                $this->setAttribute( 'status', self::STATUS_PENDING );
+        }
         $this->setAttribute( 'blacklisted', 0 );
 
         // set all subscriptions and all open senditems to blacklisted
-        $this->setAllNewsletterUserRelatedItemsToStatus( CjwNewsletterSubscription::STATUS_CONFIRMED );
+        foreach( CjwNewsletterSubscription::fetchSubscriptionListByNewsletterUserId( $this->attribute( 'id' ) )
+            as $subscription )
+        {
+            $subscription->setNonBlacklisted();
+        }
 
         $this->store();
     }
@@ -1321,14 +1347,6 @@ class CjwNewsletterUser extends eZPersistentObject
                                                             'nl_user' => $newsletterUserId ) );
                                                             */
                     }
-                }
-            break;
-
-            case CjwNewsletterSubscription::STATUS_CONFIRMED:
-                foreach( CjwNewsletterSubscription::fetchSubscriptionListByNewsletterUserId( $newsletterUserId ) as $subscription )
-                {
-                    $subscription->setAttribute( 'status', $status );
-                    $subscription->store();
                 }
             break;
         }

@@ -254,11 +254,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
 
                     case CjwNewsletterSubscription::STATUS_REMOVED_ADMIN:
                     case CjwNewsletterSubscription::STATUS_REMOVED_SELF:
-                    case CjwNewsletterSubscription::STATUS_BLACKLISTED:
-                    case CjwNewsletterSubscription::STATUS_BOUNCED_SOFT:
-                    case CjwNewsletterSubscription::STATUS_BOUNCED_HARD:
                     {
-                        $this->setAttribute( 'approved', 0 );
                         $this->setAttribute( 'removed', $currentTimeStamp );
                     } break;
                 }
@@ -346,6 +342,40 @@ class CjwNewsletterSubscription extends eZPersistentObject
             return true;
         else
             return false;
+    }
+
+    /**
+     * Reverts the blacklisted status by checking the various operation timestamps
+     */
+    public function setNonBlacklisted()
+    {
+        if ( $this->attribute( 'confirmed' ) != 0 )
+        {
+            if ( $this->attribute( 'removed' ) != 0 )
+            {
+                $this->setAttribute( 'status', self::STATUS_REMOVED_ADMIN );
+            }
+            elseif ( $this->attribute( 'approved' ) != 0 )
+            {
+                $this->setAttribute( 'status', self::STATUS_APPROVED );
+            }
+            else
+            {
+                $this->setAttribute( 'status', self::STATUS_CONFIRMED );
+            }
+        }
+        else
+        {
+            if ( $this->attribute( 'removed' ) != 0 )
+            {
+                $this->setAttribute( 'status', self::STATUS_REMOVED_ADMIN );
+            }
+            else
+            {
+                $this->setAttribute( 'status', self::STATUS_PENDING );
+            }
+        }
+        $this->store();
     }
 
     /**
