@@ -72,19 +72,27 @@ class CjwNewsletterSubscriptionType extends eZDataType
         $dataArray = $this->fetchCurrentDataFromCollection( $collection );
         if ( isset( $dataArray[ 'subscription_data_array' ] ) )
         {
-            $context = 'datatype_collect';
-            $subscriptionResultArray = CjwNewsletterSubscription::createSubscriptionByArray( $dataArray[ 'subscription_data_array' ],
-                                                                                             CjwNewsletterUser::STATUS_PENDING_EZ_USER_REGISTER,
-                                                                                             false,
-                                                                                             $context );
-
-            // store all collected information into db
-            $newsletterSelectionSerialize = serialize( $dataArray );
-            // if newsletter active set collection attribute
-            if( $newsletterSelectionSerialize )
+            if( isset( $dataArray[ 'subscription_data_array' ][ 'list_array' ] ) )
             {
-                $collectionAttribute->setAttribute( 'data_text', $newsletterSelectionSerialize );
-                return true;
+                // only if a user wants to have a nl we will create/update nl user + subscriptions
+                $listArray = $dataArray[ 'subscription_data_array' ][ 'list_array' ];
+                if( count( $listArray ) > 0 )
+                {
+                    $context = 'datatype_collect';
+                    $subscriptionResultArray = CjwNewsletterSubscription::createSubscriptionByArray( $dataArray[ 'subscription_data_array' ],
+                                                                                                     CjwNewsletterUser::STATUS_PENDING_EZ_USER_REGISTER,
+                                                                                                     false,
+                                                                                                     $context );
+
+                    // store all collected information into db
+                    $newsletterSelectionSerialize = serialize( $dataArray );
+                    // if newsletter active set collection attribute
+                    if( $newsletterSelectionSerialize )
+                    {
+                        $collectionAttribute->setAttribute( 'data_text', $newsletterSelectionSerialize );
+                        return true;
+                    }
+                }
             }
         }
 
@@ -285,33 +293,38 @@ class CjwNewsletterSubscriptionType extends eZDataType
         $existingNewsletterUserObject = false;
         $subscriptionResultArray = false;
 
-        if ( $subscriptionDataArr['email'] != '' )
+        // only create update subscriptions if a list is select
+        if( count( $subscriptionDataArr['list_array'] ) > 0 )
         {
-            $existingNewsletterUserObject = CjwNewsletterUser::fetchByEmail( $subscriptionDataArr['email'] );
-        }
 
-        // email exist but subscription for email is done again
-        // => email send with configure link
-        if ( is_object( $existingNewsletterUserObject) )
-        {
-            // $existingNewsletterUserObject->sendSubriptionInfoMail();
-            $mailSendResult = $existingNewsletterUserObject->sendSubcriptionInformationMail();
-        }
-        // all is ok -> send confirmation email similar to newsletter/subscribe
-        else
-        {
-            $context = 'datatype_collect';
-            // subscribe to all selected lists
-            $subscriptionResultArray = CjwNewsletterSubscription::createSubscriptionByArray(
-                                                                        $subscriptionDataArr,
-                                                                        CjwNewsletterUser::STATUS_PENDING,
-                                                                        false,
-                                                                        $context );
+            if ( $subscriptionDataArr['email'] != '' )
+            {
+                $existingNewsletterUserObject = CjwNewsletterUser::fetchByEmail( $subscriptionDataArr['email'] );
+            }
 
-            $confirmationResultArray = array();
-            $newNewsletterUser = CjwNewsletterUser::fetchByEmail( $subscriptionDataArr['email'] );
-            $mailSendResult = $newNewsletterUser->sendSubcriptionConfirmationMail();
+            // email exist but subscription for email is done again
+            // => email send with configure link
+            if ( is_object( $existingNewsletterUserObject) )
+            {
+                // $existingNewsletterUserObject->sendSubriptionInfoMail();
+                $mailSendResult = $existingNewsletterUserObject->sendSubcriptionInformationMail();
+            }
+            // all is ok -> send confirmation email similar to newsletter/subscribe
+            else
+            {
+                $context = 'datatype_collect';
+                // subscribe to all selected lists
+                $subscriptionResultArray = CjwNewsletterSubscription::createSubscriptionByArray(
+                                                                            $subscriptionDataArr,
+                                                                            CjwNewsletterUser::STATUS_PENDING,
+                                                                            false,
+                                                                            $context );
 
+                $confirmationResultArray = array();
+                $newNewsletterUser = CjwNewsletterUser::fetchByEmail( $subscriptionDataArr['email'] );
+                $mailSendResult = $newNewsletterUser->sendSubcriptionConfirmationMail();
+
+            }
         }
 
         $returnArray = array(
