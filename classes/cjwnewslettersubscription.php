@@ -531,6 +531,13 @@ class CjwNewsletterSubscription extends eZPersistentObject
             $this->store();
             return true;
         }
+        if ( $this->attribute('status') == CjwNewsletterSubscription::STATUS_APPROVED )
+        {
+            // timestamp + status setzen
+            $this->setAttribute( 'confirmed', time() );
+            $this->store();
+            return true;
+        }
         else
         {
             return false;
@@ -785,8 +792,29 @@ class CjwNewsletterSubscription extends eZPersistentObject
         if ( is_object( $existingSubscriptionObject ) )
         {
 
-            $existingSubscriptionObject->setAttribute('output_format_array_string', CjwNewsletterSubscription::arrayToString(  $outputFormatArray ) );
-            $existingSubscriptionObject->setAttribute('status', $status );
+            $existingSubscriptionObject->setAttribute('output_format_array_string', CjwNewsletterSubscription::arrayToString( $outputFormatArray ) );
+            if( $context == 'configure' )
+            {
+                // if nl list autoapprove is disabled + admin has approved the nl subscription
+                // + the nl subscription should be get status approved when update confirmstatus,
+                if( $existingSubscriptionObject->attribute( 'status' ) == CjwNewsletterSubscription::STATUS_APPROVED )
+                {
+                    // set confirmed timestamp if emty - could be possible if admin has approved subscription before user has confirm his email address
+                    if( $existingSubscriptionObject->attribute( 'confirmed' ) == 0 )
+                        $existingSubscriptionObject->setAttribute( 'confirmed', time() );
+                    // else nothing
+                }
+                else
+                {
+                    $existingSubscriptionObject->setAttribute('status', $status );
+                }
+
+            }
+            else
+            {
+                $existingSubscriptionObject->setAttribute('status', $status );
+            }
+
             if ( $dryRun === false )
             {
                 $existingSubscriptionObject->sync();
