@@ -16,7 +16,7 @@ System requirements:
 Steps for installing the newsletter:
 ====================================
 
-(1.) activate the extension e.g.  cjw_newsletter
+(1.) activate the extension e.g. cjw_newsletter in settings/override/site.ini.append.php 
     [ExtensionSettings]
     ActiveAccessExtensions[]=cjw_newsletter (have to be before ezwt if used)
     ActiveAccessExtensions[]=ezwt
