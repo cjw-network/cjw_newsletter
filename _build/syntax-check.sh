@@ -1,17 +1,20 @@
 #!/bin/sh
 
+CURRENT_DIR = `pwd`
+cd ..
+
 for i in `find . -name \*.php`; do php -l $i | grep -v "No syntax errors"; done
 
 for i in `find . -name \*.php`; do
-	cat $i | \
-		sed -e 's/[[:space:]]while(/ while (/' | \
-		sed -e 's/[[:space:]]if(/ if (/' | \
-		sed -e 's/[[:space:]]else(/ else (/' | \
-		sed -e 's/[[:space:]]elseif(/ elseif (/' | \
-		sed -e 's/[[:space:]]catch(/ catch (/' | \
-		sed -e 's/[[:space:]]foreach(/ foreach (/' | \
-		sed -e 's/[[:space:]]switch(/ switch (/' > /tmp/temporary.php
-	cp /tmp/temporary.php $i
+    cat $i | \
+        sed -e 's/[[:space:]]while(/ while (/' | \
+        sed -e 's/[[:space:]]if(/ if (/' | \
+        sed -e 's/[[:space:]]else(/ else (/' | \
+        sed -e 's/[[:space:]]elseif(/ elseif (/' | \
+        sed -e 's/[[:space:]]catch(/ catch (/' | \
+        sed -e 's/[[:space:]]foreach(/ foreach (/' | \
+        sed -e 's/[[:space:]]switch(/ switch (/' > /tmp/temporary.php
+    cp /tmp/temporary.php $i
 done
 
 echo "Checking for boolean/integer"
@@ -53,7 +56,7 @@ done
 
 echo "Fixing comments:"
 for i in `find . -name \*.php`; do
-	php -r "\$f = file( '$i' ); \$o = fopen( '/tmp/temp.php', 'w' ); foreach( \$f as \$l ) { if ( preg_match( '@autogen@', \$l ) ) { fwrite( \$o, \$l ); } else { \$l = preg_replace( '@ \/\/([^ ])@', ' // \1', \$l ); fwrite( \$o, \$l ); } }"
+    php -r "\$f = file( '$i' ); \$o = fopen( '/tmp/temp.php', 'w' ); foreach( \$f as \$l ) { if ( preg_match( '@autogen@', \$l ) ) { fwrite( \$o, \$l ); } else { \$l = preg_replace( '@ \/\/([^ ])@', ' // \1', \$l ); fwrite( \$o, \$l ); } }"
     cp /tmp/temp.php $i
 done
 
@@ -61,3 +64,6 @@ echo "Fixing end of line spaces:"
 for i in `find . -name \*.php`; do cat $i | sed -e 's/[[:space:]]\+$//' > /tmp/temporary.php; cp /tmp/temporary.php $i; done
 
 for i in `find . -name \*.php`; do php -l $i | grep -v "No syntax errors"; done
+
+
+cd $CURRENT_DIR

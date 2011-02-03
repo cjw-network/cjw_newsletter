@@ -3,8 +3,10 @@
 # cd /ezroot/extension
 # sh ts_file_udpade.sh
 
+CURRENT_DIR = `pwd`
 EXTENSION_NAME=cjw_newsletter
 
+cd ..
 cd ..
 cd ..
 
@@ -22,4 +24,5 @@ echo '---------------------------------------------------'
 ./bin/linux/ezlupdate -e extension/$EXTENSION_NAME eng-US --utf8
 ./bin/linux/ezlupdate -e extension/$EXTENSION_NAME fre-FR --utf8
 
-cd extension/$EXTENSION_NAME
+#cd extension/$EXTENSION_NAME/
+cd $CURRENT_DIR
