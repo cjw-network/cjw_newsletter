@@ -56,10 +56,10 @@ Steps for installing the newsletter:
 
 (11.) Create Newsletter Structure
 
-        Newletter Root
+        Newsletter Root
             - Newsletter System
                - Newsletter List 1
-                    - Newsleter Edition 1
+                    - Newsletter Edition 1
                         - Newsletter Article 1
                         - Newsletter Article 2
                     - Newsletter Edition 2
@@ -96,7 +96,7 @@ Steps for installing the newsletter:
     [NewsletterSettings]
     AvailableSkinArray[]=my_custom_skin
 
-    filestructure for custom newsletter
+    Filestructure for custom newsletter
     ===================================
     my_design
     + templates
@@ -107,7 +107,7 @@ Steps for installing the newsletter:
               - text.tpl
               - html.tpl
 
-    !!!! don't forget to clear the cache after adding new templates !!!!!
+    !!!! Don't forget to clear the cache after adding new templates !!!!!
 
 
 (15.) Check SiteURL settings in site.ini of siteaccess which is used for render the newsletter
