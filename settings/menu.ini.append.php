@@ -34,4 +34,9 @@ Shown[]
 Shown[default]=true
 Shown[navigation]=true
 Shown[browse]=false
+
+[MenuSettings]
+HideLeftMenuClasses[]=cjw_newsletter_list
+HideLeftMenuClasses[]=cjw_newsletter_edition
+HideLeftMenuClasses[]=cjw_newsletter_system
 */ ?>

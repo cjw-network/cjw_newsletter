@@ -1,6 +1,10 @@
 {* newsletter/configure.tpl *}
 <div class="newsletter newsletter-configure">
 
+    <div class="border-box">
+    <div class="border-tl"><div class="border-tr"><div class="border-tc"></div></div></div>
+    <div class="border-ml"><div class="border-mr"><div class="border-mc float-break">
+
     <h1>{'Configure newsletter settings'|i18n( 'cjw_newsletter/configure' )}</h1>
 
     {def $newsletter_root_node_id = ezini( 'NewsletterSettings', 'RootFolderNodeId', 'cjw_newsletter.ini' )
@@ -207,4 +211,9 @@
         {/if}
         {undef $newsletter_available}
     {/if}
+
+    </div></div></div>
+    <div class="border-bl"><div class="border-br"><div class="border-bc"></div></div></div>
+    </div>
 </div>
+

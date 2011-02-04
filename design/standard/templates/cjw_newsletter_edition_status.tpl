@@ -38,9 +38,9 @@
         {*$editionStatus*}
     {*</p>
     <p><label>{'Operation'|i18n( 'cjw_newsletter/cjw_newsletter_edition_status' )}{Aktion}:</label> *}
-        {*<a href={concat('newsletter/send/', $node.main_node_id )|ezurl()}>Details</a>*}
+        {*<a href={concat('newsletter/send/', $node.main_node_id )|ezurl()}>Details</a></p>*}
 
-    </p>
+
 </div>
 
 </div>

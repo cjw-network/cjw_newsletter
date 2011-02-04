@@ -39,13 +39,13 @@
         <input type="hidden" name="TopLevelNode" value="{$node.object.main_node_id}" />
         <input type="hidden" name="ContentNodeID" value="{$node.node_id}" />
         <input type="hidden" name="ContentObjectID" value="{$node.object.id}" />
-        <input type="hidden" name="mail_newsletter" value="true">
+        <input type="hidden" name="mail_newsletter" value="true" />
 
         <div class="block">
             <div class="left">
 
                 {* Newsletter test email button. *}
-                <input type="submit" class="button" name="SendNewsletterTestButton" value="{"Send Test Newsletter"|i18n("cjw_newsletter/send")}">
+                <input type="submit" class="button" name="SendNewsletterTestButton" value="{"Send Test Newsletter"|i18n("cjw_newsletter/send")}" />
 
             </div>
 

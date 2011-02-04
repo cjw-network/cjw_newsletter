@@ -54,7 +54,7 @@
                                             <div class="box-bl">
                                                 <div class="box-br">
                                                     <form action={'newsletter/send'|ezurl()}  method="post">
-                                                        <input type="hidden" name="TopLevelNode" value="{$node.object.main_node_id}" /><input type="hidden" name="ContentNodeID" value="{$node.node_id}" /><input type="hidden" name="ContentObjectID" value="{$node.object.id}" /><input type="hidden" name="mail_newsletter" value="true">
+                                                        <input type="hidden" name="TopLevelNode" value="{$node.object.main_node_id}" /><input type="hidden" name="ContentNodeID" value="{$node.node_id}" /><input type="hidden" name="ContentObjectID" value="{$node.object.id}" /><input type="hidden" name="mail_newsletter" value="true" />
                                                         <div class="block">
                                                             <div class="left">
                                                                 {* Newsletter button. *}

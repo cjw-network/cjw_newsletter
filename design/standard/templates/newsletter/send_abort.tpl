@@ -11,6 +11,10 @@
 
 <div class="newsletter newsletter-send">
 
+    <div class="border-box">
+    <div class="border-tl"><div class="border-tr"><div class="border-tc"></div></div></div>
+    <div class="border-ml"><div class="border-mr"><div class="border-mc float-break">
+
     {if and( is_set( $message_warning ), $message_warning|ne('') )}
     <div class="message-warning">
         <h2>{$message_warning|wash}</h2>
@@ -139,4 +143,9 @@
         </div>
     </div>
 
+    </div></div></div>
+    <div class="border-bl"><div class="border-br"><div class="border-bc"></div></div></div>
+    </div>
+
 </div>
+

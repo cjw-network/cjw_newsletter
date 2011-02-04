@@ -23,8 +23,8 @@
 
 {foreach $output_format_array as $output_format_id => $output_format_name}
 {def $src_url = concat('/newsletter/preview_archive/' , $edition_send_id, '/', $output_format_id)}
-<img src={concat('newsletter/icons/crystal-newsletter/32x32/preview_', $output_format_id, '.png')|ezimage} title="{$output_format_name}" /> {'Preview'|i18n('cjw_newsletter/cjwnewsletteredition_preview')} "{$output_format_name|wash}"
-{*[{'Skin'|i18n('cjw_newsletter/cjwnewsletteredition_preview')}: {$skin_name}] *}<a href={$src_url|ezurl} target="new_{$output_format_id}"><img src={'window_fullscreen.png'|ezimage} title="{'Fullscreen'|i18n('cjw_newsletter/cjwnewsletteredition_preview')}" /></a>
+<img src={concat('newsletter/icons/crystal-newsletter/16x16/preview_', $output_format_id, '.png')|ezimage} title="{$output_format_name}" /> {'Preview'|i18n('cjw_newsletter/cjwnewsletteredition_preview')} "{$output_format_name|wash}"
+{*[{'Skin'|i18n('cjw_newsletter/cjwnewsletteredition_preview')}: {$skin_name}] *}<a href={$src_url|ezurl} target="new_{$output_format_id}">[{'Fullscreen'|i18n('cjw_newsletter/cjwnewsletteredition_preview')}]</a>
 {if $show_iframes}
     <iframe src={$src_url|ezurl} width="100%" height="{$iframe_height}" name="EDITION_PREVIEW_{$output_format_id}">
         <p>your browser does not support iframes!</p>

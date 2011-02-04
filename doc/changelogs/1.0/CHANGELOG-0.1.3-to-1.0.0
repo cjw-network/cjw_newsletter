@@ -17,6 +17,7 @@ Changes from 0.1-3 to 1.0-0
 - nl user managemant (add, delete nl_user admin interface)
 - add subscriptions in admin interface
 - admin2 templates - new icons
+- some ezwebin/ezflow templates
 
 *Refactoring*
 

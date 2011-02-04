@@ -44,7 +44,7 @@
                             <input type="hidden" value="{$edition_draft_node.node_id}" name="ContentNodeID"/>
                             <input type="hidden" value="{$edition_draft_node.contentobject_id}" name="ContentObjectID" />
                             <input type="hidden" value="{'newsletter/index'}" name="RedirectIfDiscarded" />
-                            <input type="hidden" name="ContentObjectLanguageCode" value="{$edition_draft_node.object.current_language}">
+                            <input type="hidden" name="ContentObjectLanguageCode" value="{$edition_draft_node.object.current_language}" />
                             <input class="button" type="submit" title="{'Edit newsletter'|i18n( 'cjw_newsletter/index' )}" value="{'Edit'|i18n( 'cjw_newsletter/index' )}" name="EditButton" />
                         </form>
                         {/if}

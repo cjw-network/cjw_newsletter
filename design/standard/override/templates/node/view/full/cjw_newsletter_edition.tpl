@@ -1,4 +1,8 @@
 {set-block scope=root variable=cache_ttl}0{/set-block}
+
+<div class="border-box">
+<div class="border-tl"><div class="border-tr"><div class="border-tc"></div></div></div>
+<div class="border-ml"><div class="border-mr"><div class="border-mc float-break">
 {include uri='design:infocollection_validation.tpl'}
 {include uri='design:window_controls.tpl'}
 <div class="newsletter content-view-full">
@@ -124,4 +128,8 @@
     </div>
 </div>
 
+</div>
+
+</div></div></div>
+<div class="border-bl"><div class="border-br"><div class="border-bc"></div></div></div>
 </div>

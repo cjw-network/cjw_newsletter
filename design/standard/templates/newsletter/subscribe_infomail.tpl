@@ -4,7 +4,12 @@
 *}
 
 <div class="newsletter newsletter-subscribe_infomail">
-<h1>{'Newsletter - Edit profile'|i18n( 'cjw_newsletter/subscribe_infomail' )}</h1>
+
+    <div class="border-box">
+    <div class="border-tl"><div class="border-tr"><div class="border-tc"></div></div></div>
+    <div class="border-ml"><div class="border-mr"><div class="border-mc float-break">
+
+    <h1>{'Newsletter - Edit profile'|i18n( 'cjw_newsletter/subscribe_infomail' )}</h1>
     {* warnings *}
     {if and( is_set( $warning_array ), $warning_array|count|ne( 0 ) )}
     <div class="block">
@@ -33,4 +38,11 @@
     <div class="block">
     {'* mandatory fields'|i18n( 'cjw_newsletter/subscribe_infomail' )}
     </div>
+
+
+    </div></div></div>
+    <div class="border-bl"><div class="border-br"><div class="border-bc"></div></div></div>
+    </div>
+
 </div>
+
