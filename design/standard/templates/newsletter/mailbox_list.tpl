@@ -167,7 +167,7 @@
                                         {$mailbox_item.port|wash}
                                     </td>
                                     <td>
-                                        {$mailbox_item.user|wash}
+                                        {$mailbox_item.user_name|wash}
                                     </td>
                                     <td>
                                         ***{*$mailbox_item.password|wash*}

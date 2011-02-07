@@ -42,7 +42,7 @@ if ( isset( $Params[ 'MailboxId' ] ) )
                                 'email'                    => $http->postVariable( 'email' ),
                                 'server'                   => $http->postVariable( 'server' ),
                                 'port'                     => $http->postVariable( 'port' ),
-                                'user_name'                     => $http->postVariable( 'user' ),
+                                'user_name'                => $http->postVariable( 'user_name' ),
                                 'password'                 => $http->postVariable( 'password' ),
                                 'type'                     => $http->postVariable( 'type' ),
                                 'is_activated'             => $http->postVariable( 'is_activated' ),

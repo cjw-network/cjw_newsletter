@@ -56,7 +56,7 @@ class CjwNewsletterMailbox extends eZPersistentObject
                                                         'datatype' => 'integer',
                                                         'default'  => 0,
                                                         'required' => true ),
-                                         'user_name' => array( 'name'   => 'User',
+                                         'user_name' => array( 'name'   => 'UserName',
                                                         'datatype' => 'string',
                                                         'default'  => '',
                                                         'required' => true ),
@@ -309,7 +309,7 @@ class CjwNewsletterMailbox extends eZPersistentObject
 
         // login data
         $server                = $this->attribute( 'server' );
-        $user                  = $this->attribute( 'user_name' );
+        $userName              = $this->attribute( 'user_name' );
         $password              = $this->attribute( 'password' );
         $port                  = $this->attribute( 'port' );
         $ssl                   = (boolean) $this->attribute( 'is_ssl' );
@@ -330,7 +330,7 @@ class CjwNewsletterMailbox extends eZPersistentObject
         $settingArray = array( 'mailbox_id'               => $mailboxId,
                                'type'                     => $mailboxType,
                                'server'                   => $server,
-                               'user'                     => $user,
+                               'user_name'                => $userName,
                                'password'                 => $password,
                                'port'                     => $port,
                                'is_ssl'                   => $ssl,
@@ -376,7 +376,7 @@ class CjwNewsletterMailbox extends eZPersistentObject
         try
         {
             // authenticate twise is not allowed
-            $ezcTransportObject->authenticate( $user, $password );
+            $ezcTransportObject->authenticate( $userName, $password );
         }
         catch( Exception $e )
         {

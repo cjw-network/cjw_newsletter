@@ -48,7 +48,7 @@
                             <label>{'Port'|i18n( 'cjw_newsletter/mailbox_edit' )}</label>
                             <input type="text" name="port" value="{$mailbox.port}" />
                             <label>{'User'|i18n( 'cjw_newsletter/mailbox_edit' )}</label>
-                            <input type="text" name="user" value="{$mailbox.user}" />
+                            <input type="text" name="user_name" value="{$mailbox.user_name}" />
                             <label>{'Password'|i18n( 'cjw_newsletter/mailbox_edit' )}</label>
                             <input type="password" name="password" value="{$mailbox.password}" />
                             <label>{'Type'|i18n( 'cjw_newsletter/mailbox_edit' )}</label>
