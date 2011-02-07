@@ -1,3 +1,7 @@
 # CHANGELOG # cjw_newsletter # - YYYYMMDD Description #
 
 - 20101001 (felix) cjw_newsletter '1.0.0beta2' moving to public github
+
+1.0.0rc2
+========
+- fixed bug #017924: CJW Newsletter - textmail creation is sometimes broken

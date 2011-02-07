@@ -118,6 +118,9 @@ $newsletterEditionContent = array( 'html' => '' , 'text' => '' );
 
 $htmlMailImageInclude = 0;
 
+$urlArray = getUrlArray( $siteUrl, $currentHostName, $wwwDir );
+
+
 switch( $outputFormatId )
 {
     default:
@@ -128,6 +131,9 @@ switch( $outputFormatId )
         $template = 'design:newsletter/skin/'.$skinName.'/outputformat/text.tpl';
         $content = $tpl->fetch( $template );
         // TODO text version erstellen
+
+        $content = generateAbsoluteLinks( $content, $urlArray );
+
         $content = formatText( $content );
         $newsletterEditionContent['text'] = $content;
         // htmlpart
@@ -147,6 +153,8 @@ switch( $outputFormatId )
         $content = $tpl->fetch( $template );
         // TODO text version erstellen
 
+        $content = generateAbsoluteLinks( $content, $urlArray );
+
         $content = formatText( $content );
 
         $newsletterEditionContent['text'] = $content;
@@ -165,15 +173,16 @@ switch( $outputFormatId )
 
 // ########## set image urls to absolut path and use CurrentHostname (testdomain)
 
-$outputContent['html'] = '';
+/*$outputContent['html'] = '';
 $outputContent['text'] = '';
-
-$urlArray = getUrlArray( $siteUrl, $currentHostName, $wwwDir );
 
 foreach( $newsletterEditionContent as $index => $outputString )
 {
-    $outputContent[ $index ] = generateAbsoluteLinks( $outputString, $urlArray );
-}
+    $outputContent[ $index ] = $outputString;//generateAbsoluteLinks( $outputString, $urlArray );
+}*/
+
+
+//$outputContent = $newsletterEditionContent;
 
 $subject = "newsletter subject $objectId";
 if ( $tpl->hasVariable( 'subject' ) )
@@ -186,7 +195,7 @@ $outputArray = array( 'contentobject_id' => $objectId,
                       'output_format' => $outputFormatId,
                       'content_type' => $contentType,
                       'subject' => $subject,
-                      'body' => $outputContent,
+                      'body' => $newsletterEditionContent,
                       'template' => $template,
                       'template_validation' => $tpl->validateTemplateFile( $template, false ),
                       'template_errors' => $tpl->errorLog(),
@@ -267,8 +276,8 @@ function getUrlArray( $siteUrl, $currentHostName, $wwwDir )
     $hostNameAndUri = $siteUrlWithoutHttp;
 
     // testdomian   admin. [example.de] .jac430.fw.lokal - www. [example.de]
-    if ( isset( $currentHostNameExplode[4] ) 
-            && ( $currentHostNameExplode[4] == $hostNameExplode[1] ) 
+    if ( isset( $currentHostNameExplode[4] )
+            && ( $currentHostNameExplode[4] == $hostNameExplode[1] )
                 && count( $hostNameExplode ) > 1 )
     {
         $explodeHostName = explode( '/', $currentHostName );
@@ -318,10 +327,9 @@ function formatText( $content )
     $content = str_replace( $serachArray , $replaceArray , $content );
 
     // get proper links in text version
-    $content = stripAttributes( $content);
-    $content = str_replace( "<a></a>", "", $content );
-    $content = str_replace( "</a>", "", $content );
-    $content = str_replace( "<a href=", "\nLink: ", $content ); // Warning: When you change this, you have to change line 265 (Change here from line 285), too.
+    $content = formatTextLink( $content );
+
+    $content = stripAttributes( $content );
 
     // preg_replace("/\n[^\w]*\n/","\n", $content);
 
@@ -378,23 +386,70 @@ function formatText( $content )
 }
 
 /**
- *
+ * strip all html tags
  * @param unknown_type $content
  * @return unknown_type
  */
-function stripAttributes($content)
+function stripAttributes( $content )
 {
-    $content = preg_replace('/(<a.*)href=(.*>)/', '${1}href..;,;..${2}', $content);
-    while ( preg_match('/(<.*) .*=(\'|"|\w)\w*(\'|"|\w)(.*>)/', $content ) )
+
+    $pattern = array('@<script[^>]*?>.*?</script>@si',   // Strip out javascript
+                    '@<[\/\!]*?[^<>]*?>@si',            // Strip out HTML tags
+                    '@<style[^>]*?>.*?</style>@siU',    // Strip style tags properly
+                    '@<![\s\S]*?--[ \t\n\r]*>@'         // Strip multi-line comments including CDATA
+    );
+    $content = preg_replace( $pattern, '', $content );
+    return $content;
+}
+
+/**
+ *
+ * Format all a tags as text links
+ * remove all achor tags
+ * @param string $content
+ * @param string $textLinkFormat here you can define how the html link ist formatted
+ * the placeholders %url_link %url_text can be used in the string and will be replaced on demand
+ * example: [ %url_text: %url_link ] => [ Newsletter: http://www.cjw-network.com ]
+ */
+function formatTextLink( $content, $textLinkFormat = "[ %url_text: %url_link ]" )
+{
+    //remove all ez anchors
+    // <a name="eztoc598_1" id="eztoc598_1"></a> => ''
+    // or <a name="bottom">my bottom anchor</a>
+    $pattern = '#<a name="(.*?)".*?>(.*?)<?\/a>#is';
+    $matchesAchors = '';
+
+    //preg_match_all( $pattern, $content, $matchesAchors );
+    //$content .= print_r( $matchesAchors , true );
+    $content = preg_replace( $pattern, '', $content );
+
+    // this tutorial helps me to create the regex http://www.phpmaniac.de/php_blog/php/html-seiten-crawlen-links-extrahieren/
+    // find all links
+    // $matches[0] => Array of original links     <a href="http://example.com" ...>This is the link text</a>
+    // $matches[1] => Array with all links        http://example.com
+    // $matches[2] => Array with all link texts   This is the link text
+    $pattern = '/<a.*?href="(.*?)".*?>(.*?)<?\/a>/is';
+ /*   $pattern = '/<a.*?(href|name)="(.*?)".*?>(.*?)<?\/a>/is';*/
+
+    preg_match_all( $pattern, $content, $matches );
+    //$content .= print_r( $matches , true );
+
+    for( $i=0; $i<count($matches[0]); $i++ )
     {
-        $content = preg_replace ( '/(<.*) .*=(\'|"|\w)\w*(\'|"|\w)(.*>)/', '${1}${4}', $content );
+        $completeUrlString = $matches[0][$i];
+        $urlLink = $matches[1][$i];
+        $urlText = $matches[2][$i];
+        //  Link: "http://link">linktext
+        $linkFormatted = str_replace( array( '%url_link', '%url_text' ), array( $urlLink, $urlText ), $textLinkFormat );
+        //'['. $urlText .' > '. $urlLink.']'
+        $content = str_replace( $completeUrlString, $linkFormatted, $content );
     }
-    $content = str_replace('..;,;..', '=', $content);
-    // <div: 565px;"-center"> entfernen
-    $content = preg_replace('/<div:[^>]*>/', '', $content);
-    $content = strip_tags( $content, '<a>' );
+
+//    $content .= print_r( $matchesAchors , true );
+//    $content .= print_r( $matches , true );
 
     return $content;
 }
+
 
 ?>

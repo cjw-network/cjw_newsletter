@@ -3,8 +3,9 @@ Changes from 0.1-3 to 1.0-0
 *Bugs*
 - fixed bug #17661: blacklisted users can't be restored as regular users
 - fixed bug #17662: Blacklisted users can be deleted without being removed from the blacklist
-- fixed bug #017724  CJW Newsletter - subscription infocollector
+- fixed bug #017724:  CJW Newsletter - subscription infocollector
 - fixed bug #017726: CJW Newsletter - configure - status approve is changed to confirmed if user edit data
+- fixed bug #017924: CJW Newsletter - textmail creation is sometimes broken
 
 *Enhancements*
 
