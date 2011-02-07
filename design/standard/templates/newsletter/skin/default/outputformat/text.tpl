@@ -21,7 +21,7 @@
 
     {* title *}
     {if $attribute.data_map.title.has_content}
-        <h2>{attribute_view_gui attribute=$attribute.data_map.title}</h2>
+        <h2>{$attribute.data_map.title.content|wash}</h2>
     {/if}
 
     {* text *}

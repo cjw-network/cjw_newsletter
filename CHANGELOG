@@ -5,3 +5,4 @@
 1.0.0rc2
 ========
 - fixed bug #017924: CJW Newsletter - textmail creation is sometimes broken
+- fixed bug #017926: CJW Newsletter - textmail some unwanted newlines in headlines
