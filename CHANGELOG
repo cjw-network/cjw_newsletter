@@ -6,3 +6,4 @@
 ========
 - fixed bug #017924: CJW Newsletter - textmail creation is sometimes broken
 - fixed bug #017926: CJW Newsletter - textmail some unwanted newlines in headlines
+- fixed bug #017624: CJW Newsletter - The subscription form's Cancel button does not work

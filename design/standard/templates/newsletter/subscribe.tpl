@@ -60,7 +60,7 @@
             </div>
             {/if}
 
-            <div class="block">
+            <div class="block header">
                 <p>
                     {'Here you can subscribe to one of our newsletters.'|i18n( 'cjw_newsletter/subscribe' )}
                 </p>
@@ -178,13 +178,11 @@
             <div class="block">
                 <input type="hidden" name="BackUrlInput" value="{cond( ezhttp_hasvariable('BackUrlInput'), ezhttp('BackUrlInput'), 'newsletter/subscribe'|ezurl('no'))}" />
                 <input class="button" type="submit" name="SubscribeButton" value="{'Subscribe'|i18n( 'cjw_newsletter/subscribe' )}" title="{'Add to subscription.'|i18n( 'cjw_newsletter/subscribe' )}" />
-                <input class="button" type="submit" name="CancelButton" onclick="document.forms[0].action='';" value="{'Cancel'|i18n( 'cjw_newsletter/subscribe' )}" />
+                <a href={$node_url|ezurl}><input class="button" type="submit" name="CancelButton" value="{'Cancel'|i18n( 'cjw_newsletter/subscribe' )}" /></a>
             </div>
 
-            <br />
-            <br />
 
-            <div class="block">
+            <div class="block footer">
                 <h3>{'Data Protection'|i18n( 'cjw_newsletter/subscribe' )}:</h3>
                 <p>{'Your e-mail address will under no circumstances be passed on to unauthorized third parties.'|i18n( 'cjw_newsletter/subscribe' )}</p>
 
