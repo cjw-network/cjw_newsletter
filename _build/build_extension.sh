@@ -21,7 +21,12 @@ echo '---------------------------------------------------'
 
 cd $EZROOT
 
-php "extension/cjw_extensiontools/bin/php/build.php" "-e extension/$EXTENSION_NAME"
+
+# CURRENT_TIMESTAMP=`date +%s`
+# echo "$CURRENT_TIMESTAMP"
+
+
+php ./extension/cjw_extensiontools/bin/php/build.php -d extension/$EXTENSION_NAME
 
 echo '---------------------------------------------------'
 echo "END Build:"  $EXTENSION_NAME

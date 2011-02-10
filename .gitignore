@@ -1,1 +1,4 @@
 .project
+.settings
+.buildpath
+_build/bin
