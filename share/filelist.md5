@@ -1,5 +1,5 @@
 name: cjw_newsletter
-version: 1.0.0.201102111523
+version: 1.0.0.201102111706
 files_count: 247
 
 196fd93f41c852325b2992f7e2bd440e  CHANGELOG
@@ -9,7 +9,7 @@ files_count: 247
 8aab1b15dec70a0e288907ed8f798298  README
 b150a24d767db31ef685a1d1f622f5dd  autoloads/cjwnewsletteroperators.php
 c4d6c89cf3d2f8d2114ae2caabdb784e  autoloads/eztemplateautoload.php
-77556713b82bc0345aaccf053f504b91  bin/php/createoutput.php
+53eeb0237b2c4b01ad131d10bc72915e  bin/php/createoutput.php
 8f809dd7e0baaab0044e9638b9013d5a  bin/php/iniloader.php
 3e586d6e9d5ee135a5b148cb75820122  classes/cjwnewsletterblacklistitem.php
 63d1e220081cb9ec0336b6d89ff248c2  classes/cjwnewslettercsvexport.php
@@ -190,8 +190,8 @@ cf1036b2d3360f8e36d7462c0c58eaa8  doc/uml/cjw_newsletter_dbschema_v1.0.0.png
 71f4165c0974cba8273f21381b2a7031  doc/uml/class_diagram.svg
 8050d559ddd9909dc2259ebf20c037b4  extendedattributefilter/cjwnewslettereditionfilter.php
 b636c4dce292a0cb827ca081962fb997  extendedattributefilter/cjwnewsletterlistfilter.php
-f796002a53bedfbcb9babdcec11a1203  extension.xml
-b1a8d82040f49744b224b17096b280d2  ezinfo.php
+377dc6f4451c8409ade6a750bbd4726c  extension.xml
+31d79e3dcde1d99135374445028c60fd  ezinfo.php
 eaae2bd710c4416c0d7c484a71586cd4  modules/newsletter/archive.php
 d1c597f5816a5c6705c8b35b8d651de7  modules/newsletter/blacklist_item_add.php
 f20f0ffe6e5b3dfd88ae9e2c4920dcab  modules/newsletter/blacklist_item_list.php
