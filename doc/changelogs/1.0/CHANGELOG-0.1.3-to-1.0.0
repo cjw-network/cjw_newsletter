@@ -9,6 +9,7 @@ Changes from 0.1-3 to 1.0-0
 - fixed bug #017926: CJW Newsletter - textmail some unwanted newlines in headlines
 - fixed bug #017624: CJW Newsletter - The subscription form's Cancel button does not work
 - fixed bug #017927: CJW Newsletter - create new Mailbox - Username is not stored
+- fixed bug #017955: CJW Newsletter - systemupgrade check db output produces wrong sql
 
 *Enhancements*
 
