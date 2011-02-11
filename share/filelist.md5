@@ -1,7 +1,8 @@
-version: 1.0.0.201102101723
+name: cjw_newsletter
+version: 1.0.0.201102111523
 files_count: 247
 
-480c8dda528419698553619ad531d254  CHANGELOG
+196fd93f41c852325b2992f7e2bd440e  CHANGELOG
 90ef4496589ac9dd18ee5e5d98e0bb4c  FAQ
 0c328dbe533681d092b044bead8fb7ba  INSTALL
 0636e73ff0215e8d672dc4c32c317bb3  LICENSE
@@ -182,16 +183,15 @@ d356db1dadafbe82255f092f80544f9d  design/standard/templates/newsletter/user_view
 2a1905a097fea6008d1be0deab2964d5  design/standard/templates/parts/newsletter/newsletter_menu.tpl
 4ccde23825cda8a441eea77ce5cf3a2d  design/standard/templates/parts/newsletter/newsletter_menu_admin.tpl
 d9de6432265679a25b6fc34a0d9dec1e  design/standard/templates/parts/websitetoolbar/cjw_newsletter.tpl
-47930f9709d760be37652d0612bef0a5  doc/changelogs/1.0/CHANGELOG-0.1.3-to-1.0.0
-371dbc3e74b409b63c132f83c20c8a21  doc/cjw_newsletter_documentation.odt
+73ba8830edee1d1d8f15578672ca12b4  doc/changelogs/1.0/CHANGELOG-0.1.3-to-1.0.0
 d1f3777b537d1c6f585617c71c4e9a9a  doc/cjw_newsletter_documentation.pdf
 c3ce0df8bc798c5ce10b4e0d5332b1fb  doc/uml/cjw_newsletter_dbschema.mwb
 cf1036b2d3360f8e36d7462c0c58eaa8  doc/uml/cjw_newsletter_dbschema_v1.0.0.png
 71f4165c0974cba8273f21381b2a7031  doc/uml/class_diagram.svg
 8050d559ddd9909dc2259ebf20c037b4  extendedattributefilter/cjwnewslettereditionfilter.php
 b636c4dce292a0cb827ca081962fb997  extendedattributefilter/cjwnewsletterlistfilter.php
-acf9b0745e0e5ef03aaa5708297b060e  extension.xml
-577ae9ca2ce00602ed788e4fdd42313b  ezinfo.php
+f796002a53bedfbcb9babdcec11a1203  extension.xml
+b1a8d82040f49744b224b17096b280d2  ezinfo.php
 eaae2bd710c4416c0d7c484a71586cd4  modules/newsletter/archive.php
 d1c597f5816a5c6705c8b35b8d651de7  modules/newsletter/blacklist_item_add.php
 f20f0ffe6e5b3dfd88ae9e2c4920dcab  modules/newsletter/blacklist_item_list.php
@@ -239,12 +239,13 @@ eba86cf0d6c90d5a580101b8f51bf5d3  settings/override.ini.append.php
 911dc03659988ffd2853b3c9073e9632  settings/site.ini.append.php
 20ace78cfc55593e2ed92155ecbfb80d  settings/template.ini.append.php
 474cd7f19a2fe7a904b9f57515544fc8  settings/websitetoolbar.ini.append.php
-ece1c8dba0830e0618758d5f0f0a5b0a  share/db_schema.dba
-12548f623bc660c511308a0dcfa1387c  sql/mysql/schema.sql
-7e9606a8077c9ffdad11ec07bebdbc2f  sql/postgresql/schema.sql
+6e3c3773c00445d08d80e70a6868aa87  share/db_schema.dba
+d2271e06094cd133caa161e23c900aba  sql/mysql/schema.sql
+ab2aa6fa46092257b367c1be717633d3  sql/postgresql/schema.sql
 4bf96696d220eef91b37c544920be257  translations/eng-US/translation.ts
 0becc0cf817aa37ec61d2faaed9459fc  translations/fre-FR/translation.ts
 cf7a5fb10123b08a8d37cc7bd67a4a9f  translations/ger-DE/translation.ts
 6d3b4e8dd6c892f82863b9d6bc2cc451  translations/untranslated/translation.ts
 8467fc444a55eb51e0864b1cc6d2dfcf  update/database/mysql/1.0/unstable/dbupdate-1.0.0beta-to-1.0.0beta2.sql
 dcbc9647a87b9e82edb28c3055b93649  update/database/mysql/1.0/unstable/dbupdate-1.0.0beta2-to-1.0.0rc1.sql
+083452edd270bb0f7dd2f7772a785be3  update/database/mysql/1.0/unstable/dbupdate-1.0.0rc1-to-1.0.0.sql
