@@ -2,3 +2,4 @@
 .settings
 .buildpath
 _build/bin
+.svn
