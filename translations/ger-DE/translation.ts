@@ -643,7 +643,7 @@
     </message>
     <message>
         <source>Please select the newsletter you wish to subscribe to. Deselect to unsubscribe.</source>
-        <translation>Wählen sie einen Newsletter aus um ihn zu abonnieren oder entfernen Sie die Auswahl eines Newsletter um das Abonnent zu beenden.</translation>
+        <translation>Wählen sie einen Newsletter aus um ihn zu abonnieren oder entfernen Sie die Auswahl eines Newsletter um das Abonnement zu beenden.</translation>
     </message>
     <message>
         <source>You can also edit the small boxes &quot;first name&quot; and &quot;last name&quot;.</source>
@@ -756,7 +756,7 @@
     </message>
     <message>
         <source>Can subscribe</source>
-        <translation>Abonnent möglich</translation>
+        <translation>Abonnement möglich</translation>
     </message>
     <message>
         <source>Siteaccess</source>
@@ -1976,7 +1976,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     <name>cjw_newsletter/skin/default</name>
     <message>
         <source>unsubscribe</source>
-        <translation>Abonnent beenden</translation>
+        <translation>Abonnement beenden</translation>
     </message>
     <message>
         <source>To unsubscribe your newsletter please visit the following link</source>
@@ -1984,7 +1984,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     </message>
     <message>
         <source>To unsubscribe from this newsletter please visit the following link</source>
-        <translation>Um das Abonnent dieses Newsletter zu beenden klicken Sie bitte folgenden Link</translation>
+        <translation>Um das Abonnement dieses Newsletter zu beenden klicken Sie bitte folgenden Link</translation>
     </message>
 </context>
 <context>
@@ -2031,7 +2031,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     </message>
     <message>
         <source>unsubscribe</source>
-        <translation>Abonnent beenden</translation>
+        <translation>Abonnement beenden</translation>
     </message>
     <message>
         <source>change</source>
@@ -2147,7 +2147,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     <name>cjw_newsletter/subscribe_success</name>
     <message>
         <source>Newsletter - subscribe success</source>
-        <translation>Newsletter - Abonnent erfolgreich</translation>
+        <translation>Newsletter - Abonnement erfolgreich</translation>
     </message>
     <message>
         <source>You are registered for our newsletter.</source>
