@@ -21,12 +21,21 @@ $http = eZHTTPTool::instance();
 $editionSendHash = $Params['EditionSendHash'];
 $outputFormatId = 0;
 $subscriptionHash = false;
+$newsletterUser = null;
 
 if( $Params['OutputFormatId'] )
     $outputFormatId = (int) $Params['OutputFormatId'];
 
 if( $Params['SubscriptionHash'] )
+{
     $subscriptionHash = $Params['SubscriptionHash'];
+    $subscription = CjwNewsletterSubscription::fetchByHash( $subscriptionHash );
+
+    if( $subscription )
+    {
+        $newsletterUser = CjwNewsletterUser::fetch( $subscription->attribute( 'newsletter_user_id' ) );
+    }
+}
 
 $editionSendObject = CjwNewsletterEditionSend::fetchByHash( $editionSendHash );
 
@@ -47,7 +56,7 @@ switch( $outputFormatId )
 {
     // html
     case 0:
-        $newsletterContent = $newsletterContentArray['body']['html'];
+        $newsletterContent = CjwNewsletterUtils::replaceNewsletterMarkers( $newsletterContentArray['body']['html'], $editionSendObject, $newsletterUser );
         break;
         // text
     case 1:

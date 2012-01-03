@@ -2004,6 +2004,14 @@ To edit your newsletter settings please visit the following link:
         <source>To unsubscribe from this newsletter please visit the following link</source>
         <translation>Pour se désabonner de cette newsletter, veuillez visiter le lien suivant</translation>
     </message>
+    <message>
+    	<source>read online</source>
+    	<translation>lire en ligne</translation>
+    </message>
+    <message>
+    	<source>If you cannot properly view this newsletter please visit the following link</source>
+    	<translation>Si vous ne pouvez pas lire correctement cette newsletter, cliquez sur le lien suivant</translation>
+    </message>
 </context>
 <context>
     <name>cjw_newsletter/subscribe</name>
