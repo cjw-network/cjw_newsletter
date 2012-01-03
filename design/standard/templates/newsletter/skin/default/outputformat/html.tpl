@@ -9,6 +9,14 @@
     {def $edition_data_map = $contentobject.data_map}
     <td valign="top">
         <table width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
+        	<tr>
+                <td style="padding: 10px 30px 10px 10px;">
+                    <p>
+                    {'If you cannot properly view this newsletter please visit the following link'|i18n('cjw_newsletter/skin/default')}:
+                                <a href="{'/newsletter/archive/#_hash_editionsend_#/0/#_hash_unsubscribe_#'|ezurl('no')}">{'read online'|i18n('cjw_newsletter/skin/default')}</a>
+                    </p>
+                </td>
+            </tr>
             <tr>
                 <td><a href="http://www.cjw-network.com" title="CJW Network - Developers united in eZ Publish"><img src={'images/newsletter/skin/default/cjw-newsletter_header.jpg'|ezdesign()} border="0" width="600" height="100" alt="CJW Network - Developers united in eZ Publish" /></a></td>
             </tr>

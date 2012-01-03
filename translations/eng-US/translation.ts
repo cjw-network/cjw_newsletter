@@ -1974,6 +1974,14 @@ To edit your newsletter settings please visit the following link:
         <source>To unsubscribe from this newsletter please visit the following link</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+    	<source>read online</source>
+    	<translation type="unfinished"></translation>
+    </message>
+    <message>
+    	<source>If you cannot properly view this newsletter please visit the following link</source>
+    	<translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cjw_newsletter/subscribe</name>

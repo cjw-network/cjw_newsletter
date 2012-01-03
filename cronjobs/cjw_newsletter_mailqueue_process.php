@@ -66,7 +66,7 @@ foreach ( $sendObjectList as $sendObject )
 
     $emailSender = $sendObject->attribute( 'email_sender' );
     $emailSenderName = $sendObject->attribute( 'email_sender_name' );
-    $personalizeContent = (int) $sendObject->attribute( 'personalize_content' );
+
 
     $limit = 50;
     $offset = 0;
@@ -89,54 +89,21 @@ foreach ( $sendObjectList as $sendObject )
             $id = $sendItem->attribute('id');
             $outputFormatId = $sendItem->attribute('output_format_id');
 
-            // ### subscription data
-            $newsletterSubscriptionObject = $sendItem->attribute('newsletter_subscription_object');
-            $newsletterUnsubscribeHash = $newsletterSubscriptionObject->attribute('hash');
-
             // ### get newsletter user data through send_item_object
             $newsletterUserObject = $sendItem->attribute('newsletter_user_object');
             $emailReceiver = $newsletterUserObject->attribute('email');
             $emailReceiverName = $newsletterUserObject->attribute('email_name');
 
-            // ### configure hash
-            $newsletterConfigureHash = $newsletterUserObject->attribute('hash');
 
             // fetch html & text content of parsed outputxml from senmdobject
             // data of outputformate
             $outputStringArray = $outputFormatStringArray[ $outputFormatId ]['body'];
             $emailSubject = $outputFormatStringArray[ $outputFormatId ]['subject'];
 
-            // parsed text and replace vars
-            // TODO parse extra variables
-
-            $searchArray =  array( '#_hash_unsubscribe_#',
-                                   '#_hash_configure_#');
-
-            $replaceArray =  array( $newsletterUnsubscribeHash,
-                                    $newsletterConfigureHash );
-
-            if( $personalizeContent === 1 )
-            {
-                $searchArray = array_merge( $searchArray,
-                                            array(
-                                               '[[name]]',
-                                               '[[salutation_name]]',
-                                               '[[first_name]]',
-                                               '[[last_name]]'
-                                            ));
-                $replaceArray = array_merge( $replaceArray,
-                                             array(
-                                                    $newsletterUserObject->attribute( 'name' ),
-                                                    $newsletterUserObject->attribute( 'salutation_name' ),
-                                                    $newsletterUserObject->attribute( 'first_name' ),
-                                                    $newsletterUserObject->attribute( 'last_name' )
-                                                  ));
-            }
-
             $outputStringArrayNew = array('html' => '', 'text' => '');
             foreach ( $outputStringArray as $index => $string )
             {
-                $outputStringArrayNew[ $index ] = str_replace( $searchArray, $replaceArray, $string );
+                $outputStringArrayNew[ $index ] = CjwNewsletterUtils::replaceNewsletterMarkers( $string, $sendObject, $newsletterUserObject);
             }
 
             // set x-cjwnl header
