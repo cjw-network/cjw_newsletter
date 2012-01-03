@@ -556,7 +556,14 @@ class CjwNewsletterUser extends eZPersistentObject
         $emailReceiverName = '';
 
         $emailSubject = $subject;
-        $emailBody['text'] = $templateResult;
+        if( $tpl->hasVariable( 'content_type' ) && preg_match( '/^text\/html/', $tpl->variable( 'content_type' ) ) )
+        {
+            $emailBody['html'] = $templateResult;
+        }
+        else
+        {
+            $emailBody['text'] = $templateResult;
+        }
 
         $cjwMail = new CjwNewsletterMail();
         // x header set for current user
