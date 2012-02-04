@@ -49,7 +49,7 @@ else
         $parseHeaderArray = $cjwNewsletterMailParserObject->parse();
     }
 
-    $tpl = templateInit();
+    $tpl = eZTemplate::factory();
 
     $tpl->setVariable( 'mailbox_item', $mailboxItemObject );
     $tpl->setVariable( 'mailbox_item_raw_content', $mailboxItemObject->getRawMailMessageContent() );
@@ -59,9 +59,9 @@ else
 
     $Result['content'] = $tpl->fetch( $templateFile );
     $Result['path'] = array( array( 'url' => 'newsletter/mailbox_item_list',
-                                    'text' => ezi18n( 'cjw_newsletter/mailbox_item_view', 'Mailbox item list' ) ),
+                                    'text' => ezpI18n::tr( 'cjw_newsletter/mailbox_item_view', 'Mailbox item list' ) ),
                                 array( 'url' => false,
-                                    'text' => ezi18n( 'cjw_newsletter/mailbox_item_view', 'Mailbox item view' ) ) );
+                                    'text' => ezpI18n::tr( 'cjw_newsletter/mailbox_item_view', 'Mailbox item view' ) ) );
 }
 
 

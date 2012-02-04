@@ -18,7 +18,7 @@ $http = eZHTTPTool::instance();
 $viewParameters = array();
 
 
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 $tpl->setVariable( 'view_parameters', $viewParameters );
 
 //http://admin.eldorado-templin.info.jac400.in-mv.com/settings/view/eldorado-templin_admin/cjw_newsletter.ini

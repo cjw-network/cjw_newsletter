@@ -32,7 +32,7 @@ class CjwNewsletterListType extends eZDataType
      */
     function CjwNewsletterListType()
     {
-        $this->eZDataType( self::DATA_TYPE_STRING, ezi18n( 'cjw_newsletter/datatypes', 'CJW Newsletter List', 'Datatype name' ),
+        $this->eZDataType( self::DATA_TYPE_STRING, ezpI18n::tr( 'cjw_newsletter/datatypes', 'CJW Newsletter List', 'Datatype name' ),
         array( 'serialize_supported' => true, 'translation_allowed' => false ) );
     }
 
@@ -124,7 +124,7 @@ class CjwNewsletterListType extends eZDataType
                 case 'main_siteaccess':
                     if ( $postListData['main_siteaccess'] == '' )
                     {
-                        $validationErrorMesssageArray[] = ezi18n( 'cjw_newsletter/datatype/cjwnewsletterlist', "Main Siteaccess must be set", null , array(  ) );
+                        $validationErrorMesssageArray[] = ezpI18n::tr( 'cjw_newsletter/datatype/cjwnewsletterlist', "Main Siteaccess must be set", null , array(  ) );
                     }
                     else
                     {
@@ -137,7 +137,7 @@ class CjwNewsletterListType extends eZDataType
                 case 'siteaccess_array':
                     if ( count( $postListData['siteaccess_array'] ) == 0 )
                     {
-                        $validationErrorMesssageArray[] = ezi18n( 'cjw_newsletter/datatype/cjwnewsletterlist', "You have to choose a siteaccess for the list", null , array(  ) );
+                        $validationErrorMesssageArray[] = ezpI18n::tr( 'cjw_newsletter/datatype/cjwnewsletterlist', "You have to choose a siteaccess for the list", null , array(  ) );
                     }
                     break;
                 */
@@ -145,20 +145,20 @@ class CjwNewsletterListType extends eZDataType
                 case 'output_format_array':
                     if ( count( $postListData['output_format_array'] ) == 0 )
                     {
-                        $validationErrorMesssageArray[] = ezi18n( 'cjw_newsletter/datatype/cjwnewsletterlist', "You have to choose an output format", null , array(  ) );
+                        $validationErrorMesssageArray[] = ezpI18n::tr( 'cjw_newsletter/datatype/cjwnewsletterlist', "You have to choose an output format", null , array(  ) );
                     }
                     break;
 
                 case 'email_sender':
                     if ( $postListData['email_sender'] == '' or !eZMail::validate( $postListData['email_sender'] )  )
                     {
-                        $validationErrorMesssageArray[] = ezi18n( 'cjw_newsletter/datatype/cjwnewsletterlist', "You have to set a valid email adress", null , array(  ) );
+                        $validationErrorMesssageArray[] = ezpI18n::tr( 'cjw_newsletter/datatype/cjwnewsletterlist', "You have to set a valid email adress", null , array(  ) );
                     }
                     break;
                 case 'email_receiver_test':
                     if ( $postListData['email_receiver_test'] == ''  )
                     {
-                        $validationErrorMesssageArray[] = ezi18n( 'cjw_newsletter/datatype/cjwnewsletterlist', "You have to set a valid semder email", null , array(  ) );
+                        $validationErrorMesssageArray[] = ezpI18n::tr( 'cjw_newsletter/datatype/cjwnewsletterlist', "You have to set a valid semder email", null , array(  ) );
                        }
                        else
                        {
@@ -168,7 +168,7 @@ class CjwNewsletterListType extends eZDataType
                             // check if email
                             if ( eZMail::validate( $reciever ) == false )
                             {
-                                $validationErrorMesssageArray[] = ezi18n( 'cjw_newsletter/datatype/cjwnewsletterlist', "You have to set a valid semder email adress >> $reciever", null , array(  ) );
+                                $validationErrorMesssageArray[] = ezpI18n::tr( 'cjw_newsletter/datatype/cjwnewsletterlist', "You have to set a valid semder email adress >> $reciever", null , array(  ) );
                             }
                         }
                        }

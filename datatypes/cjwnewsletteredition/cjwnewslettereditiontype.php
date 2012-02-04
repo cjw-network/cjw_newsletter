@@ -32,7 +32,7 @@ class CjwNewsletterEditionType extends eZDataType
      */
     function CjwNewsletterEditionType()
     {
-        $this->eZDataType( self::DATA_TYPE_STRING, ezi18n( 'cjw_newsletter/datatypes', 'CJW Newsletter Edition', 'Datatype name' ),
+        $this->eZDataType( self::DATA_TYPE_STRING, ezpI18n::tr( 'cjw_newsletter/datatypes', 'CJW Newsletter Edition', 'Datatype name' ),
         array( 'serialize_supported' => true, 'translation_allowed' => false ) );
     }
 
@@ -98,7 +98,7 @@ class CjwNewsletterEditionType extends eZDataType
                     /*
                     if ( $postListData['email_receiver_test'] == '' or !eZMail::validate( $postListData['email_receiver_test'] )  )
                     {
-                        $validationErrorMesssageArray[] = ezi18n( 'cjw_newsletter/datatype/cjwnewsletteredition', "You have to set a valid email adress", null , array(  ) );
+                        $validationErrorMesssageArray[] = ezpI18n::tr( 'cjw_newsletter/datatype/cjwnewsletteredition', "You have to set a valid email adress", null , array(  ) );
                     }
                     */
                     break;
@@ -124,7 +124,7 @@ class CjwNewsletterEditionType extends eZDataType
         // if the current version != DRAFT, than abort, because a version can't has more than one status
         if ( $object->attribute( 'is_process' ) ||  $object->attribute( 'is_abort' ) || $object->attribute( 'is_archive' ) )
         {
-            $error = $contentObjectAttribute->setValidationError( ezi18n( 'cjw_newsletter/datatype/cjwnewsletteredition', "The current edition is already in sending process - you have to create a new copy of this object", null , array(  ) ) );
+            $error = $contentObjectAttribute->setValidationError( ezpI18n::tr( 'cjw_newsletter/datatype/cjwnewsletteredition', "The current edition is already in sending process - you have to create a new copy of this object", null , array(  ) ) );
             return eZInputValidator::STATE_INVALID;
         }
 
