@@ -19,6 +19,8 @@ $http = eZHTTPTool::instance();
 $tpl = templateInit();
 $subscription = CjwNewsletterSubscription::fetchByHash( $Params['Hash'] );
 
+$ini = eZINI::instance( 'cjw_newsletter.ini' );
+
 if ( !$subscription )
 {
     return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
@@ -38,7 +40,7 @@ if( $subscription->isRemoved() )
 {
     $tplTemplate = 'design:newsletter/unsubscribe_already_done.tpl';
 }
-elseif ( $module->isCurrentAction( 'Unsubscribe' ) )
+elseif ( $ini->variable( 'SubscriptionSetting', 'RequireUnsubscribeConfirmation' ) === 'disabled' || $module->isCurrentAction( 'Unsubscribe' ) )
 {
     $unsubscribeResult = $subscription->unsubscribe();
     $tpl->setVariable( 'unsubscribe_result', $unsubscribeResult );
