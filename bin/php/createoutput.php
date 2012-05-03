@@ -105,7 +105,7 @@ $outputContent = '';
 // fetch objectversion
 $contentObject = eZContentObjectVersion::fetchVersion( $objectVersion ,$objectId );
 
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 $tpl->setVariable('contentobject', $contentObject );
 
 if( !is_object( $contentObject ) )

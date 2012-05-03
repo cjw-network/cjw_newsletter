@@ -17,7 +17,7 @@ require_once( 'kernel/common/i18n.php' );
 include_once( 'kernel/common/template.php' );
 
 $http = eZHTTPTool::instance();
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 
 if( $http->hasVariable( 'ConnectMailboxButton' ) )
 {
@@ -67,8 +67,8 @@ $Result = array();
 
 $Result['content'] = $tpl->fetch( $templateFile );
 $Result['path'] =  array( array( 'url'  => 'newsletter/index',
-                                 'text' => ezi18n( 'cjw_newsletter/path', 'Newsletter' ) ),
+                                 'text' => ezpI18n::tr( 'cjw_newsletter/path', 'Newsletter' ) ),
                           array( 'url'  => false,
-                                 'text' => ezi18n( 'cjw_newsletter/mailbox_item_list', 'Bounces' ) ) );
+                                 'text' => ezpI18n::tr( 'cjw_newsletter/mailbox_item_list', 'Bounces' ) ) );
 
 ?>
