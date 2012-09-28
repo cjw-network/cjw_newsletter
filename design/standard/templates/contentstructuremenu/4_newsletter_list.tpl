@@ -53,7 +53,7 @@
                         <span class="node-name-normal">{'Subscriptions'|i18n('cjw_newsletter/contentstructuremenu')} (<b>{$subcription_user_statistic.approved}</b>/{$subcription_user_statistic.all})</span>
                     </a>
                 </li>
-                {undef $subcripion_user_statistic}
+                {undef $subcription_user_statistic}
                 {* draft *}
                 {def $editionObjectListDraftCount = fetch('content','list_count',
                                                                 hash('parent_node_id', $newsletter_list_node_id,
