@@ -12,13 +12,10 @@
  * @filesource
  */
 
-require_once( 'kernel/common/i18n.php' );
-include_once( 'kernel/common/template.php' );
-
 $module = $Params['Module'];
 
 $http = eZHTTPTool::instance();
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 
 $newsletterUser = CjwNewsletterUser::fetchByHash( $Params['UserHash'] );
 
@@ -128,7 +125,7 @@ $tpl->setVariable( 'newsletter_user', $newsletterUser );
 $Result = array();
 $Result['content'] = $tpl->fetch( 'design:newsletter/configure.tpl' );
 $Result['path'] = array( array( 'url' => false,
-                                'text' => ezi18n( 'cjw_newsletter/configure', 'Configure newsletter settings' ) ) );
+                                'text' => ezpI18n::tr( 'cjw_newsletter/configure', 'Configure newsletter settings' ) ) );
 
 
 ?>

@@ -20,8 +20,6 @@
 
 require 'autoload.php';
 
-include_once( 'kernel/common/template.php' );
-
 $cli = eZCLI::instance();
 $script = eZScript::instance( array( 'description' => ( "CjW Newsletter CreateOutput\n\n" .
 
@@ -105,7 +103,7 @@ $outputContent = '';
 // fetch objectversion
 $contentObject = eZContentObjectVersion::fetchVersion( $objectVersion ,$objectId );
 
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 $tpl->setVariable('contentobject', $contentObject );
 
 if( !is_object( $contentObject ) )

@@ -14,8 +14,6 @@
 
 $module = $Params['Module'];
 
-require_once( 'kernel/common/i18n.php' );
-
 $http = eZHTTPTool::instance();
 $blackListItemArray = array();
 $deleteIDArray = $http->hasVariable( 'BlacklistIDArray' ) ? $http->variable( 'BlacklistIDArray' ) : array();

@@ -10,12 +10,9 @@
  * @filesource
  */
 
-require_once( 'kernel/common/i18n.php' );
-include_once( 'kernel/common/template.php' );
-
 $module = $Params['Module'];
 $http = eZHTTPTool::instance();
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 
 $templateFile = 'design:newsletter/subscription_view.tpl';
 
@@ -32,13 +29,13 @@ $message = '';
 if( $http->hasVariable( 'SubscriptionApproveButton' ) )
 {
     $subscriptionObject->approveByAdmin();
-    $message = ezi18n( 'cjw_newsletter/subscription_view','Subscription successfully approved!' );
+    $message = ezpI18n::tr( 'cjw_newsletter/subscription_view','Subscription successfully approved!' );
 }
 
 if( $http->hasVariable( 'SubscriptionRemoveButton' ) )
 {
     $subscriptionObject->removeByAdmin();
-    $message = ezi18n( 'cjw_newsletter/subscription_view','Subscription successfully removed!' );
+    $message = ezpI18n::tr( 'cjw_newsletter/subscription_view','Subscription successfully removed!' );
 }
 
 $viewParameters = array();
@@ -76,7 +73,7 @@ if ( is_object( $newsletter_user) )
 
 
 $Result['path'] =  array( array( 'url'  => 'newsletter/index',
-                                 'text' => ezi18n( 'cjw_newsletter/path', 'Newsletter' ) ),
+                                 'text' => ezpI18n::tr( 'cjw_newsletter/path', 'Newsletter' ) ),
 
                           array( 'url'  => $systemNode->attribute( 'url_alias' ),
                                  'text' => $systemNode->attribute( 'name' ) ),
@@ -85,7 +82,7 @@ $Result['path'] =  array( array( 'url'  => 'newsletter/index',
                                  'text' => $listNode->attribute( 'name' ) ),
 
                           array( 'url'  => 'newsletter/subscription_list/' .$listNodeId,
-                                 'text' => ezi18n( 'cjw_newsletter/subscription_list', 'Subscriptions' ) ),
+                                 'text' => ezpI18n::tr( 'cjw_newsletter/subscription_list', 'Subscriptions' ) ),
 
                           array( 'url'  => false,
                                  'text' => $name ) );

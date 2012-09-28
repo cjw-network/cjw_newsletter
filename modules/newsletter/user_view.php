@@ -10,12 +10,9 @@
  * @filesource
  */
 
-require_once( 'kernel/common/i18n.php' );
-include_once( 'kernel/common/template.php' );
-
 $module = $Params['Module'];
 $http = eZHTTPTool::instance();
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 
 $templateFile = 'design:newsletter/user_view.tpl';
 
@@ -41,9 +38,9 @@ $Result = array();
 
 $Result['content'] = $tpl->fetch( $templateFile );
 $Result['path'] =  array( array( 'url'  => 'newsletter/index',
-                                 'text' => ezi18n( 'cjw_newsletter/path', 'Newsletter' ) ),
+                                 'text' => ezpI18n::tr( 'cjw_newsletter/path', 'Newsletter' ) ),
                           array( 'url'  => 'newsletter/user_list',
-                                 'text' => ezi18n( 'cjw_newsletter/user_list', 'Users' ) ),
+                                 'text' => ezpI18n::tr( 'cjw_newsletter/user_list', 'Users' ) ),
                           array( 'url'  => false,
                                  'text' => $newsletterUserObject->attribute('name') ) );
 

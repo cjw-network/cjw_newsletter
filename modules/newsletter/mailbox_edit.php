@@ -15,9 +15,6 @@
 $module = $Params['Module'];
 $templateFile = "design:newsletter/mailbox_edit.tpl";
 
-require_once( 'kernel/common/i18n.php' );
-include_once( 'kernel/common/template.php' );
-
 $http = eZHTTPTool::instance();
 
 // create new CjwNewsletterMailbox object
@@ -70,7 +67,7 @@ if ( isset( $Params[ 'MailboxId' ] ) )
     }
 }
 
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 
 $viewParameters = array( 'offset'     => 0,
                          'namefilter' => '' );
@@ -86,8 +83,8 @@ $Result = array();
 $Result[ 'content' ] = $tpl->fetch( $templateFile );
 //$Result[ 'ui_context' ] = 'edit';
 $Result['path'] = array( array( 'url'  => false,
-                                'text' => ezi18n( 'cjw_newsletter', 'Newsletter' ) ),
+                                'text' => ezpI18n::tr( 'cjw_newsletter', 'Newsletter' ) ),
                          array( 'url'  => false,
-                                'text' => ezi18n( 'cjw_newsletter/mailbox_item_list', 'Mail accounts' ) ) );
+                                'text' => ezpI18n::tr( 'cjw_newsletter/mailbox_item_list', 'Mail accounts' ) ) );
 
 ?>
