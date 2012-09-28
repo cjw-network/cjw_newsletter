@@ -72,13 +72,12 @@
                     {/case}
                  {/switch}
             </td>
+            {def $current_send_statistic = false()}
             <td nowrap>
                 {if $edition_status|ne('draft')}
-                    {def $current_send_statistic = $newsletter_edition_attribute_content.edition_send_array.current.0.send_items_statistic}
+                    {set $current_send_statistic = $newsletter_edition_attribute_content.edition_send_array.current.0.send_items_statistic}
 
                     {$current_send_statistic.items_send|wash}/{$current_send_statistic.items_count|wash} ({$current_send_statistic.items_send_in_percent|wash}%)
-
-                    {undef $current_send_statistic}
                 {/if}
             </td>
             <td nowrap>
@@ -86,6 +85,7 @@
                     {$current_send_statistic.items_bounced|wash}
                 {/if}
             </td>
+            {undef $current_send_statistic}
 
             {* Published *}
             <td class="published" nowrap>{$edition_node.object.modified|l10n( 'shortdatetime' )}</td>
