@@ -226,7 +226,7 @@ function generateAbsoluteLinks( $string , $urlArray )
     */
 
     $hostUrlEZ   = $urlArray[ 'ez_url' ];
-    $hostUrlRoot = $urlArray[ 'ez_root' ];
+    $hostUrlRoot = ( trim( $urlArray['cdn_url'] !== '' ) ) ? $urlArray['cdn_url'] : $urlArray['ez_root'];
 
     $htmlPage = $string;
     $htmlPage = preg_replace("/url:/",              $hostUrlEZ,                         $htmlPage );
@@ -303,6 +303,7 @@ function getUrlArray( $siteUrl, $currentHostName, $wwwDir )
                   'current_host_name' => $currentHostName,
                   'ez_url'   => $ezUrl,
                   'ez_root'  => $ezRoot,
+                  'cdn_url' => eZINI::instance( 'cjw_newsletter.ini' )->variable( 'NewsletterSettings', 'CDNURL' )
     //              'ez_file' => $localFileUrl
      );
 }

@@ -553,7 +553,9 @@ class CjwNewsletterEdition extends eZPersistentObject
         $newsletterContentArrayNew = $newsletterContentArray;
 
         // $outputStringArray = $outputFormatStringArray[ $outputFormatId ]['body'];
-        $eZRoot = $newsletterContentArray[ 'ez_root' ] . '/';
+        $eZRoot = ( trim( $newsletterContentArray['cdn_url'] !== '' ) ) ? $newsletterContentArray['cdn_url'] : $newsletterContentArray['ez_root'];
+        $eZRoot = $eZRoot . '/';
+
         $eZFile = 'file://ezroot/';
         $body = $newsletterContentArray['body'];
         foreach ( $body as $id => $value )
