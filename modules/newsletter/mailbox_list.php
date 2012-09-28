@@ -15,9 +15,6 @@
 $module = $Params['Module'];
 $templateFile = "design:newsletter/mailbox_list.tpl";
 
-require_once( 'kernel/common/i18n.php' );
-include_once( 'kernel/common/template.php' );
-
 $mailboxObject = new CjwNewsletterMailbox( true );
 
 $listMailboxesCount = 0;
@@ -30,7 +27,7 @@ if ( is_object( $mailboxObject ) )
     $listMailboxesCount = count( $listMailboxes );
 }
 
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 
 $viewParameters = array( 'offset' => 0,
                          'namefilter' => '',
@@ -48,9 +45,9 @@ $Result = array();
 
 $Result['content'] = $tpl->fetch( $templateFile );
 $Result['path'] = array( array( 'url'  => 'newsletter/index',
-                                'text' => ezi18n( 'cjw_newsletter', 'Newsletter' ) ),
+                                'text' => ezpI18n::tr( 'cjw_newsletter', 'Newsletter' ) ),
                          array( 'url'  => false,
-                                'text' => ezi18n( 'cjw_newsletter/mailbox_item_list', 'Mail accounts' ) ) );
+                                'text' => ezpI18n::tr( 'cjw_newsletter/mailbox_item_list', 'Mail accounts' ) ) );
 
 
 ?>

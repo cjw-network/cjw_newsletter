@@ -14,7 +14,6 @@
  * @filesource
  */
 
-include_once( 'kernel/common/template.php' );
 $module = $Params["Module"];
 $http = eZHTTPTool::instance();
 

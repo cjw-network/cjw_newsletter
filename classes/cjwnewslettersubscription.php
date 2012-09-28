@@ -403,14 +403,14 @@ class CjwNewsletterSubscription extends eZPersistentObject
     static function availableStatusIdNameArray()
     {
         return array(
-            self::STATUS_PENDING        => ezi18n( 'cjw_newsletter/subscription/status', 'Pending' ),
-            self::STATUS_CONFIRMED      => ezi18n( 'cjw_newsletter/subscription/status', 'Confirmed' ),
-            self::STATUS_APPROVED       => ezi18n( 'cjw_newsletter/subscription/status', 'Approved' ),
-            self::STATUS_REMOVED_SELF   => ezi18n( 'cjw_newsletter/subscription/status', 'Removed by user' ),
-            self::STATUS_REMOVED_ADMIN  => ezi18n( 'cjw_newsletter/subscription/status', 'Removed by admin' ),
-            self::STATUS_BOUNCED_SOFT   => ezi18n( 'cjw_newsletter/subscription/status', 'Bounced soft' ),
-            self::STATUS_BOUNCED_HARD   => ezi18n( 'cjw_newsletter/subscription/status', 'Bounced hard' ),
-            self::STATUS_BLACKLISTED    => ezi18n( 'cjw_newsletter/subscription/status', 'Blacklisted' )
+            self::STATUS_PENDING        => ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Pending' ),
+            self::STATUS_CONFIRMED      => ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Confirmed' ),
+            self::STATUS_APPROVED       => ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Approved' ),
+            self::STATUS_REMOVED_SELF   => ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Removed by user' ),
+            self::STATUS_REMOVED_ADMIN  => ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Removed by admin' ),
+            self::STATUS_BOUNCED_SOFT   => ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Bounced soft' ),
+            self::STATUS_BOUNCED_HARD   => ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Bounced hard' ),
+            self::STATUS_BLACKLISTED    => ezpI18n::tr( 'cjw_newsletter/subscription/status', 'Blacklisted' )
         );
     }
 

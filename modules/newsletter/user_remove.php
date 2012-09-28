@@ -10,12 +10,9 @@
  * @filesource
  */
 
-require_once( 'kernel/common/i18n.php' );
-include_once( 'kernel/common/template.php' );
-
 $module = $Params['Module'];
 $http = eZHTTPTool::instance();
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 
 $templateFile = 'design:newsletter/user_remove.tpl';
 
@@ -77,6 +74,6 @@ $Result = array();
 
 $Result['content'] = $tpl->fetch( $templateFile );
 $Result['path'] = array( array( 'url' => false,
-                                'text' => ezi18n( 'cjw_newsletter/user_remove', 'Remove newsletter user' ) ) );
+                                'text' => ezpI18n::tr( 'cjw_newsletter/user_remove', 'Remove newsletter user' ) ) );
 
 ?>

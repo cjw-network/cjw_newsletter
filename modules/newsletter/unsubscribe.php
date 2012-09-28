@@ -10,13 +10,10 @@
  * @filesource
  */
 
-require_once( 'kernel/common/i18n.php' );
-include_once( 'kernel/common/template.php' );
-
 $module = $Params['Module'];
 
 $http = eZHTTPTool::instance();
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 $subscription = CjwNewsletterSubscription::fetchByHash( $Params['Hash'] );
 
 if ( !$subscription )
@@ -68,7 +65,7 @@ $tpl->setVariable( 'subscription', $subscription );
 $Result = array();
 $Result['content'] = $tpl->fetch( $tplTemplate );
 $Result['path'] = array( array( 'url' => false,
-                                'text' => ezi18n( 'cjw_newsletter/unsubscribe', 'Unsubscribe' ) ) );
+                                'text' => ezpI18n::tr( 'cjw_newsletter/unsubscribe', 'Unsubscribe' ) ) );
 
 
 ?>

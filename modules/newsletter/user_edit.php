@@ -25,12 +25,9 @@
 // - newsletter/user_list               ?RedirectUrl=
 // - newsletter/subscription_list       ?RedirectUrl=
 
-require_once( 'kernel/common/i18n.php' );
-include_once( 'kernel/common/template.php' );
-
 $module = $Params['Module'];
 $http = eZHTTPTool::instance();
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 
 $templateFile = 'design:newsletter/user_edit.tpl';
 $newsletterUserId = (int) $Params['NewsletterUserId'];
@@ -88,10 +85,10 @@ if( $http->hasVariable( 'UserCreateMsg' ) )
     switch ( $userCreateMsg )
     {
         case 'edit_new':
-            $messageFeedback = ezi18n( 'cjw_newsletter/user_edit', 'Creating new newsletter user' );
+            $messageFeedback = ezpI18n::tr( 'cjw_newsletter/user_edit', 'Creating new newsletter user' );
             break;
         case 'edit_existing':
-            $messageFeedback =  ezi18n( 'cjw_newsletter/user_edit', 'Edit existing newsletter user' );
+            $messageFeedback =  ezpI18n::tr( 'cjw_newsletter/user_edit', 'Edit existing newsletter user' );
             break;
     }
 }
@@ -189,7 +186,7 @@ switch( $newsletterUserObject->attribute('status') )
 {
     case CjwNewsletterUser::STATUS_BLACKLISTED :
         $userIsBlacklisted = true;
-        $messageFeedback = ezi18n( 'cjw_newsletter/user_edit', 'Can not edit newsletter user because he is blacklisted' );
+        $messageFeedback = ezpI18n::tr( 'cjw_newsletter/user_edit', 'Can not edit newsletter user because he is blacklisted' );
        // return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
     break;
 }
@@ -199,8 +196,8 @@ if ( $userIsBlacklisted === false
      && ( $module->isCurrentAction( 'Store' )
           || $module->isCurrentAction( 'StoreDraft' ) ) )
 {
-    $messageArray['email']      = array( 'field_key'   => ezi18n( 'cjw_newsletter/subscription', 'Email'),
-                                          'message'     => ezi18n( 'cjw_newsletter/subscription', 'You must provide a valid email address.' ) );
+    $messageArray['email']      = array( 'field_key'   => ezpI18n::tr( 'cjw_newsletter/subscription', 'Email'),
+                                          'message'     => ezpI18n::tr( 'cjw_newsletter/subscription', 'You must provide a valid email address.' ) );
 
     $requiredSubscriptionFields = array( 'email' );
     foreach ( $requiredSubscriptionFields as $fieldName )
@@ -221,8 +218,8 @@ if ( $userIsBlacklisted === false
                     if( is_object( $existingNewsletterUserObject )
                         && (int) $existingNewsletterUserObject->attribute('id') != (int) $newsletterUserObject->attribute('id') )
                     {
-                        $warningArr['email'] = array( 'field_key'   => ezi18n( 'cjw_newsletter/subscription', 'Email' ),
-                                                'message'     => ezi18n( 'cjw_newsletter/subscription', 'Email is already used by an other newsletter user.' ) );
+                        $warningArr['email'] = array( 'field_key'   => ezpI18n::tr( 'cjw_newsletter/subscription', 'Email' ),
+                                                'message'     => ezpI18n::tr( 'cjw_newsletter/subscription', 'Email is already used by an other newsletter user.' ) );
                     }
                 }
 
@@ -361,9 +358,9 @@ $Result = array();
 //$Result[ 'ui_context' ] = 'edit';
 $Result['content'] = $tpl->fetch( $templateFile );
 $Result['path'] =  array( array( 'url'  => false,
-                                 'text' => ezi18n( 'cjw_newsletter/path', 'Newsletter' ) ),
+                                 'text' => ezpI18n::tr( 'cjw_newsletter/path', 'Newsletter' ) ),
                           array( 'url'  => false,
-                                 'text' => ezi18n( 'cjw_newsletter/user_list', 'Users' ) ),
+                                 'text' => ezpI18n::tr( 'cjw_newsletter/user_list', 'Users' ) ),
                           array( 'url'  => false,
                                  'text' => $newsletterUserObject->attribute( 'name' ) )  );
 

@@ -13,8 +13,6 @@
  * @filesource
  */
 
-require_once( 'kernel/common/i18n.php' );
-
 $http = eZHTTPTool::instance();
 $module = $Params["Module"];
 
@@ -152,7 +150,7 @@ if( $showRawContent === false )
     // insert email subject in preview after the body tag
     //$mailSubject = '<body${1}><!-- email subject preview start --><span class="newsletter-skin-preview-email-subject"><table <span class="newsletter-skin-preview-email-subject-label"><b>Email subject:</b></span> <span class="newsletter-skin-preview-email-subject-content">'. $newsletterContentArray['subject'] . '</span><br /></span><!-- email subject preview end -->';
 
-    $mailSubjectLabel = ezi18n( 'cjw_newsletter/preview', 'Email subject' );
+    $mailSubjectLabel = ezpI18n::tr( 'cjw_newsletter/preview', 'Email subject' );
 
     $subjectStyle = 'style="background-color:#dddddd;border-color: #cccccc;border-width: 0 0 1px 0;border-style: solid;color:#333333;"';
 

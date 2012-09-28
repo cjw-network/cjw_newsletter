@@ -10,9 +10,6 @@
  * @filesource
  */
 
-require_once( 'kernel/common/i18n.php' );
-include_once( 'kernel/common/template.php' );
-
 $module = $Params[ 'Module' ];
 $http = eZHTTPTool::instance();
 
@@ -22,15 +19,15 @@ $viewParameters = array( 'offset' => 0,
 $userParameters = $Params['UserParameters'];
 $viewParameters = array_merge( $viewParameters, $userParameters );
 
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 $tpl->setVariable( 'view_parameters', $viewParameters );
 
 $tpl->setVariable( 'current_siteaccess', $viewParameters );
 $Result = array();
 $Result['content'] = $tpl->fetch( "design:newsletter/index.tpl" );
 $Result['path'] = array( array( 'url'  => false,
-                                'text' => ezi18n( 'cjw_newsletter', 'Newsletter' ) ),
+                                'text' => ezpI18n::tr( 'cjw_newsletter', 'Newsletter' ) ),
                          array( 'url'  => false,
-                                'text' => ezi18n( 'cjw_newsletter/index', 'Dashboard' ) ) );
+                                'text' => ezpI18n::tr( 'cjw_newsletter/index', 'Dashboard' ) ) );
 
 ?>

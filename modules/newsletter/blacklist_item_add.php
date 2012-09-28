@@ -15,11 +15,8 @@
 $module = $Params['Module'];
 $templateFile = 'design:newsletter/blacklist_item_add.tpl';
 
-require_once( 'kernel/common/i18n.php' );
-include_once( 'kernel/common/template.php' );
-
 $http = eZHTTPTool::instance();
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 
 $isBlacklistDone = false;
 $email = false;
@@ -70,7 +67,7 @@ if ( $http->hasVariable( 'AddButton' ) )
         if( is_object( $newsletterUserObject ) )
         {
 
-            $message = ezi18n( 'cjw_newsletter/blacklist_item_add', 'Successfully adding newsletter user %nl_user_id with email %email to blacklist', '',
+            $message = ezpI18n::tr( 'cjw_newsletter/blacklist_item_add', 'Successfully adding newsletter user %nl_user_id with email %email to blacklist', '',
                      array( '%nl_user_id' => $newsletterUserObject->attribute('id'),
                             '%email' => $newsletterUserObject->attribute('email') ));
 
@@ -78,7 +75,7 @@ if ( $http->hasVariable( 'AddButton' ) )
         }
         else
         {
-            $message = ezi18n( 'cjw_newsletter/blacklist_item_add', 'Successfully adding email address %email to blacklist', '',
+            $message = ezpI18n::tr( 'cjw_newsletter/blacklist_item_add', 'Successfully adding email address %email to blacklist', '',
                      array( '%email' => $blacklistItemObject->attribute('email') ));
             $isBlacklistDone = true;
         }
@@ -110,7 +107,7 @@ $Result = array();
 $Result[ 'content' ] = $tpl->fetch( $templateFile );
 //$Result[ 'ui_context' ] = 'edit';
 $Result['path'] =  array( array( 'url'  => false,
-                                 'text' => ezi18n( 'cjw_newsletter/path', 'Newsletter' ) ),
+                                 'text' => ezpI18n::tr( 'cjw_newsletter/path', 'Newsletter' ) ),
                           array( 'url'  => false,
-                                 'text' => ezi18n( 'cjw_newsletter/blacklist_item_add', 'Blacklist add' ) ) );
+                                 'text' => ezpI18n::tr( 'cjw_newsletter/blacklist_item_add', 'Blacklist add' ) ) );
 ?>
