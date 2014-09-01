@@ -1,7 +1,7 @@
 cjw_newsletter INSTALL
 =====================
 
-Copyright (C) 2007-2010 by CJW Network www.cjw-network.com
+Copyright (C) 2007-2012 by CJW Network www.cjw-network.com
 
 coolscreen.de - enterprise internet
 JAC Systeme -  http://www.jac-systeme.de
@@ -16,7 +16,7 @@ System requirements:
 Steps for installing the newsletter:
 ====================================
 
-(1.) Activate the extension e.g. cjw_newsletter in settings/override/site.ini.append.php 
+(1.) Activate the extension e.g. cjw_newsletter in settings/override/site.ini.append.php
     [ExtensionSettings]
     ActiveAccessExtensions[]=cjw_newsletter (have to be before ezwt if used)
     ActiveAccessExtensions[]=ezwt
@@ -47,6 +47,7 @@ Steps for installing the newsletter:
 
 (7.) Import newsletter contentclasses
      cjw_newsletter/packages/cjw_newsletter_classes-1.0.1.ezpkg
+     cjw_newsletter/packages/cjw_newsletter_list_virtual-1.0-1.ezpkg
 
 (8.) Create a Newsletter Root object (e.g. cjw_newsletter_root ) which is used for all newsletter content
 
@@ -136,3 +137,11 @@ Steps for installing the newsletter:
 Enjoy :-)
 
 
+Steps for update the newsletter 1.0.0 -> 2.0.0:
+===============================================
+
+(1.) Run db update script
+     update/datatbase/mysql/2.0/dbupdate-1.1.0-to-2.0.0beta.sql
+
+(2.) Make sure, that you install new class package
+     cjw_newsletter/packages/cjw_newsletter_list_virtual-1.0-1.ezpkg

@@ -2,7 +2,7 @@
 /**
  * File containing the CjwNewsletterCsvExport class
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -142,15 +142,16 @@ class CjwNewsletterCsvExport extends eZPersistentObject
                 }
             }
 
-            // wash the string
-            $this->washCsvString();
-
             // cut last delimiter
             $this->CsvResult = rtrim( $this->CsvResult, $this->Delimiter );
 
             // set EOL => End Of Line Char => for line break
             $this->CsvResult .= $charEol;
         }
+
+        // wash the string
+        $this->washCsvString();
+
     }
 
     /**

@@ -63,6 +63,7 @@
          {*{$edition_send_object.status}*}
 
             <ul>
+            <li>{if $edition_send_object.status|eq(4)}<b>{/if}4 - mailqueue_process_scheduled ( {cond( $edition_send_object.mailqueue_process_scheduled|eq(0), '-',  $edition_send_object.mailqueue_process_scheduled|l10n( shortdatetime ) )} ){if $edition_send_object.status|eq(4)}</b>{/if}</li>
             <li>{if $edition_send_object.status|eq(0)}<b>{/if}0 - wait_for_process ( {$edition_send_object.created|l10n( shortdatetime )} ){if $edition_send_object.status|eq(0)}</b>{/if}</li>
             <li>{if $edition_send_object.status|eq(1)}<b>{/if}1 - mailqueue_created ( {cond( $edition_send_object.mailqueue_created|eq(0), '-',  $edition_send_object.mailqueue_created|l10n( shortdatetime ) )} ){if $edition_send_object.status|eq(1)}</b>{/if}</li>
             <li>{if $edition_send_object.status|eq(2)}<b>{/if}2 - mailqueue_process_started ( {cond( $edition_send_object.mailqueue_process_started|eq(0), '-',  $edition_send_object.mailqueue_process_started|l10n( shortdatetime ) )} ){if $edition_send_object.status|eq(2)}</b>{/if}</li>

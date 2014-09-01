@@ -54,7 +54,6 @@
                                         {$newsletter_user.email|wash}
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <th>
                                         {'Salutation'|i18n( 'cjw_newsletter/user_view' )}
@@ -186,7 +185,6 @@
                                         {$newsletter_user.hash|wash}
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <th>
                                         {'Bounce count'|i18n( 'cjw_newsletter/user_view' )}
@@ -213,6 +211,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {'External user id'|i18n( 'cjw_newsletter/user_view' )}
+                                    </th>
+                                    <td>
+                                        {$newsletter_user.external_user_id|wash}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {'Note'|i18n( 'cjw_newsletter/user_view' )}
                                     </th>
                                     <td>
@@ -235,7 +241,68 @@
                                         {$newsletter_user.data_text}
                                     </td>
                                 </tr>
+
+                                {*
+                                    Get CustomFieldMappingArray - exists a public name ?
+                                *}
+                                {def $mappingArray = array()}
+
+                                {if ezini_hasvariable( 'NewsletterUserSettings', 'CustomFieldMappingArray', 'cjw_newsletter.ini' )}
+                                    {set $mappingArray = ezini( 'NewsletterUserSettings', 'CustomFieldMappingArray', 'cjw_newsletter.ini' )}
+                                {/if}
+
+                                <tr>
+                                    <th>
+                                        {if and( $mappingArray|contains( 'custom_data_text_1' ), ezini_hasvariable( 'CustomFieldMapping_custom_data_text_1', 'Name', 'cjw_newsletter.ini' ) )}
+                                            {ezini( 'CustomFieldMapping_custom_data_text_1', 'Name', 'cjw_newsletter.ini' )|i18n( 'cjw_newsletter/user_view' )}
+                                        {else}
+                                            {'Custom Data text 1'|i18n( 'cjw_newsletter/user_view' )}
+                                        {/if}
+                                    </th>
+                                    <td>
+                                        {$newsletter_user.custom_data_text_1}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {if and( $mappingArray|contains( 'custom_data_text_2' ), ezini_hasvariable( 'CustomFieldMapping_custom_data_text_2', 'Name', 'cjw_newsletter.ini' ) )}
+                                            {ezini( 'CustomFieldMapping_custom_data_text_2', 'Name', 'cjw_newsletter.ini' )|i18n( 'cjw_newsletter/user_view' )}
+                                        {else}
+                                            {'Custom Data text 2'|i18n( 'cjw_newsletter/user_view' )}
+                                        {/if}
+                                    </th>
+                                    <td>
+                                        {$newsletter_user.custom_data_text_2}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {if and( $mappingArray|contains( 'custom_data_text_3' ), ezini_hasvariable( 'CustomFieldMapping_custom_data_text_3', 'Name', 'cjw_newsletter.ini' ) )}
+                                            {ezini( 'CustomFieldMapping_custom_data_text_3', 'Name', 'cjw_newsletter.ini' )|i18n( 'cjw_newsletter/user_view' )}
+                                        {else}
+                                            {'Custom Data text 3'|i18n( 'cjw_newsletter/user_view' )}
+                                        {/if}
+                                    </th>
+                                    <td>
+                                        {$newsletter_user.custom_data_text_3}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {if and( $mappingArray|contains( 'custom_data_text_4' ), ezini_hasvariable( 'CustomFieldMapping_custom_data_text_4', 'Name', 'cjw_newsletter.ini' ) )}
+                                            {ezini( 'CustomFieldMapping_custom_data_text_4', 'Name', 'cjw_newsletter.ini' )|i18n( 'cjw_newsletter/user_view' )}
+                                        {else}
+                                            {'Custom Data text 4'|i18n( 'cjw_newsletter/user_view' )}
+                                        {/if}
+                                    </th>
+                                    <td>
+                                        {$newsletter_user.custom_data_text_4}
+                                    </td>
+                                </tr>
+
+                                {undef $mappingArray}
                             </table>
+                        </div>
                     </div>
                     {* DESIGN: Content END *}
                 </div>

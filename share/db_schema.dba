@@ -156,6 +156,20 @@ $schema = array (
         'not_null' => '1',
         'default' => 0,
       ),
+      'list_contentobject_version' => 
+      array (
+        'length' => 11,
+        'type' => 'int',
+        'not_null' => '1',
+        'default' => 0,
+      ),
+      'list_is_virtual' => 
+      array (
+        'length' => 1,
+        'type' => 'tinyint',
+        'not_null' => '1',
+        'default' => '0',
+      ),
       'edition_contentobject_id' => 
       array (
         'length' => 11,
@@ -212,6 +226,12 @@ $schema = array (
         'not_null' => '1',
         'default' => 0,
       ),
+      'mailqueue_process_scheduled' => 
+      array (
+        'length' => 11,
+        'type' => 'int',
+        'default' => NULL,
+      ),
       'mailqueue_process_started' => 
       array (
         'length' => 11,
@@ -247,6 +267,20 @@ $schema = array (
         'default' => '',
       ),
       'email_sender' => 
+      array (
+        'length' => 255,
+        'type' => 'varchar',
+        'not_null' => '1',
+        'default' => '',
+      ),
+      'email_reply_to' => 
+      array (
+        'length' => 255,
+        'type' => 'varchar',
+        'not_null' => '1',
+        'default' => '',
+      ),
+      'email_return_path' => 
       array (
         'length' => 255,
         'type' => 'varchar',
@@ -575,6 +609,20 @@ $schema = array (
         'not_null' => '1',
         'default' => '',
       ),
+      'email_reply_to' => 
+      array (
+        'length' => 255,
+        'type' => 'varchar',
+        'not_null' => '1',
+        'default' => '',
+      ),
+      'email_return_path' => 
+      array (
+        'length' => 255,
+        'type' => 'varchar',
+        'not_null' => '1',
+        'default' => '',
+      ),
       'email_receiver_test' => 
       array (
         'length' => 255,
@@ -604,6 +652,19 @@ $schema = array (
         'default' => '0',
       ),
       'user_data_fields' => 
+      array (
+        'type' => 'text',
+        'not_null' => '1',
+        'default' => false,
+      ),
+      'is_virtual' => 
+      array (
+        'length' => 1,
+        'type' => 'tinyint',
+        'not_null' => '1',
+        'default' => '0',
+      ),
+      'virtual_filter' => 
       array (
         'type' => 'text',
         'not_null' => '1',
@@ -886,8 +947,7 @@ $schema = array (
       array (
         'length' => 11,
         'type' => 'int',
-        'not_null' => '1',
-        'default' => 0,
+        'default' => NULL,
       ),
       'hash' => 
       array (
@@ -1141,6 +1201,12 @@ $schema = array (
         'type' => 'text',
         'default' => false,
       ),
+      'external_user_id' => 
+      array (
+        'length' => 11,
+        'type' => 'int',
+        'default' => NULL,
+      ),
       'remote_id' => 
       array (
         'length' => 255,
@@ -1163,6 +1229,34 @@ $schema = array (
       array (
         'type' => 'text',
         'default' => false,
+      ),
+      'custom_data_text_1' => 
+      array (
+        'length' => 255,
+        'type' => 'varchar',
+        'not_null' => '1',
+        'default' => '',
+      ),
+      'custom_data_text_2' => 
+      array (
+        'length' => 255,
+        'type' => 'varchar',
+        'not_null' => '1',
+        'default' => '',
+      ),
+      'custom_data_text_3' => 
+      array (
+        'length' => 255,
+        'type' => 'varchar',
+        'not_null' => '1',
+        'default' => '',
+      ),
+      'custom_data_text_4' => 
+      array (
+        'length' => 255,
+        'type' => 'varchar',
+        'not_null' => '1',
+        'default' => '',
       ),
     ),
     'indexes' => 

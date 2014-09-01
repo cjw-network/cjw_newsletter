@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0">
 <context>
     <name>cjw_newsletter</name>
     <message>
@@ -139,6 +141,14 @@
         <source>Blacklists</source>
         <translation>Blacklists</translation>
     </message>
+    <message>
+        <source>Remove selected</source>
+        <translation type="unfinished">Ausgewählte löschen</translation>
+    </message>
+    <message>
+        <source>Remove the selected items from the list above.</source>
+        <translation type="unfinished">Die ausgewählten Elemente von obiger Liste entfernen.</translation>
+    </message>
 </context>
 <context>
     <name>cjw_newsletter/cjw_newsletter_edition_preview</name>
@@ -278,6 +288,10 @@
     <message>
         <source>Create newsletter here</source>
         <translation>Newsletter hier erstellen</translation>
+    </message>
+    <message>
+        <source>Create filter here</source>
+        <translation>Filter hier erstellen</translation>
     </message>
     <message>
         <source>Newsletter editions</source>
@@ -581,7 +595,7 @@
     </message>
     <message>
         <source>Skin</source>
-        <translation>Skin</translation>
+        <translation>Vorlage</translation>
     </message>
     <message>
         <source>Archived</source>
@@ -643,7 +657,7 @@
     </message>
     <message>
         <source>Please select the newsletter you wish to subscribe to. Deselect to unsubscribe.</source>
-        <translation>Wählen sie einen Newsletter aus um ihn zu abonnieren oder entfernen Sie die Auswahl eines Newsletter um das Abonnent zu beenden.</translation>
+        <translation>Wählen sie einen Newsletter aus um ihn zu abonnieren oder entfernen Sie die Auswahl eines Newsletter um das Abonnement zu beenden.</translation>
     </message>
     <message>
         <source>You can also edit the small boxes &quot;first name&quot; and &quot;last name&quot;.</source>
@@ -660,6 +674,10 @@
     <message>
         <source>Changes saved</source>
         <translation>Änderungen wurden gespeichert</translation>
+    </message>
+    <message>
+        <source>No newsletters available.</source>
+        <translation type="unfinished">Zur Zeit ist kein Newsletter zur Anmeldung verfügbar.</translation>
     </message>
 </context>
 <context>
@@ -756,7 +774,7 @@
     </message>
     <message>
         <source>Can subscribe</source>
-        <translation>Abonnent möglich</translation>
+        <translation>Abonnement möglich</translation>
     </message>
     <message>
         <source>Siteaccess</source>
@@ -784,7 +802,7 @@
     </message>
     <message>
         <source>Newsletter skin name</source>
-        <translation>Newsletter Skin Name</translation>
+        <translation>Newsletter Vorlage</translation>
     </message>
     <message>
         <source>Personalize newsletter if data are available?</source>
@@ -890,6 +908,11 @@
         <comment>Datatype name</comment>
         <translation>CJW Newsletter Anmeldung</translation>
     </message>
+    <message>
+        <source>CJW Newsletter List Virtual</source>
+        <comment>Datatype name</comment>
+        <translation>Dynamischer Filter (virtuelle Liste)</translation>
+    </message>
 </context>
 <context>
     <name>cjw_newsletter/design/admin/node/view/full</name>
@@ -994,6 +1017,10 @@
     <message>
         <source>Imports</source>
         <translation>Importe</translation>
+    </message>
+    <message>
+        <source>Imports (%import_list_count) </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1163,7 +1190,7 @@
     </message>
     <message>
         <source>Opened</source>
-        <translation>Geöffnet</translation>
+        <translation type="obsolete">Geöffnet</translation>
     </message>
     <message>
         <source>Create newsletter here</source>
@@ -1217,7 +1244,7 @@ To edit your newsletter settings please visit the following link:
         <translation>Hallo %name,
 
 Danke für die Verwendung unseres Newsletters.
-Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken: 
+Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
 
 %configureLink</translation>
     </message>
@@ -1976,7 +2003,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     <name>cjw_newsletter/skin/default</name>
     <message>
         <source>unsubscribe</source>
-        <translation>Abonnent beenden</translation>
+        <translation>Abonnement beenden</translation>
     </message>
     <message>
         <source>To unsubscribe your newsletter please visit the following link</source>
@@ -1984,7 +2011,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     </message>
     <message>
         <source>To unsubscribe from this newsletter please visit the following link</source>
-        <translation>Um das Abonnent dieses Newsletter zu beenden klicken Sie bitte folgenden Link</translation>
+        <translation>Um das Abonnement dieses Newsletter zu beenden klicken Sie bitte folgenden Link</translation>
     </message>
 </context>
 <context>
@@ -2019,7 +2046,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     </message>
     <message>
         <source>Subscribe</source>
-        <translation>abonnieren</translation>
+        <translation>Abonnieren</translation>
     </message>
     <message>
         <source>Add to subscription.</source>
@@ -2031,7 +2058,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     </message>
     <message>
         <source>unsubscribe</source>
-        <translation>Abonnent beenden</translation>
+        <translation>Abonnement beenden</translation>
     </message>
     <message>
         <source>change</source>
@@ -2080,6 +2107,10 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     <message>
         <source>Subscription form</source>
         <translation>Formular Abonnement</translation>
+    </message>
+    <message>
+        <source>No newsletters available.</source>
+        <translation type="unfinished">Zur Zeit ist kein Newsletter zur Anmeldung verfügbar.</translation>
     </message>
 </context>
 <context>
@@ -2147,7 +2178,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     <name>cjw_newsletter/subscribe_success</name>
     <message>
         <source>Newsletter - subscribe success</source>
-        <translation>Newsletter - Abonnent erfolgreich</translation>
+        <translation>Newsletter - Abonnement erfolgreich</translation>
     </message>
     <message>
         <source>You are registered for our newsletter.</source>
@@ -2365,11 +2396,11 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     </message>
     <message>
         <source>Remove selected subscription.</source>
-        <translation>Ausgewählte Abonnenten löschen.</translation>
+        <translation>Ausgewählte Abonnements löschen.</translation>
     </message>
     <message>
         <source>New subscription</source>
-        <translation>Neuer Abonnenten</translation>
+        <translation>Neues Abonnement</translation>
     </message>
     <message>
         <source>Create a new subscription.</source>
@@ -2389,11 +2420,11 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     </message>
     <message>
         <source>ID</source>
-        <translation type="obsolete">ID</translation>
+        <translation type="unfinished">ID</translation>
     </message>
     <message>
         <source>eZ ID</source>
-        <translation>eZ ID</translation>
+        <translation type="obsolete">eZ ID</translation>
     </message>
     <message>
         <source>Newsletter User</source>
@@ -2425,11 +2456,11 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     </message>
     <message>
         <source>SID</source>
-        <translation>SID</translation>
+        <translation type="obsolete">SID</translation>
     </message>
     <message>
         <source>Subscription Id</source>
-        <translation>Anmelde Id</translation>
+        <translation type="obsolete">Anmelde Id</translation>
     </message>
     <message>
         <source>Subscriptions statistic</source>
@@ -2458,6 +2489,18 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     <message>
         <source>Blacklisted</source>
         <translation>Blacklisted</translation>
+    </message>
+    <message>
+        <source>eZ Publish User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Approve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Approve subscription</source>
+        <translation type="unfinished">Anmeldung annehmen</translation>
     </message>
 </context>
 <context>
@@ -2488,7 +2531,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     </message>
     <message>
         <source>Cancel subscription export.</source>
-        <translation>Den Abonnentenrexport abbrechen.</translation>
+        <translation>Den Abonnentenexport abbrechen.</translation>
     </message>
     <message>
         <source>Subscription list CSV export</source>
@@ -2547,7 +2590,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     </message>
     <message>
         <source>Cancel subscription import.</source>
-        <translation>EAbonnentenimport abbrechen.</translation>
+        <translation>Abonnentenimport abbrechen.</translation>
     </message>
     <message>
         <source>Import subscriptions</source>
@@ -2619,7 +2662,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     </message>
     <message>
         <source>Subscription CSV import</source>
-        <translation>Abonnenten als CSV exportieren</translation>
+        <translation>Abonnenten als CSV importieren</translation>
     </message>
     <message>
         <source>Imported items</source>
@@ -2628,6 +2671,14 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     <message>
         <source>CSV import</source>
         <translation>CSV Datei importieren</translation>
+    </message>
+    <message>
+        <source>Unsupported CSV delimiter. Please use one of the following: &quot;,&quot;, &quot;;&quot;, &quot;|&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(supported CSV delimiters: &quot;,&quot;, &quot;;&quot;, &quot;|&quot;)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2741,7 +2792,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
     <name>cjw_newsletter/unsubscribe</name>
     <message>
         <source>Unsubscribe</source>
-        <translation>Abonnent beenden</translation>
+        <translation>Abonnement beenden</translation>
     </message>
     <message>
         <source>Hi %name
@@ -2749,7 +2800,7 @@ Zur Bearbeitung der Newslettereinstellungen bitte auf folgenden Link klicken:
         You unsubscribe successfully from List &quot;%listName&quot;.</source>
         <translation>Hallo %name,
 
-Sie haben das Abonnent von folgendem Newsletter erfolgreich beendet: &quot;%listName&quot;.</translation>
+Sie haben das Abonnement von folgendem Newsletter erfolgreich beendet: &quot;%listName&quot;.</translation>
     </message>
     <message>
         <source>Unsubscribe from list.</source>
@@ -2769,7 +2820,7 @@ Sie haben bereits das Abonnement der Liste &quot;%listName&quot; beendet.</trans
     </message>
     <message>
         <source>Unsubscribe success</source>
-        <translation>Beendigung des Abonnents war erfolgreich</translation>
+        <translation>Beendigung des Abonnements war erfolgreich</translation>
     </message>
     <message>
         <source>Hi %name
@@ -2794,7 +2845,7 @@ müssen Sie diese Seite bestätigen.</translation>
     </message>
     <message>
         <source>Ms</source>
-        <translation>Ms</translation>
+        <translation>Frau</translation>
     </message>
 </context>
 <context>
@@ -2867,7 +2918,7 @@ müssen Sie diese Seite bestätigen.</translation>
     </message>
     <message>
         <source>Subscriptions</source>
-        <translation>Abonnenten</translation>
+        <translation>Abonnements</translation>
     </message>
     <message>
         <source>Store and exit</source>
@@ -2896,6 +2947,14 @@ müssen Sie diese Seite bestätigen.</translation>
     <message>
         <source>Can not edit newsletter user because he is blacklisted</source>
         <translation>Der Benutzer kann nicht bearbeitet werden, da er auf der Blacklist steht</translation>
+    </message>
+    <message>
+        <source>auto approve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modified</source>
+        <translation type="unfinished">Geändert</translation>
     </message>
 </context>
 <context>
@@ -2966,19 +3025,19 @@ müssen Sie diese Seite bestätigen.</translation>
     </message>
     <message>
         <source>Remove selected</source>
-        <translation>Ausgewählte löschen</translation>
+        <translation type="obsolete">Ausgewählte löschen</translation>
     </message>
     <message>
         <source>Remove selected subscription.</source>
-        <translation>Ausgewählte Abonnenten löschen.</translation>
+        <translation type="obsolete">Ausgewählte Abonnenten löschen.</translation>
     </message>
     <message>
         <source>New subscription</source>
-        <translation>Neuer Abonnenten</translation>
+        <translation type="obsolete">Neuer Abonnenten</translation>
     </message>
     <message>
         <source>Create a new subscription.</source>
-        <translation>Neue Anmeldung anlegen.</translation>
+        <translation type="obsolete">Neue Anmeldung anlegen.</translation>
     </message>
     <message>
         <source>Newsletter user list</source>
@@ -3043,6 +3102,18 @@ müssen Sie diese Seite bestätigen.</translation>
     <message>
         <source>Bounce count</source>
         <translation>Anzahl Rückläufer</translation>
+    </message>
+    <message>
+        <source>Details</source>
+        <translation type="unfinished">Details</translation>
+    </message>
+    <message>
+        <source>Subscription details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished">Bearbeiten</translation>
     </message>
 </context>
 <context>
@@ -3258,6 +3329,14 @@ müssen Sie diese Seite bestätigen.</translation>
         <source>User</source>
         <translation type="obsolete">Benutzer</translation>
     </message>
+    <message>
+        <source>External user id</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from blacklist</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/admin/content/edit</name>
@@ -3334,7 +3413,7 @@ müssen Sie diese Seite bestätigen.</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Typ</translation>
+        <translation type="obsolete">Typ</translation>
     </message>
     <message>
         <source>Use these checkboxes to select items for removal. Click the &quot;Remove selected&quot; button to  remove the selected items.</source>
@@ -3366,27 +3445,27 @@ müssen Sie diese Seite bestätigen.</translation>
     </message>
     <message>
         <source>Display sub items using a simple list.</source>
-        <translation>Untergeordnete Einträge als einfache Liste anzeigen.</translation>
+        <translation type="obsolete">Untergeordnete Einträge als einfache Liste anzeigen.</translation>
     </message>
     <message>
         <source>List</source>
-        <translation>Liste</translation>
+        <translation type="obsolete">Liste</translation>
     </message>
     <message>
         <source>Thumbnail</source>
-        <translation>Miniaturansicht</translation>
+        <translation type="obsolete">Miniaturansicht</translation>
     </message>
     <message>
         <source>Display sub items using a detailed list.</source>
-        <translation>Untergeordnete Einträge als ausführliche Liste anzeigen.</translation>
+        <translation type="obsolete">Untergeordnete Einträge als ausführliche Liste anzeigen.</translation>
     </message>
     <message>
         <source>Detailed</source>
-        <translation>Detailliert</translation>
+        <translation type="obsolete">Detailliert</translation>
     </message>
     <message>
         <source>Display sub items as thumbnails.</source>
-        <translation>Untergeordnete Einträge als Miniaturansichten zeigen.</translation>
+        <translation type="obsolete">Untergeordnete Einträge als Miniaturansichten zeigen.</translation>
     </message>
     <message>
         <source>The current item does not contain any sub items.</source>
@@ -3554,11 +3633,11 @@ müssen Sie diese Seite bestätigen.</translation>
     </message>
     <message>
         <source>Show preview of content.</source>
-        <translation>Vorschau anzeigen.</translation>
+        <translation type="obsolete">Vorschau anzeigen.</translation>
     </message>
     <message>
         <source>Tab is disabled, enable on dashboard.</source>
-        <translation>Der Reiter ist deaktiviert, aktivieren Sie ihn auf dem Dashboard.</translation>
+        <translation type="obsolete">Der Reiter ist deaktiviert, aktivieren Sie ihn auf dem Dashboard.</translation>
     </message>
     <message>
         <source>Show details.</source>
@@ -3591,6 +3670,26 @@ müssen Sie diese Seite bestätigen.</translation>
     <message>
         <source>Relations (%count)</source>
         <translation>Relationen (%count)</translation>
+    </message>
+    <message>
+        <source>Tab is disabled, enable with toggler to the left of these tabs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show simplified view of content.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ordering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show published ordering overview.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3648,6 +3747,17 @@ müssen Sie diese Seite bestätigen.</translation>
     </message>
 </context>
 <context>
+    <name>design/admin/parts/my/menu</name>
+    <message>
+        <source>Enable &amp;quot;Tabs&amp;quot; by default while browsing content.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable &amp;quot;Tabs&amp;quot; by default while browsing content.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>design/admin/rss/edit_import</name>
     <message>
         <source>Edit</source>
@@ -3659,6 +3769,13 @@ müssen Sie diese Seite bestätigen.</translation>
     <message>
         <source>CJW Newsletter</source>
         <translation>CJW Newsletter</translation>
+    </message>
+</context>
+<context>
+    <name>cjw_newsletter/filtertypes</name>
+    <message>
+        <source>Salutation</source>
+        <translation>Anrede</translation>
     </message>
 </context>
 </TS>

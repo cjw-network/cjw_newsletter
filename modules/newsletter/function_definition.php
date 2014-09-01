@@ -2,7 +2,7 @@
 /**
  * File function_definition.php
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -22,6 +22,10 @@ $FunctionList['subscription_list'] = array( 'name' => 'subscription_list',
                                'parameters' => array( array( 'name' => 'list_contentobject_id',
                                                              'type' => 'integer',
                                                              'required' => true ),
+                                                      array( 'name' => 'list_contentobject_version',
+                                                             'type' => 'integer',
+                                                             'default' => 0,
+                                                             'required' => false ),
                                                       array( 'name' => 'status',
                                                              'type' => 'string',
                                                              'required' => true ),
@@ -50,6 +54,10 @@ $FunctionList['subscription_list_count'] = array( 'name' => 'subscription_list_c
                                                       array( 'name' => 'list_contentobject_id',
                                                              'type' => 'integer',
                                                              'required' => true ),
+                                                      array( 'name' => 'list_contentobject_version',
+                                                             'type' => 'integer',
+                                                             'default' => 0,
+                                                             'required' => false ),
                                                       array( 'name' => 'status',
                                                              'type' => 'string',
                                                              'required' => true ),

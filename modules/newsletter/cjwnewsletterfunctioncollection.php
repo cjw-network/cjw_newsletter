@@ -2,7 +2,7 @@
 /**
  * File containing the CjwNewsletterFunctionCollection class
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -35,9 +35,8 @@ class CjwNewsletterFunctionCollection
      * @param boolean $asObject
      * @return array
      */
-    static function fetchSubscriptionList( $listContentobjectId, $status, $limit, $offset, $asObject )
+    static function fetchSubscriptionList( $listContentObjectId, $listContentObjectVersion, $status, $limit, $offset, $asObject )
     {
-        $statusId = false;
 
         switch( $status )
         {
@@ -60,11 +59,25 @@ class CjwNewsletterFunctionCollection
                 $statusId = CjwNewsletterSubscription::STATUS_BLACKLISTED;
                 break;
             default:
+                // default is approved
+                // $statusId = CjwNewsletterSubscription::STATUS_APPROVED;
+                $statusId = false;
                 break;
 
         }
 
-        $objectList = CjwNewsletterSubscription::fetchSubscriptionListByListId( $listContentobjectId, $statusId, $limit, $offset, $asObject );
+        $objectList = array();
+        $listObject = CjwNewsletterList::fetchByListObjectVersion( $listContentObjectId, $listContentObjectVersion );
+
+        if ( is_object( $listObject ) )
+        {
+            //$objectList = CjwNewsletterSubscription::fetchSubscriptionListByListId( $listContentObjectId, $statusId, $limit, $offset, $asObject );
+            $objectList = $listObject->getSubscriptionObjectArray( $statusId, $limit, $offset, $asObject );
+        }
+        else
+        {
+            eZDebug::writeError( "CjwNewsletterFunctinCollection::fetchSubscriptionList - no object found for ObjectId: $listContentObjectId $Version: $listContentObjectVersion" );
+        }
 
         return array( 'result' => $objectList );
     }
@@ -74,7 +87,7 @@ class CjwNewsletterFunctionCollection
      * @param integer $listContentobjectId
      * @return array
      */
-    static function fetchSubscriptionListCount( $listContentobjectId, $status )
+    static function fetchSubscriptionListCount( $listContentObjectId, $listContentObjectVersion, $status )
     {
         $statusId = false;
 
@@ -99,11 +112,26 @@ class CjwNewsletterFunctionCollection
                 $statusId = CjwNewsletterSubscription::STATUS_BLACKLISTED;
                 break;
             default:
+                // default is approved
+                $statusId = CjwNewsletterSubscription::STATUS_APPROVED;
                 break;
 
         }
 
-        $objectCount = CjwNewsletterSubscription::fetchSubscriptionListByListIdCount( $listContentobjectId, $statusId );
+        $objectCount = 0;
+        $listObject = CjwNewsletterList::fetchByListObjectVersion( $listContentObjectId, $listContentObjectVersion );
+
+        if ( is_object( $listObject ) )
+        {
+            //$objectCount = CjwNewsletterSubscription::fetchSubscriptionListByListIdCount( $listContentobjectId, $statusId );
+            $objectCount = $listObject->getSubscriptionObjectCount( $statusId );
+        }
+        else
+        {
+            eZDebug::writeError( "CjwNewsletterFunctinCollection::fetchSubscriptionListCount - no object found for ObjectId: $listContentObjectId $Version: $listContentObjectVersion" );
+        }
+
+
         return array( 'result' => $objectCount );
     }
 

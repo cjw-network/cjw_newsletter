@@ -14,7 +14,7 @@
  * -create for every user a cjwnl_edition_send_item with status == STATUS_NOT_SEND
  * -mutex support (no double execute of cronjobs)->integrate in runcronjobs.php
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -33,7 +33,7 @@ $cli->output( $message );
 $message = "--\n>> START: check nl users with status STATUS_PENDING_EZ_USER_REGISTER";
 $cli->output( $message );
 
-$pendingNlUserObjectArray = CjwNewsletterUser::fetchUserListByStatus( CjwNewsletterUser::STATUS_PENDING_EZ_USER_REGISTER, 50, 0, true );
+$pendingNlUserObjectArray = CjwNewsletterUser::fetchUserListByStatus( CjwNewsletterUser::STATUS_PENDING_EZ_USER_REGISTER, 10000, 0, true );
 
 $message = ">>> NlUser Objects with STATUS_PENDING_EZ_USER_REGISTER found: ". count( $pendingNlUserObjectArray );
 $cli->output( $message );
@@ -82,6 +82,32 @@ foreach ( $pendingNlUserObjectArray as $nlUser )
 $message = ">> END: check nl users\n--";
 $cli->output( $message );
 
+// START schedule
+
+$message = "--\n>> START: check NlEditionSend objects with status STATUS_WAIT_FOR_SCHEDULE";
+$cli->output( $message );
+
+// fetch all scheduled SEND objects
+$waitForScheduleObjectList = CjwNewsletterEditionSend::fetchEditionSendListByStatus( array( CjwNewsletterEditionSend::STATUS_WAIT_FOR_SCHEDULE ) );
+
+$message = ">>> NlEditionSend objects with STATUS_WAIT_FOR_SCHEDULE found: ". count($waitForScheduleObjectList);
+$cli->output( $message );
+
+foreach ( $waitForScheduleObjectList as $newsletterEdtionSendObject )
+{
+    $scheduleTimestamp = $newsletterEdtionSendObject->attribute( 'mailqueue_process_scheduled' );
+
+    $escalateStatus = $scheduleTimestamp <= time();
+    if ($escalateStatus){
+        $message = ">>> schedule time has come ".date('Y-m-d H:i:s', $scheduleTimestamp)." escalate status to STATUS_WAIT_FOR_PROCESS";
+        $cli->output( $message );
+        $newsletterEdtionSendObject->setAttribute('status', CjwNewsletterEditionSend::STATUS_WAIT_FOR_PROCESS);
+        $newsletterEdtionSendObject->store();
+    }
+}
+
+// END
+
 $message = "--\n>> START: check NlEditionSend objects with status STATUS_WAIT_FOR_PROCESS";
 $cli->output( $message );
 
@@ -96,6 +122,7 @@ foreach ( $waitForProcessObjectList as $newsletterEdtionSendObject )
 {
     $sendId = $newsletterEdtionSendObject->attribute('id');
     $listContentObjectId = $newsletterEdtionSendObject->attribute('list_contentobject_id');
+    $listContentObjectVersion = $newsletterEdtionSendObject->attribute('list_contentobject_version');
 
     $message = "## Procsessing: cjw_newsletter_mailqueue_create - sendObjectId: ". $sendId;
     $cli->output( $message );
@@ -104,7 +131,10 @@ foreach ( $waitForProcessObjectList as $newsletterEdtionSendObject )
     // create a new send_item-entry
     $limit = 0;
     $offset = 0;
-    $subscriptionObjectList = CjwNewsletterSubscription::fetchSubscriptionListByListIdAndStatus( $listContentObjectId, CjwNewsletterSubscription::STATUS_APPROVED, $limit, $offset  );
+
+
+    //$subscriptionObjectList = CjwNewsletterSubscription::fetchSubscriptionListByListIdAndStatus( $listContentObjectId, CjwNewsletterSubscription::STATUS_APPROVED, $limit, $offset  );
+    $subscriptionObjectList = $newsletterEdtionSendObject->getSubscriptionObjectArray( CjwNewsletterSubscription::STATUS_APPROVED, 0, 0 );
 
     $message = "++ Find SubscriptionObjects with STATUS_APPROVED: ". count( $subscriptionObjectList );
     $cli->output( $message );

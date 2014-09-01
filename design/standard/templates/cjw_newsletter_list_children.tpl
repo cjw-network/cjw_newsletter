@@ -17,13 +17,19 @@
                 {set $status = $view_parameters.status}
             {/if}
 
-            {def $children_count=fetch( 'content', 'list_count', hash( 'parent_node_id', $node.node_id,
+            {def
+
+                $children_count=fetch( 'content', 'list_count', hash( 'parent_node_id', $node.node_id,
+                                                                  'class_filter_type', 'include',
+                                                                  'class_filter_array', array( 'cjw_newsletter_edition' ),
                                                                   'objectname_filter', $view_parameters.namefilter,
                                                                   'extended_attribute_filter',
                                                                    hash( 'id', 'CjwNewsletterEditionFilter',
                                                                          'params', hash( 'status', $status )
                                                                    ) ) )
                  $children=fetch( 'content', 'list', hash( 'parent_node_id', $node.node_id,
+                                                      'class_filter_type', 'include',
+                                                      'class_filter_array', array( 'cjw_newsletter_edition' ),
                                                       'sort_by', $node.sort_array,
                                                       'limit', $number_of_items,
                                                       'offset', $view_parameters.offset,

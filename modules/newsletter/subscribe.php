@@ -2,7 +2,7 @@
 /**
  * File subscribe.php
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -159,12 +159,13 @@ if ( $module->isCurrentAction( 'Subscribe' ) )
     // only subscribe him
     if( $postedEmailIsFromLoggedInUser === true )
     {
-        // all is ok -> send confirmation email
+        // all is ok
         if ( count( $warningArr ) == 0 )
         {
+            // if ezuser is logged in (and activated) set nluser status directly to CONFIRMED
             // subscribe to all selected lists
             $subscriptionResultArray = CjwNewsletterSubscription::createSubscriptionByArray( $subscriptionDataArr,
-                                                                                             CjwNewsletterUser::STATUS_PENDING,
+                                                                                             CjwNewsletterUser::STATUS_CONFIRMED,
                                                                                              true,
                                                                                              $context );
             $newNewsletterUser = CjwNewsletterUser::fetchByEmail( $subscriptionDataArr['email'] );

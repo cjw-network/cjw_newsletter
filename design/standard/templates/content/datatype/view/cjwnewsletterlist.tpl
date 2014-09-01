@@ -45,9 +45,6 @@
         </div>
     </div>
 
-
-
-
     <div class="block float-break">
 
         {* email data *}
@@ -55,8 +52,17 @@
             <label>{'Email sender'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}:</label> {$newsletter_list_content.email_sender|wash}
         </div>
         <div class="element">
-            <label>{'Email sender name'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}:</label> ({$newsletter_list_content.email_sender_name|wash})
+            <label>{'Email sender name'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}:</label> {$newsletter_list_content.email_sender_name|wash}
         </div>
+
+        <div class="element">
+            <label>{'Email reply-to'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}:</label> {$newsletter_list_content.email_reply_to|wash}
+        </div>
+
+        <div class="element">
+            <label>{'Email return-path'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}:</label> {$newsletter_list_content.email_return_path|wash}
+        </div>
+
         <div class="element">
             <label>{'Email receiver test'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}:</label> {$newsletter_list_content.email_receiver_test|wash}
         </div>

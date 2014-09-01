@@ -2,7 +2,7 @@
 /**
  * File containing the CjwNewsletterUser class
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -148,6 +148,10 @@ class CjwNewsletterUser extends eZPersistentObject
                                                                 'datatype' => 'string',
                                                                 'default' => '',
                                                                 'required' => false ),
+                                         'external_user_id' => array( 'name' => 'ExternalUserId',
+                                                                'datatype' => 'integer',
+                                                                'default' => null,
+                                                                'required' => false ),
                                          'remote_id' => array( 'name' => 'RemoteId',
                                                                 'datatype' => 'string',
                                                                 'default' => '',
@@ -160,29 +164,43 @@ class CjwNewsletterUser extends eZPersistentObject
                                                                 'datatype' => 'integer',
                                                                 'default' => 0,
                                                                 'required' => true ),
-                                         'data_text' => array( 'name' => 'DateText',
+                                         'data_text' => array( 'name' => 'DataText',
                                                                 'datatype' => 'string',
                                                                 'default' => '',
                                                                 'required' => false ),
-
-                                                                    ),
-                      'keys' => array( 'id' ),
-                      'increment_key' => 'id',
-
-                      'function_attributes' => array( 'name' => 'getName',
-                                                      'salutation_name' => 'getSalutationName',
-                                                      'is_confirmed' => 'isConfirmed',
-                                                      'is_removed_self' => 'isRemovedSelf',
-                                                      'subscription_array' => 'getSubscriptionArray',
-                                                      'email_name' =>  'getEmailName',
-                                                      'creator' => 'getCreatorUserObject',
-                                                      'modifier' => 'getModifierUserObject',
-                                                      'ez_user' => 'getEzUserObject',
-                                                      'status_string' => 'getStatusString',
+                                         'custom_data_text_1' => array( 'name' => 'CustomDataText1',
+                                                                'datatype' => 'string',
+                                                                'default' => '',
+                                                                'required' => false ),
+                                         'custom_data_text_2' => array( 'name' => 'CustomDataText2',
+                                                                'datatype' => 'string',
+                                                                'default' => '',
+                                                                'required' => false ),
+                                         'custom_data_text_3' => array( 'name' => 'CustomDataText3',
+                                                                'datatype' => 'string',
+                                                                'default' => '',
+                                                                'required' => false ),
+                                         'custom_data_text_4' => array( 'name' => 'CustomDataText4',
+                                                                'datatype' => 'string',
+                                                                'default' => '',
+                                                                'required' => false ),
+                                        ),
+                      'keys'                => array( 'id' ),
+                      'increment_key'       => 'id',
+                      'function_attributes' => array( 'name'                            => 'getName',
+                                                      'salutation_name'                 => 'getSalutationName',
+                                                      'is_confirmed'                    => 'isConfirmed',
+                                                      'is_removed_self'                 => 'isRemovedSelf',
+                                                      'subscription_array'              => 'getSubscriptionArray',
+                                                      'email_name'                      => 'getEmailName',
+                                                      'creator'                         => 'getCreatorUserObject',
+                                                      'modifier'                        => 'getModifierUserObject',
+                                                      'ez_user'                         => 'getEzUserObject',
+                                                      'status_string'                   => 'getStatusString',
                                                       'available_salutation_name_array' => 'getAvailableSalutationNameArray'
-                                                                    ),
-                      'class_name' => 'CjwNewsletterUser',
-                      'name' => 'cjwnl_user' );
+                                                   ),
+                      'class_name'          => 'CjwNewsletterUser',
+                      'name'                => 'cjwnl_user' );
     }
 
     /**
@@ -194,26 +212,44 @@ class CjwNewsletterUser extends eZPersistentObject
      * @param string $lastName
      * @param string $eZUserId
      * @param int $status
+     * @param string $context
+     * @param string $customDataText1
+     * @param string $customDataText2
+     * @param string $customDataText3
+     * @param string $customDataText4
      * @return object
      */
-    static function create( $email, $salutation, $firstName, $lastName, $eZUserId, $status = CjwNewsletterUser::STATUS_PENDING, $context = 'default' )
+    static function create( $email,
+                            $salutation,
+                            $firstName,
+                            $lastName,
+                            $eZUserId,
+                            $status = CjwNewsletterUser::STATUS_PENDING,
+                            $context = 'default',
+                            $customDataText1,
+                            $customDataText2,
+                            $customDataText3,
+                            $customDataText4 )
     {
-        $rows = array( 'created' => time(),
+        $rows = array( 'created'                  => time(),
                        'creator_contentobject_id' => eZUser::currentUserID(),
-                       'ez_user_id' => $eZUserId,
-                       'email' => $email,
-                       'first_name' => $firstName,
-                       'last_name' => $lastName,
-                       'salutation' => $salutation,
-                       'hash' => CjwNewsletterUtils::generateUniqueMd5Hash( $email ),
-                       'remote_id' => 'cjwnl:'. $context .':' . CjwNewsletterUtils::generateUniqueMd5Hash( $email ),
-                       'status' => $status );
+                       'ez_user_id'               => $eZUserId,
+                       'email'                    => $email,
+                       'first_name'               => $firstName,
+                       'last_name'                => $lastName,
+                       'salutation'               => $salutation,
+                       'hash'                     => CjwNewsletterUtils::generateUniqueMd5Hash( $email ),
+                       'remote_id'                => 'cjwnl:'. $context .':' . CjwNewsletterUtils::generateUniqueMd5Hash( $email ),
+                       'status'                   => $status,
+                       'custom_data_text_1'       => $customDataText1,
+                       'custom_data_text_2'       => $customDataText2,
+                       'custom_data_text_3'       => $customDataText3,
+                       'custom_data_text_4'       => $customDataText4 );
 
         $object = new CjwNewsletterUser( $rows );
+
         return $object;
     }
-
-
 
   /**
    * Create or update Newsletter User identified by email
@@ -225,6 +261,11 @@ class CjwNewsletterUser extends eZPersistentObject
    * @param string $lastName
    * @param int $eZUserId
    * @param int $newNewsletterUserStatus the status for new created Newsletter users CjwNewsletterUser::STATUS_PENDING
+   * @param string $context
+   * @param string $customDataText1
+   * @param string $customDataText2
+   * @param string $customDataText3
+   * @param string $customDataText4
    * @return object
    */
     static function createUpdateNewsletterUser( $email,
@@ -233,13 +274,17 @@ class CjwNewsletterUser extends eZPersistentObject
                                                 $lastName,
                                                 $eZUserId,
                                                 $newNewsletterUserStatus = CjwNewsletterUser::STATUS_PENDING,
-                                                $context = 'default' )
+                                                $context = 'default',
+                                                $customDataText1,
+                                                $customDataText2,
+                                                $customDataText3,
+                                                $customDataText4 )
     {
-        /*
-         * 1. exist a current newsletter user?
-         *      yes -> register on lists with status PENDING
-         *      no -> create new user with status PENDIG and than register
-         */
+        //
+        // 1. exist a current newsletter user?
+        //    yes -> register on lists with status PENDING
+        //    no  -> create new user with status PENDIG and than register
+        //
         $existingNewsletterUserObject = CjwNewsletterUser::fetchByEmail( $email );
 
         // update existing
@@ -251,20 +296,28 @@ class CjwNewsletterUser extends eZPersistentObject
             $userObject->setAttribute('last_name', $lastName );
             $userObject->setAttribute('ez_user_id', (int) $eZUserId );
             $userObject->setAttribute('modified', time() );
+            $userObject->setAttribute('custom_data_text_1', $customDataText1 );
+            $userObject->setAttribute('custom_data_text_2', $customDataText2 );
+            $userObject->setAttribute('custom_data_text_3', $customDataText3 );
+            $userObject->setAttribute('custom_data_text_4', $customDataText4 );
             $userObject->store();
             CjwNewsletterLog::writeDebug(
                                     'CjwNewsletterUser::createUpdateNewsletterUser',
                                     'user',
                                     'update',
-                                     array( 'nl_user' => $userObject->attribute( 'id' ),
-                                            'email' => $email,
-                                            'salutation' => $salutation,
-                                            'first_name' => $firstName,
-                                            'last_name' => $lastName,
-                                            'ez_user_id' => $userObject->attribute( 'ez_user_id' ),
-                                            'status' => $userObject->attribute( 'status' ),
-                                            'modifier' => eZUser::currentUserID(),
-                                            'context' => $context )
+                                     array( 'nl_user'            => $userObject->attribute( 'id' ),
+                                            'email'              => $email,
+                                            'salutation'         => $salutation,
+                                            'first_name'         => $firstName,
+                                            'last_name'          => $lastName,
+                                            'ez_user_id'         => $userObject->attribute( 'ez_user_id' ),
+                                            'status'             => $userObject->attribute( 'status' ),
+                                            'modifier'           => eZUser::currentUserID(),
+                                            'context'            => $context,
+                                            'custom_data_text_1' => $customDataText1,
+                                            'custom_data_text_2' => $customDataText2,
+                                            'custom_data_text_3' => $customDataText3,
+                                            'custom_data_text_4' => $customDataText4 )
                                       );
         }
         // create new object
@@ -276,8 +329,12 @@ class CjwNewsletterUser extends eZPersistentObject
                                                      $lastName,
                                                      $eZUserId,
                                                      (int) $newNewsletterUserStatus,
-                                                     $context );
-            if( is_object( $userObject ) !== true )
+                                                     $context,
+                                                     $customDataText1,
+                                                     $customDataText2,
+                                                     $customDataText3,
+                                                     $customDataText4 );
+            if ( is_object( $userObject ) !== TRUE )
             {
                 // error creating the new user => user with same email already exists
                 return false;
@@ -288,18 +345,23 @@ class CjwNewsletterUser extends eZPersistentObject
                                     'CjwNewsletterUser::createUpdateNewsletterUser',
                                     'user',
                                     'create',
-                                     array( 'nl_user' => $userObject->attribute( 'id' ),
-                                            'email' => $email,
-                                            'salutation' => $salutation,
-                                            'first_name' => $firstName,
-                                            'last_name' => $lastName,
-                                            'ez_user_id' => $userObject->attribute( 'ez_user_id' ),
-                                            'status' => $userObject->attribute( 'status' ),
-                                            'modifier' => eZUser::currentUserID(),
-                                            'context' => $context )
+                                     array( 'nl_user'            => $userObject->attribute( 'id' ),
+                                            'email'              => $email,
+                                            'salutation'         => $salutation,
+                                            'first_name'         => $firstName,
+                                            'last_name'          => $lastName,
+                                            'ez_user_id'         => $userObject->attribute( 'ez_user_id' ),
+                                            'status'             => $userObject->attribute( 'status' ),
+                                            'modifier'           => eZUser::currentUserID(),
+                                            'context'            => $context,
+                                            'custom_data_text_1' => $customDataText1,
+                                            'custom_data_text_2' => $customDataText2,
+                                            'custom_data_text_3' => $customDataText3,
+                                            'custom_data_text_4' => $customDataText4 )
                                       );
 
         }
+
         return $userObject;
     }
 
@@ -552,6 +614,9 @@ class CjwNewsletterUser extends eZPersistentObject
         $emailSenderName = $cjwNewsletterIni->variable( 'NewsletterMailSettings', 'EmailSenderName' );
         $emailReceiver = $newsletterUser->attribute('email');
 
+        $emailReplyTo = $cjwNewsletterIni->variable( 'NewsletterMailSettings', 'EmailReplyTo' );
+        $emailReturnPath = $cjwNewsletterIni->variable( 'NewsletterMailSettings', 'EmailReturnPath' );
+
         // TODO Namen extrahieren
         $emailReceiverName = '';
 
@@ -569,7 +634,11 @@ class CjwNewsletterUser extends eZPersistentObject
                                           $emailReceiver,
                                           $emailReceiverName,
                                           $emailSubject,
-                                          $emailBody );
+                                          $emailBody,
+                                          false,
+                                          'utf-8',
+                                          $emailReplyTo,
+                                          $emailReturnPath );
         return $sendResult;
     }
 
@@ -774,21 +843,71 @@ class CjwNewsletterUser extends eZPersistentObject
         }
     }
 
+    /**
+     * Used in subscription_list_csvimport
+     *
+     * @param string $remoteId
+     * @return array / boolean
+     */
+    static function fetchByRemoteId( $remoteId )
+    {
+        $db = eZDB::instance();
+        $objectList = eZPersistentObject::fetchObjectList(
+                        CjwNewsletterUser::definition(),
+                        null,
+                        array( 'remote_id' => $db->escapeString( $remoteId ) ),
+                        null,
+                        null,
+                        true
+                        );
+
+        $count = count( $objectList );
+        if ( $count == 1 )
+        {
+            return $objectList[0];
+        }
+        elseif ( $count > 1 )
+        {
+            $userIdArray = array();
+            foreach( $objectList as $nlUser )
+            {
+                $userIdArray[] = $nlUser->attribute( 'id' );
+            }
+
+            CjwNewsletterLog::writeError(
+                                    'email existing more than 1 time CjwNewsletterUser::fetchByRemoteId',
+                                    'user',
+                                    'email',
+                                     array(
+                                            'email' => $objectList[0]->attribute( 'email' ),
+                                            'email_count' => $count,
+                                            'nl_user_ids' => implode( ',', $userIdArray ),
+                                            'modifier' => eZUser::currentUserID(),
+                                            'remote_id' => $remoteId )
+                                      );
+            return $objectList;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     /**
      * Returns userobject by id
      *
      * @param integer $id
-     * @return object
+     * @param boolean $asObject
+     * @return object or array
      */
-    static function fetch( $id )
+    static function fetch( $id, $asObject = true )
     {
-        $object = eZPersistentObject::fetchObject(
-                            CjwNewsletterUser::definition(),
-                            null,
-                            array( 'id' => (int) $id ),
-                            true
-                            );
+        $object = eZPersistentObject::fetchObject( CjwNewsletterUser::definition(),
+                                                   null,
+                                                   array( 'id' => (int) $id ),
+                                                   $asObject
+                                                 );
+
         return $object;
     }
 
@@ -859,16 +978,17 @@ class CjwNewsletterUser extends eZPersistentObject
         return $rows[0]['count'];
     }
 
-    /**
+ /**
      * Fetch all Newsletter user with status
      *
      * @param integer $status
      * @param integer $limit
      * @param integer $offset
+     * @param array $sortBy
      * @param boolean $asObject
      * @return array with CjwNewsletterUser objects
      */
-    static function fetchUserListByStatus( $status, $limit = 50, $offset = 0, $asObject = true )
+    static function fetchUserListByStatus( $status, $limit = 50, $offset = 0, $sortBy = false, $asObject = true )
     {
         $sortArr = null;
         $limitArr = null;
@@ -876,6 +996,15 @@ class CjwNewsletterUser extends eZPersistentObject
         if ( (int) $limit != 0 )
         {
             $limitArr = array( 'limit' => $limit, 'offset' => $offset );
+        }
+
+        if ( $sortBy == false && !is_array( $sortBy ))
+        {
+            $sortArr = array( 'created' => 'desc' );
+        }
+        else
+        {
+            $sortArr = $sortBy;
         }
 
         $objectList = eZPersistentObject::fetchObjectList(
@@ -1310,47 +1439,59 @@ class CjwNewsletterUser extends eZPersistentObject
      */
     private function setAllNewsletterUserRelatedItemsToStatus( $status )
     {
-        $newsletterUserId = $this->attribute('id');
+        $newsletterUserId = $this->attribute( 'id' );
+        $updateSubcriptions = false;
 
         switch ( $status )
         {
             case CjwNewsletterSubscription::STATUS_BOUNCED_SOFT:
             case CjwNewsletterSubscription::STATUS_BOUNCED_HARD:
+
+                $bounceCount = CjwNewsletterEditionSendItem::setAllActiveItemsToStatusAbortAndBouncedByNewsletterUserId( $newsletterUserId );
+                $updateSubcriptions = true;
+                break;
+
             case CjwNewsletterSubscription::STATUS_BLACKLISTED:
 
                 // update active senditems
                 $abortCount = CjwNewsletterEditionSendItem::setAllActiveItemsToStatusAbortByNewsletterUserId( $newsletterUserId );
-
-                // update active subscriptions
-                $activeSubscriptionList = CjwNewsletterSubscription::fetchListNotRemovedOrBlacklistedByNewsletterUserId( $newsletterUserId, true );
-                foreach ( $activeSubscriptionList as $subscription )
-                {
-                    if( $subscription->attribute( 'status') == $status )
-                    {
-                        CjwNewsletterLog::writeDebug(
-                                                    'skip - already set this status - CjwNewsletterUser::setAllNewsletterUserRelatedItemsToStatus',
-                                                    'subscription',
-                                                    'status',
-                                                     array( 'status' => $status,
-                                                            'subscription_id' => $subscription->attribute('id'),
-                                                            'nl_user' => $newsletterUserId ) );
-                    }
-                    else
-                    {
-                        $subscription->setAttribute( 'status', $status );
-                        $subscription->store();
-                    /*    CjwNewsletterLog::writeDebug(
-                                                    'set CjwNewsletterUser::setAllNewsletterUserRelatedItemsToStatus',
-                                                    'subscription',
-                                                    'status',
-                                                     array( 'status' => $status,
-                                                            'subscription_id' => $subscription->attribute('id'),
-                                                            'nl_user' => $newsletterUserId ) );
-                                                            */
-                    }
-                }
-            break;
+                $updateSubcriptions = true;
+                break;
         }
+
+        if ( $updateSubcriptions === true )
+        {
+
+            // update active subscriptions
+            $activeSubscriptionList = CjwNewsletterSubscription::fetchListNotRemovedOrBlacklistedByNewsletterUserId( $newsletterUserId, true );
+            foreach ( $activeSubscriptionList as $subscription )
+            {
+                if( $subscription->attribute( 'status') == $status )
+                {
+                    CjwNewsletterLog::writeDebug(
+                                                                'skip - already set this status - CjwNewsletterUser::setAllNewsletterUserRelatedItemsToStatus',
+                                                                'subscription',
+                                                                'status',
+                    array( 'status' => $status,
+                                                                        'subscription_id' => $subscription->attribute('id'),
+                                                                        'nl_user' => $newsletterUserId ) );
+                }
+                else
+                {
+                    $subscription->setAttribute( 'status', $status );
+                    $subscription->store();
+                    /*    CjwNewsletterLog::writeDebug(
+                     'set CjwNewsletterUser::setAllNewsletterUserRelatedItemsToStatus',
+                    'subscription',
+                    'status',
+                    array( 'status' => $status,
+                    'subscription_id' => $subscription->attribute('id'),
+                    'nl_user' => $newsletterUserId ) );
+                    */
+                }
+            }
+        }
+
     }
 
     /**
@@ -1470,6 +1611,301 @@ class CjwNewsletterUser extends eZPersistentObject
         //
         return $returnStatus;
     }
+
+    /**
+    * Fetch all Newsletter user with extended field
+    * whith option to Filter data
+    *
+
+    *
+    * @param array $filterArray condtions which will be combined with 'AND'
+    * @param integer $limit
+    * @param integer $offset
+    * @param boolean $asObject
+    * @return array with CjwNewsletterUser objects
+    */
+    static function fetchUserListByFilter (
+                                    $filterArray,
+                                    $limit = 50,
+                                    $offset = 0,
+                                    $asObject = true )
+    {
+
+      //  var_dump( $filterArray );
+
+        $db = eZDB::instance();
+
+        $field_filters = null;
+        $conditions = null;
+        $sorts = null;
+     //   $limit = null;
+     //   $asObject = true;
+        $grouping = false;
+        $custom_fields = null;
+        $custom_tables = null;
+        $custom_conds = null;
+
+        $def = self::definition();
+
+        $fields = $def["fields"];
+        $tables = $def["name"];
+        $class_name = $def["class_name"];
+
+        $sqlFieldArray = array( 'DISTINCT( cjwnl_user.email )',
+                                'cjwnl_user.*' );
+        $sqlTableArray = array( 'cjwnl_user' );
+        $sqlCondArray = array();
+
+
+        $sqlCondArray[] = 'cjwnl_user.id = cjwnl_subscription.newsletter_user_id';
+        $sqlTableArray[] = 'cjwnl_subscription';
+
+    /*    if ( $userStatus )
+        {
+            $conditions = array( 'status' => (int) $userStatus );
+            $sqlCondAndArray[] = 'cjwnl_user.status=' . (int) $userStatus;
+        }*/
+
+
+
+
+      //  var_dump( $conditionArray );
+
+    //    $subscriptionListIdArray = $filterArray[ 'cjwnl_subscription.list_contentobject_id' ];
+    //    $subscriptionListStatus = $filterArray[ 'cjwnl_subscription.status' ];
+
+    //    $countSubscriptionListIdArray =  count( $subscriptionListIdArray );
+
+        // merge subscription list to filter subscriptions
+  /*      if ( $countSubscriptionListIdArray > 0 || $subscriptionListStatus !== false )
+        {
+            $sqlTableArray[] = 'cjwnl_subscription';
+            $sqlCondAndArray[] = 'cjwnl_user.id = cjwnl_subscription.newsletter_user_id';
+
+            if ( $subscriptionListStatus )
+            {
+                $sqlCondAndArray[] = 'cjwnl_subscription.status = '. $db->escapeString( $subscriptionListStatus );
+            }
+
+            if (  $countSubscriptionListIdArray > 0 )
+            {
+                $sqlCondAndArray[] = 'cjwnl_subscription.list_contentobject_id '. $db->generateSQLINStatement( $subscriptionListIdArray );
+            }
+        }
+        */
+
+      //  $sqlCondAndArray[] = 'cjwnl_user.email like "%@%"';
+
+        if ( (int) $limit != 0 )
+        {
+            $limit = array( 'limit' => $limit, 'offset' => $offset );
+        }
+
+     //   $field_filters = array( 'cjwnl_user.id' );
+     //   $custom_tables = array( 'cjwnl_subscription ' );
+     //   $custom_conds = ' AND cjwnl_user.id = cjwnl_subscription.newsletter_user_id';
+
+
+        $sqlFieldString = '';
+        if ( count( $sqlFieldArray ) > 0 )
+        {
+            $sqlFieldString = implode( ', ', $sqlFieldArray );
+        }
+
+        $sqlTableString= '';
+        if ( count( $sqlTableArray ) > 0 )
+        {
+            $sqlTableString = implode( ', ', $sqlTableArray );
+        }
+
+        foreach( $filterArray as $filter )
+        {
+            $sqlCondArray[] = self::filterText( $filter );
+        }
+
+//        var_dump( $sqlCondArray );
+
+
+
+        $sqlCondAndString = '';
+        if ( count( $sqlCondArray ) > 0 )
+        {
+            $sqlCondAndString = 'WHERE ' . implode( "\n AND ", $sqlCondArray ) .' ';
+        }
+
+
+     /*   $sql = 'SELECT COUNT( cjwnl_subscription.id ) as count, cjwnl_user.*
+                FROM cjwnl_user, cjwnl_subscription
+                WHERE cjwnl_user.id = cjwnl_subscription.newsletter_user_id'
+                . $sqlCondAndString
+                . ' GROUP BY cjwnl_user.id';*/
+
+    /*    $sql = 'SELECT DISTINCT( cjwnl_user.email ), cjwnl_user.*
+                        FROM cjwnl_user, cjwnl_subscription
+                        WHERE cjwnl_user.id = cjwnl_subscription.newsletter_user_id'
+        . $sqlCondAndString;*/
+
+
+        $sql = "SELECT $sqlFieldString
+                FROM $sqlTableString
+                $sqlCondAndString";
+
+        //eZPersistentObject::replaceFieldsWithShortNames( $db, $fields, $conditions );
+
+/*        $conditions['cjwnl_user.email'][0] = '>=';
+        $conditions['cjwnl_user.email'][1] = 'fe';
+        //$conditions['cjwnl_user.email'] = array( 'like', '.de' );
+        $conditions['cjwnl_user.name'] = array( 'like', '%fe%' );
+*/
+    /*    $conditionText = eZPersistentObject::conditionText( $conditions );
+
+        echo $conditionText;*/
+
+//echo '<hr>';
+//        echo $sql;
+
+
+        eZDebug::writeDebug( print_r( $filterArray, true ) );
+        eZDebug::writeDebug( print_r( $sqlCondArray, true ) );
+        eZDebug::writeDebug( $sql );
+
+
+
+        //$db->arrayQuery( $sql );
+        $rows = $db->arrayQuery( $sql, $limit );
+
+        $objectList = eZPersistentObject::handleRows( $rows, $class_name, $asObject );
+
+        return $objectList;
+
+
+ /*       $objectList = eZPersistentObject::fetchObjectList(
+                        self::definition(),
+                        $field_filters,
+                        $conds,
+                        $sorts,
+                        $limit,
+                        $asObject,
+                        $grouping,
+                        $custom_fields,
+                        $custom_tables,
+                        $custom_conds );
+        return $objectList;
+*/
+    }
+
+
+    /**
+     * TODO move to utility class
+     *
+     * Generates an SQL sentence from the conditions \a $conditions and row data \a $row.
+     * If \a $row is empty (null) it uses the condition data instead of row data.
+     * @param unknown_type $conditions
+     * @param unknown_type $row
+     * @return string
+     */
+    static function filterText( $conditions, $row = null )
+    {
+        $db = eZDB::instance();
+
+        $where_text = "";
+        if ( is_array( $conditions ) and
+        count( $conditions ) > 0 )
+        {
+            $where_text = '';//" WHERE  ";
+            $i = 0;
+            foreach ( $conditions as $id => $cond )
+            {
+                if ( $i > 0 )
+                $where_text .= " AND ";
+                if ( is_array( $row ) )
+                {
+                    $where_text .= $cond . "='" . $db->escapeString( $row[$cond] ) . "'";
+                }
+                else
+                {
+                    if ( is_array( $cond ) )
+                    {
+                        if ( is_array( $cond[0] ) )
+                        {
+                            $where_text .= $id . ' IN ( ';
+                            $j = 0;
+                            foreach ( $cond[0] as $value )
+                            {
+                                if ( $j > 0 )
+                                $where_text .= ", ";
+                                $where_text .= "'" . $db->escapeString( $value ) . "'";
+                                ++$j;
+                            }
+                            $where_text .= ' ) ';
+                        }
+                        else if ( $cond[0] == 'BETWEEN' && is_array( $cond[1] ) )
+                        {
+                            $range = $cond[1];
+                            $where_text .= "$id BETWEEN '" . $db->escapeString( $range[0] ) . "' AND '" . $db->escapeString( $range[1] ) . "'";
+                        }
+                        else
+                        {
+                            switch ( $cond[0] )
+                            {
+                                case '>=':
+                                case '<=':
+                                case '<':
+                                case '>':
+                                case '=':
+                                case '<>':
+                                case '!=':
+                                case 'like':
+                                    {
+                                        $where_text .= $db->escapeString( $id ) . " " . $cond[0] . " '" . $db->escapeString( $cond[1] ) . "'";
+                                    } break;
+                                case 'OR':
+                                    {
+                                        $orConditionArray = array();
+                                        for ( $i = 1; $i < count( $cond ); $i++ )
+                                        {
+                                            $orConditionArray[] = self::filterText( array( $id => $cond[$i] ) );
+                                        }
+
+                                        if ( count( $orConditionArray ) >  0 )
+                                        {
+                                            $orText = '( '. implode( ' OR ', $orConditionArray ) . ' )';
+                                            $where_text .= $orText;
+                                        }
+                                    } break;
+                                case 'AND':
+                                        {
+                                            $orConditionArray = array();
+                                            for ( $i = 1; $i < count( $cond ); $i++ )
+                                            {
+                                                $orConditionArray[] = self::filterText( array( $id => $cond[$i] ) );
+                                            }
+
+                                            if ( count( $orConditionArray ) >  0 )
+                                            {
+                                                $orText = '( '. implode( ' AND ', $orConditionArray ) . ' )';
+                                                $where_text .= $orText;
+                                            }
+                                        } break;
+                                default:
+                                    {
+                                        eZDebug::writeError( "Conditional operator '$cond[0]' is not supported.",'eZPersistentObject::conditionTextByRow()' );
+                                    } break;
+                            }
+
+                        }
+                    }
+                    else
+                    $where_text .= $db->escapeString( $id ) . "='" . $db->escapeString( $cond ) . "'";
+                }
+                ++$i;
+            }
+        }
+        return $where_text;
+    }
+
+
+
 }
 
 ?>

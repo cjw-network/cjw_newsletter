@@ -77,6 +77,20 @@
                                         <div class="left">
 
                                             <form action={'newsletter/send'|ezurl()}  method="post" style="display: inline;">
+{def $itsData = hash(
+ 'id', 'noid',
+ 'contentclassattribute_id', 'noid',
+ 'contentclass_attribute_identifier', 'schedule',
+ 'content', 
+ hash(   'is_valid', true(), 
+            'year', currentdate()|datetime(custom, '%Y'), 
+            'month', currentdate()|datetime(custom, '%m'), 
+            'day', currentdate()|datetime(custom, '%d'), 
+            'hour', currentdate()|datetime(custom, '%H'), 
+            'minute', currentdate()|datetime(custom, '%i')))}
+                                                
+                                                {include uri='design:content/datatype/edit/ezdatetime.tpl' attribute_base='CJWNL' attribute=$itsData}                                            
+
                                                 <input type="hidden" name="TopLevelNode" value="{$node_id}" />
                                                 <input type="hidden" name="ContentNodeID" value="{$node_id}" />
                                                 <input type="hidden" name="ContentObjectID" value="{$node_id}" />

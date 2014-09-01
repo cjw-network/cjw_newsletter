@@ -2,7 +2,7 @@
 /**
  * File containing the CjwNewsletterListType class
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -110,6 +110,8 @@ class CjwNewsletterListType extends eZDataType
         $postListData['siteaccess_array'] = $http->hasPostVariable(  $prefix . 'SiteaccessArray' . $postfix ) ? $http->postVariable(  $prefix . 'SiteaccessArray' . $postfix ) : array();
         $postListData['output_format_array'] = $http->hasPostVariable(  $prefix . 'OutputFormatArray' . $postfix ) ? $http->postVariable(  $prefix . 'OutputFormatArray' . $postfix ) : array();
         $postListData['email_sender'] = $http->postVariable(  $prefix . 'EmailSender' . $postfix );
+        $postListData['email_reply_to'] = $http->postVariable(  $prefix . 'EmailReplyTo' . $postfix );
+        $postListData['email_return_path'] = $http->postVariable(  $prefix . 'EmailReturnPath' . $postfix );
         $postListData['email_sender_name'] = $http->postVariable(  $prefix . 'EmailSenderName' . $postfix );
         $postListData['email_receiver_test'] = $http->postVariable(  $prefix . 'EmailReceiverTest' . $postfix );
         $postListData['auto_approve_registered_user'] = $http->postVariable(  $prefix . 'AutoApproveRegisterdUser' . $postfix );
@@ -190,6 +192,8 @@ class CjwNewsletterListType extends eZDataType
                             'siteaccess_array_string' => CjwNewsletterList::arrayToString( $postListData['siteaccess_array'] ),
                             'email_sender_name' => $postListData['email_sender_name'],
                             'email_sender' => $postListData['email_sender'],
+                            'email_reply_to' => $postListData['email_reply_to'],
+                            'email_return_path' => $postListData['email_return_path'],
                             'email_receiver_test' => $postListData['email_receiver_test'],
                             'output_format_array_string' => CjwNewsletterList::arrayToString( $postListData['output_format_array'] ),
                             'auto_approve_registered_user' => $postListData['auto_approve_registered_user'],

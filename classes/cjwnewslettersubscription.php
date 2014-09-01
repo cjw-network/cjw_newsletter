@@ -2,7 +2,7 @@
 /**
  * File containing the CjwNewsletterSubscription class
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -73,7 +73,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
                                                                          'required' => true ),
                                          'newsletter_user_id' => array( 'name' => 'NewsletterUserId',
                                                                          'datatype' => 'integer',
-                                                                         'default' => 0,
+                                                                         'default' => null,
                                                                          'required' => true ),
                                          'hash' => array( 'name' => 'Hash',
                                                           'datatype' => 'string',
@@ -139,6 +139,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
                                                       'status_string' => 'getStatusString',
                                                       //'available_status_id_name_array' => 'availableStatusIdNameArray',
                                                       // 'usersubscriptiondata' => 'userSubscriptionData'
+                                                      'is_virtual' => 'isVirtual'
                                                       ),
                       // 'keys' => array( 'list_contentobject_id', 'newsletter_user_id' ),
                       'keys' => array( 'id' ),
@@ -160,13 +161,13 @@ class CjwNewsletterSubscription extends eZPersistentObject
     static function create( $listContentObjectId,
                             $newsletterUserId,
                             $outputFormatArray,
-                            $status =  CjwNewsletterSubscription::STATUS_PENDING,
+                            $status =  self::STATUS_PENDING,
                             $context = 'default' )
     {
         $rows = array( 'created' => time(),
                        'list_contentobject_id' => $listContentObjectId,
                        'newsletter_user_id' => $newsletterUserId,
-                       'output_format_array_string' => CjwNewsletterSubscription::arrayToString( $outputFormatArray ),
+                       'output_format_array_string' => self::arrayToString( $outputFormatArray ),
                        'creator_contentobject_id' => eZUser::currentUserID(),
                        'hash' => CjwNewsletterUtils::generateUniqueMd5Hash( $newsletterUserId ),
                        'remote_id' => 'cjwnl:'. $context .':' .CjwNewsletterUtils::generateUniqueMd5Hash( $newsletterUserId ),
@@ -226,7 +227,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
                 // set status timestamps
                 switch ( $value )
                 {
-                    case CjwNewsletterSubscription::STATUS_CONFIRMED :
+                    case self::STATUS_CONFIRMED :
                     {
                         $this->setAttribute( 'removed', 0 );
                         $this->setAttribute( 'confirmed', $currentTimeStamp );
@@ -236,7 +237,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
                         if ( is_object( $newsletterListAttributeContent ) and (int) $newsletterListAttributeContent->attribute('auto_approve_registered_user') == 1 )
                         {
                             $this->setAttribute( 'approved', $currentTimeStamp );
-                            $value = CjwNewsletterSubscription::STATUS_APPROVED;
+                            $value = self::STATUS_APPROVED;
                         }
                         else
                         {
@@ -246,14 +247,14 @@ class CjwNewsletterSubscription extends eZPersistentObject
 
                     } break;
 
-                    case CjwNewsletterSubscription::STATUS_APPROVED:
+                    case self::STATUS_APPROVED:
                     {
                         $this->setAttribute( 'approved', $currentTimeStamp );
                         $this->setAttribute( 'removed', 0 );
                     } break;
 
-                    case CjwNewsletterSubscription::STATUS_REMOVED_ADMIN:
-                    case CjwNewsletterSubscription::STATUS_REMOVED_SELF:
+                    case self::STATUS_REMOVED_ADMIN:
+                    case self::STATUS_REMOVED_SELF:
                     {
                         $this->setAttribute( 'removed', $currentTimeStamp );
                     } break;
@@ -309,8 +310,8 @@ class CjwNewsletterSubscription extends eZPersistentObject
     function isRemoved()
     {
         $subscriptionStatus = $this->attribute('status');
-        if ( $subscriptionStatus == CjwNewsletterSubscription::STATUS_REMOVED_ADMIN
-            || $subscriptionStatus == CjwNewsletterSubscription::STATUS_REMOVED_SELF )
+        if ( $subscriptionStatus == self::STATUS_REMOVED_ADMIN
+            || $subscriptionStatus == self::STATUS_REMOVED_SELF )
             return true;
         else
             return false;
@@ -324,7 +325,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
     function isRemovedSelf()
     {
         $subscriptionStatus = $this->attribute('status');
-        if ( $subscriptionStatus == CjwNewsletterSubscription::STATUS_REMOVED_SELF )
+        if ( $subscriptionStatus == self::STATUS_REMOVED_SELF )
             return true;
         else
             return false;
@@ -338,7 +339,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
     function isBlacklisted()
     {
         $subscriptionStatus = $this->attribute('status');
-        if ( $subscriptionStatus == CjwNewsletterSubscription::STATUS_BLACKLISTED )
+        if ( $subscriptionStatus == self::STATUS_BLACKLISTED )
             return true;
         else
             return false;
@@ -438,32 +439,32 @@ class CjwNewsletterSubscription extends eZPersistentObject
     }
 
     /**
-     * Return user newsletterListObject
+     * Return CjwNewsletterList object
      *
-     * @return object / boolean
+     * if the this is a CjwNewsletterSubscription or
+     * CjwNewsletterSubscriptionVirtual
+     *
+     * A Virtual Subscription is connected at minimun to one CjwNewsletterList
+     *
+     * @return CjwNewsletterList object or false
      */
     function getNewsletterListAttributeContent()
     {
-        $object = eZContentObject::fetch( $this->attribute('list_contentobject_id'));
-        if ( is_object($object) )
-        {
-            $dataMap = $object->attribute('data_map');
+        $object = eZContentObject::fetch( $this->attribute('list_contentobject_id') );
 
-            if ( array_key_exists( 'newsletter_list', $dataMap ) )
-            {
-                $newsletterListAttribute = $dataMap['newsletter_list'];
-                $newsletterListAttributeContent = $newsletterListAttribute->attribute('content');
-                return $newsletterListAttributeContent;
-            }
-            else
-            {
-                return false;
-            }
+        // fetch current version of list
+        // list version is not needed for subscriptions!!
+        // a subscription is valid for a complete list
+
+        if ( $this->attribute( 'is_virtual' ) )
+        {
+            return CjwNewsletterListVirtual::fetchByListObjectVersion( $this->attribute('list_contentobject_id'), 0 );
         }
         else
         {
-            return false;
+            return CjwNewsletterList::fetchByListObjectVersion( $this->attribute('list_contentobject_id'), 0 );
         }
+
     }
 
     /**
@@ -524,14 +525,14 @@ class CjwNewsletterSubscription extends eZPersistentObject
      */
     function confirm()
     {
-        if ( $this->attribute('status') == CjwNewsletterSubscription::STATUS_PENDING )
+        if ( $this->attribute('status') == self::STATUS_PENDING )
         {
             // timestamp + status setzen
-            $this->setAttribute('status', CjwNewsletterSubscription::STATUS_CONFIRMED );
+            $this->setAttribute('status', self::STATUS_CONFIRMED );
             $this->store();
             return true;
         }
-        if ( $this->attribute('status') == CjwNewsletterSubscription::STATUS_APPROVED )
+        if ( $this->attribute('status') == self::STATUS_APPROVED )
         {
             // timestamp + status setzen
             $this->setAttribute( 'confirmed', time() );
@@ -552,14 +553,14 @@ class CjwNewsletterSubscription extends eZPersistentObject
     public function unsubscribe()
     {
         //$this->setAttribute( 'output_format_array_string', CjwNewsletterSubscription::arrayToString(  array() ) );
-        if ( $this->attribute('status') == CjwNewsletterSubscription::STATUS_BLACKLISTED
-          || $this->attribute('status') == CjwNewsletterSubscription::STATUS_REMOVED_SELF )
+        if ( $this->attribute('status') == self::STATUS_BLACKLISTED
+          || $this->attribute('status') == self::STATUS_REMOVED_SELF )
         {
             return false;
         }
         else
         {
-            $this->setAttribute( 'status', CjwNewsletterSubscription::STATUS_REMOVED_SELF );
+            $this->setAttribute( 'status', self::STATUS_REMOVED_SELF );
             $this->sync();
             $this->store();
             return true;
@@ -573,7 +574,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
      */
     public function removeByAdmin()
     {
-        $this->setAttribute( 'status', CjwNewsletterSubscription::STATUS_REMOVED_ADMIN );
+        $this->setAttribute( 'status', self::STATUS_REMOVED_ADMIN );
         $this->sync();
         $this->store();
     }
@@ -585,9 +586,18 @@ class CjwNewsletterSubscription extends eZPersistentObject
      */
     public function approveByAdmin()
     {
-        $this->setAttribute( 'status', CjwNewsletterSubscription::STATUS_APPROVED );
+        $this->setAttribute( 'status', self::STATUS_APPROVED );
         $this->sync();
         $this->store();
+    }
+
+    /**
+     *
+     * @return boolean false if it is a normal subscription and true if it is a VirtualSubscription
+     */
+    public function isVirtual()
+    {
+        return false;
     }
 
     /**
@@ -676,7 +686,11 @@ class CjwNewsletterSubscription extends eZPersistentObject
                                                                                $lastName,
                                                                                $eZUserId,
                                                                                (int) $newNewsletterUserStatus,
-                                                                               $context );
+                                                                               $context,
+                                                                               $customDataText1 = '',
+                                                                               $customDataText2 = '',
+                                                                               $customDataText3 = '',
+                                                                               $customDataText4 = '' );
 
         $resultArray[ 'newsletter_user_object' ] = $newsletterUserObject;
 
@@ -691,9 +705,9 @@ class CjwNewsletterSubscription extends eZPersistentObject
         foreach ( $listArray as $listId )
         {
             $outputFormatArray = $listOutputFormatArray[ $listId ];
-            $status = CjwNewsletterSubscription::STATUS_PENDING;
+            $status = self::STATUS_PENDING;
             $dryRun = false;
-            $resultArray['list_subscribe'][ $listId ] = CjwNewsletterSubscription::createUpdateNewsletterSubscription(
+            $resultArray['list_subscribe'][ $listId ] = self::createUpdateNewsletterSubscription(
                                                                                                                     $listId,
                                                                                                                     $newsletterUserId,
                                                                                                                     $outputFormatArray,
@@ -708,7 +722,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
             // list_remove by user self
             foreach ( $listRemoveArray as $listId )
             {
-                $resultArray['list_remove'][ $listId ] = CjwNewsletterSubscription::removeSubscriptionByNewsletterUserSelf( $listId, $newsletterUserId );
+                $resultArray['list_remove'][ $listId ] = self::removeSubscriptionByNewsletterUserSelf( $listId, $newsletterUserId );
             }
         }
         return $resultArray;
@@ -725,7 +739,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
      */
     static function removeSubscriptionByNewsletterUserSelf( $listContentObjectId, $newsletterUserId )
     {
-        $existingSubscriptionObject = CjwNewsletterSubscription::fetchByListIdAndNewsletterUserId( $listContentObjectId, $newsletterUserId );
+        $existingSubscriptionObject = self::fetchByListIdAndNewsletterUserId( $listContentObjectId, $newsletterUserId );
 
         if ( is_object( $existingSubscriptionObject ) )
         {
@@ -744,7 +758,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
      */
     static function removeSubscriptionByAdmin( $listContentObjectId, $newsletterUserId )
     {
-        $existingSubscriptionObject = CjwNewsletterSubscription::fetchByListIdAndNewsletterUserId( $listContentObjectId, $newsletterUserId );
+        $existingSubscriptionObject = self::fetchByListIdAndNewsletterUserId( $listContentObjectId, $newsletterUserId );
 
         if ( is_object( $existingSubscriptionObject ) )
         {
@@ -773,31 +787,31 @@ class CjwNewsletterSubscription extends eZPersistentObject
     static function createUpdateNewsletterSubscription( $listContentObjectId,
                                                         $newsletterUserId,
                                                         $outputFormatArray,
-                                                        $status = CjwNewsletterSubscription::STATUS_PENDING,
+                                                        $status = self::STATUS_PENDING,
                                                         $dryRun = false,
                                                         $context = 'default' )
     {
-        $existingSubscriptionObject = CjwNewsletterSubscription::fetchByListIdAndNewsletterUserId( $listContentObjectId, $newsletterUserId );
+        $existingSubscriptionObject = self::fetchByListIdAndNewsletterUserId( $listContentObjectId, $newsletterUserId );
         $newsletterUser = CjwNewsletterUser::fetch( $newsletterUserId );
 
         // if nl user status is confirmed set all nl subscription with status pending to confirmed
         if ( is_object( $newsletterUser )
             && (int) $newsletterUser->attribute('status') == CjwNewsletterUser::STATUS_CONFIRMED
-            && $status == CjwNewsletterSubscription::STATUS_PENDING )
+            && $status == self::STATUS_PENDING )
         {
-            $status = CjwNewsletterSubscription::STATUS_CONFIRMED;
+            $status = self::STATUS_CONFIRMED;
         }
 
         // update existing
         if ( is_object( $existingSubscriptionObject ) )
         {
 
-            $existingSubscriptionObject->setAttribute('output_format_array_string', CjwNewsletterSubscription::arrayToString( $outputFormatArray ) );
+            $existingSubscriptionObject->setAttribute('output_format_array_string', self::arrayToString( $outputFormatArray ) );
             if( $context == 'configure' )
             {
                 // if nl list autoapprove is disabled + admin has approved the nl subscription
                 // + the nl subscription should be get status approved when update confirmstatus,
-                if( $existingSubscriptionObject->attribute( 'status' ) == CjwNewsletterSubscription::STATUS_APPROVED )
+                if( $existingSubscriptionObject->attribute( 'status' ) == self::STATUS_APPROVED )
                 {
                     // set confirmed timestamp if emty - could be possible if admin has approved subscription before user has confirm his email address
                     if( $existingSubscriptionObject->attribute( 'confirmed' ) == 0 )
@@ -825,7 +839,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
         // create new object
         else
         {
-            $object = CjwNewsletterSubscription::create( $listContentObjectId,
+            $object = self::create( $listContentObjectId,
                                                          $newsletterUserId,
                                                          $outputFormatArray,
                                                          $status,
@@ -847,7 +861,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
      */
     static function fetchByListIdAndNewsletterUserId( $listContentObjectId, $newsletterUserId, $asObject = true )
     {
-        $objectList = eZPersistentObject::fetchObjectList( CjwNewsletterSubscription::definition(),
+        $objectList = eZPersistentObject::fetchObjectList( self::definition(),
                                                     null,
                                                     array( 'list_contentobject_id' => $listContentObjectId,
                                                        'newsletter_user_id' => $newsletterUserId ),
@@ -874,15 +888,18 @@ class CjwNewsletterSubscription extends eZPersistentObject
     /**
      * Search alle user who subscript to ListId
      *
-     * @param integer $listContentObjectId
+     * @param CjwNewsletterList $listObject
      * @param mixed int|array $statusIds
      * @param integer $limit
      * @param integer $offset
      * @param boolean $asObject
      * @return array
      */
-    static function fetchSubscriptionListByListId( $listContentObjectId, $statusId = false, $limit = 50, $offset = 0, $asObject = true )
+    static function fetchSubscriptionListByListId( $listObject, $statusId = false, $limit = 50, $offset = 0, $asObject = true )
     {
+
+        $listContentObjectId = $listObject->attribute( 'contentobject_id' );
+
         $sortArr = array( 'created' => 'desc' );
         $limitArr = null;
 
@@ -905,7 +922,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
         }
 
         $objectList = eZPersistentObject::fetchObjectList(
-                                                    CjwNewsletterSubscription::definition(),
+                                                    self::definition(),
                                                     null,
                                                     $condArr,
                                                     $sortArr,
@@ -921,12 +938,14 @@ class CjwNewsletterSubscription extends eZPersistentObject
     /**
      * Count all user who subscripe to list
      *
-     * @param integer $listContentObjectId
+     * @param CjwNewsletterList $listObject
      * @param mixed int|array $statusIds
      * @return integer
      */
-    static function fetchSubscriptionListByListIdCount( $listContentObjectId, $statusId = false )
+    static function fetchSubscriptionListByListIdCount( $listObject, $statusId = false )
     {
+        $listContentObjectId = $listObject->attribute( 'contentobject_id' );
+
         $condArr = array( 'list_contentobject_id' => (int) $listContentObjectId );
         if( $statusId !== false )
         {
@@ -967,7 +986,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
         }
 
         $objectList = eZPersistentObject::fetchObjectList(
-                                                    CjwNewsletterSubscription::definition(),
+                                                    self::definition(),
                                                     null,
                                                     array( 'import_id' => (int) $importId ),
                                                     $sortArr,
@@ -1034,7 +1053,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
         }
 
         $objectList = eZPersistentObject::fetchObjectList(
-                                                    CjwNewsletterSubscription::definition(),
+                                                    self::definition(),
                                                     null,
                                                     array( 'import_id' => (int) $importId,
                                                            'status' => (int) $status   ),
@@ -1059,7 +1078,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
     static function fetchSubscriptionListByNewsletterUserId( $newsletterUserId, $asObject = true )
     {
         $objectList = eZPersistentObject::fetchObjectList(
-                        CjwNewsletterSubscription::definition(),
+                        self::definition(),
                         null,
                         array( 'newsletter_user_id' => (int) $newsletterUserId ),
                         null,
@@ -1079,14 +1098,14 @@ class CjwNewsletterSubscription extends eZPersistentObject
     static function fetchListNotRemovedOrBlacklistedByNewsletterUserId( $newsletterUserId, $asObject = true )
     {
         $objectList = eZPersistentObject::fetchObjectList(
-                        CjwNewsletterSubscription::definition(),
+                        self::definition(),
                         null,
                         array( 'newsletter_user_id' => (int) $newsletterUserId,
-                               'status' => array( array( CjwNewsletterSubscription::STATUS_PENDING,
-                                                         CjwNewsletterSubscription::STATUS_CONFIRMED,
-                                                         CjwNewsletterSubscription::STATUS_APPROVED,
-                                                         CjwNewsletterSubscription::STATUS_BOUNCED_SOFT,
-                                                         CjwNewsletterSubscription::STATUS_BOUNCED_HARD ) ) ),
+                               'status' => array( array( self::STATUS_PENDING,
+                                                         self::STATUS_CONFIRMED,
+                                                         self::STATUS_APPROVED,
+                                                         self::STATUS_BOUNCED_SOFT,
+                                                         self::STATUS_BOUNCED_HARD ) ) ),
                         null,
                         null,
                         true
@@ -1099,11 +1118,14 @@ class CjwNewsletterSubscription extends eZPersistentObject
     /**
      * Count all user who subscripe to list group by status
      *
-     * @param integer $listConentObjectId
+     * @param object $listObject
      * @return array
      */
-    static function fetchSubscriptionListStatistic( $listConentObjectId )
+    static function fetchSubscriptionListStatistic( $listObject )
     {
+
+        $listConentObjectId = $listObject->attribute( 'contentobject_id' );
+
         $db = eZDB::instance();
         $query = "SELECT status, COUNT(id) as count
                   FROM cjwnl_subscription
@@ -1167,7 +1189,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
      */
     static function fetchByHash( $hash, $asObject = true )
     {
-        return eZPersistentObject::fetchObject( CjwNewsletterSubscription::definition(),
+        return eZPersistentObject::fetchObject( self::definition(),
                                                 null,
                                                 array( 'hash' => $hash ),
                                                 $asObject );
@@ -1176,6 +1198,8 @@ class CjwNewsletterSubscription extends eZPersistentObject
 
     /**
      * Search all subsciptions to a list + status
+     *
+     * @deprecated @see self::fetchSubscriptionListByListId
      *
      * @param integer $listContentObjectId
      * @param integer $status
@@ -1186,29 +1210,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
      */
     static function fetchSubscriptionListByListIdAndStatus( $listContentObjectId, $status, $limit = 50, $offset = 0, $asObject = true )
     {
-        $sortArr = array( 'created' => 'desc' );
-        $limitArr = null;
-
-        if ( (int) $limit != 0 )
-        {
-            $limitArr = array( 'limit' => $limit, 'offset' => $offset );
-        }
-
-        $objectList = eZPersistentObject::fetchObjectList(
-                                                    CjwNewsletterSubscription::definition(),
-                                                    null,
-                                                    array( 'list_contentobject_id' => (int) $listContentObjectId,
-                                                           'status' => (int) $status ),
-                                                    $sortArr,
-                                                    $limitArr,
-                                                    $asObject,
-                                                    null,
-                                                    null,
-                                                    null,
-                                                    null );
-
-
-        return $objectList;
+        return self::fetchSubscriptionListByListId( $listContentObjectId, $status, $limit, $offset, $asObject );
     }
 
     /**
@@ -1220,7 +1222,7 @@ class CjwNewsletterSubscription extends eZPersistentObject
     static function fetch( $id )
     {
         $object = eZPersistentObject::fetchObject(
-                            CjwNewsletterSubscription::definition(),
+                            self::definition(),
                             null,
                             array( 'id' => $id ),
                             true

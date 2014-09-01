@@ -2,7 +2,7 @@
 /**
  * File containing the CjwNewsletterEditionSend class
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -16,6 +16,7 @@
  */
 class CjwNewsletterEditionSend extends eZPersistentObject
 {
+    const STATUS_WAIT_FOR_SCHEDULE = 4;
     const STATUS_WAIT_FOR_PROCESS = 0;
     const STATUS_MAILQUEUE_CREATED = 1;
     const STATUS_MAILQUEUE_PROCESS_STARTED = 2;
@@ -54,6 +55,14 @@ class CjwNewsletterEditionSend extends eZPersistentObject
                                                         'datatype' => 'integer',
                                                         'default' => 0,
                                                         'required' => true ),
+                                         'list_contentobject_version' => array( 'name' => 'ListContentObjectVersion',
+                                                                'datatype' => 'integer',
+                                                                'default' => 0,
+                                                                'required' => true ),
+                                         'list_is_virtual' => array( 'name' => 'ListIsVirtual',
+                                                                        'datatype' => 'Integer',
+                                                                        'default' => 0,
+                                                                        'required' => true ),
                                          'siteaccess' => array( 'name' => 'SiteAccess',
                                                         'datatype' => 'string',
                                                         'default' => '',
@@ -71,6 +80,10 @@ class CjwNewsletterEditionSend extends eZPersistentObject
                                                         'default' => 0,
                                                         'required' => true ),
                                          'mailqueue_created' => array( 'name' => 'MailQueueCreated',
+                                                        'datatype' => 'integer',
+                                                        'default' => 0,
+                                                        'required' => false ),
+                                         'mailqueue_process_scheduled' => array( 'name' => 'MailQueueProcessScheduled',
                                                         'datatype' => 'integer',
                                                         'default' => 0,
                                                         'required' => false ),
@@ -106,11 +119,20 @@ class CjwNewsletterEditionSend extends eZPersistentObject
                                                         'datatype' => 'string',
                                                         'default' => '',
                                                         'required' => true ),
+                                         'email_reply_to' => array( 'name' => 'EmailReplyTo',
+                                                                   'datatype' => 'string',
+                                                                   'default' => '',
+                                                                   'required' => true ),
+                                         'email_return_path' => array( 'name' => 'EmailReturnPath',
+                                                                   'datatype' => 'string',
+                                                                   'default' => '',
+                                                                   'required' => true ),
                                          'personalize_content' => array( 'name' => 'PersonalizeContent',
                                                                                         'datatype' => 'Integer',
                                                                                         'default' => 0,
                                                                                         'required' => false ),
                                                                                            ),
+
 
                       'keys' => array( 'id' ),
                       'increment_key' => 'id',
@@ -126,7 +148,7 @@ class CjwNewsletterEditionSend extends eZPersistentObject
      * @param CjwNewsletterEdition $editionObject
      * @return object
      */
-    static function create( CjwNewsletterEdition $editionObject )
+    static function create( CjwNewsletterEdition $editionObject, $schedule = null )
     {
 
         $editionContentObjectId = $editionObject->attribute('contentobject_id');
@@ -141,29 +163,40 @@ class CjwNewsletterEditionSend extends eZPersistentObject
 
         $listAttributeContent = $editionObject->attribute( 'list_attribute_content' );
         $listContentObjectId = $listAttributeContent->attribute( 'contentobject_id' );
+        $listContentObjectVersion = $listAttributeContent->attribute( 'contentobject_attribute_version' );
+        $listIsVirtual = $listAttributeContent->attribute( 'is_virtual' );
+
         $outputFormatArrayString = $listAttributeContent->attribute( 'output_format_array_string' );
 
         $mainSiteAccess = $listAttributeContent->attribute( 'main_siteaccess' );
 
         $emailSender = $listAttributeContent->attribute( 'email_sender' );
         $emailSenderName = $listAttributeContent->attribute( 'email_sender_name' );
+        $emailReplyTo = $listAttributeContent->attribute( 'email_reply_to' );
+        $emailReturnPath = $listAttributeContent->attribute( 'email_return_path' );
+
+
         $personalizeContent = $listAttributeContent->attribute( 'personalize_content' );
 
         $rows = array(
                             'list_contentobject_id' => $listContentObjectId,
+                            'list_contentobject_version' => $listContentObjectVersion,
+                            'list_is_virtual' => $listIsVirtual,
                             'edition_contentobject_id' => $editionContentObjectId,
                             'edition_contentobject_version' => $editionContentObjectVersion,
                             'siteaccess' => $mainSiteAccess,
                             'output_format_array_string' => $outputFormatArrayString,
                             'created' => time(),
                             'creator_id' => $creatorId,
-                            'status' => CjwNewsletterEditionSend::STATUS_WAIT_FOR_PROCESS ,
+                            'status' => CjwNewsletterEditionSend::STATUS_WAIT_FOR_SCHEDULE,
+                            'mailqueue_process_scheduled' => is_null($schedule) ? time() : $schedule,
                             'output_xml' => $outputXml,
                             'hash' => CjwNewsletterUtils::generateUniqueMd5Hash( $listContentObjectId. $editionContentObjectId. $editionContentObjectVersion ),
                             'email_sender' => $emailSender,
                             'email_sender_name' => $emailSenderName,
+                            'email_reply_to' => $emailReplyTo,
+                            'email_return_path' => $emailReturnPath,
                             'personalize_content' => $personalizeContent
-
                             );
 
         $object = new CjwNewsletterEditionSend( $rows );
@@ -385,6 +418,7 @@ class CjwNewsletterEditionSend extends eZPersistentObject
         $itemsCount = CjwNewsletterEditionSendItem::fetchListBySendIdAndStatusCount( $editionSendId, false );
         $itemsNotSend = CjwNewsletterEditionSendItem::fetchListBySendIdAndStatusCount( $editionSendId, CjwNewsletterEditionSendItem::STATUS_NEW );
         $itemsSend = CjwNewsletterEditionSendItem::fetchListBySendIdAndStatusCount( $editionSendId, CjwNewsletterEditionSendItem::STATUS_SEND  );
+        $itemsAborted = $itemsCount - $itemsNotSend - $itemsSend;
         $itemsBounced = CjwNewsletterEditionSendItem::fetchBounceCountByEditionSendId ( $editionSendId );
 
         $itemsSendInPersent = 0;
@@ -397,8 +431,10 @@ class CjwNewsletterEditionSend extends eZPersistentObject
         return array( 'items_count' => $itemsCount,
                       'items_not_send' => $itemsNotSend,
                       'items_send' => $itemsSend,
+                      'items_abort' => $itemsAborted,
                       'items_send_in_percent' => $itemsSendInPersent,
-                      'items_bounced' => $itemsBounced, );
+                      'items_bounced' => $itemsBounced
+                    );
     }
 
     /**
@@ -542,6 +578,35 @@ class CjwNewsletterEditionSend extends eZPersistentObject
         $this->store();
 
         return $updateResult;
+    }
+
+
+    /**
+    * @see in cronjob create
+    *
+    * should handle the correct fetch of subscripers static + virtual
+    *
+    */
+    function getSubscriptionObjectArray( $subscriptionStatus = CjwNewsletterSubscription::STATUS_APPROVED,
+                                         $limit = 0,
+                                         $offset = 0 )
+    {
+        $listContentObjectId = $this->attribute( 'list_contentobject_id' );
+        $listContentObjectVersion = $this->attribute( 'list_contentobject_version' );
+        $listIsVirtual = $this->attribute( 'list_is_virtual' );
+
+        $subscriptionObjectList = false;
+
+        // static list (CjwNewsletterList) or virtual (CjwNewsletterListVirtual)
+        $listObject = CjwNewsletterList::fetchByListObjectVersion( $listContentObjectId, $listContentObjectVersion );
+
+        if ( is_object( $listObject ) )
+        {
+            $subscriptionObjectList = $listObject->getSubscriptionObjectArray( $subscriptionStatus, $limit, $offset );
+        }
+
+        return $subscriptionObjectList;
+
     }
 
 }

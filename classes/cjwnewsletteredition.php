@@ -2,7 +2,7 @@
 /**
  * File containing the CjwNewsletterEdition class
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -207,6 +207,7 @@ class CjwNewsletterEdition extends eZPersistentObject
                                             $editionContentObjectId,
                                             array( CjwNewsletterEditionSend::STATUS_WAIT_FOR_PROCESS,
                                                    CjwNewsletterEditionSend::STATUS_MAILQUEUE_CREATED,
+                                                   CjwNewsletterEditionSend::STATUS_WAIT_FOR_SCHEDULE,
                                                    CjwNewsletterEditionSend::STATUS_MAILQUEUE_PROCESS_STARTED  ),
                                             false
                                                    );
@@ -313,7 +314,8 @@ class CjwNewsletterEdition extends eZPersistentObject
 
         foreach ( $listDataMap as $attribute )
         {
-            if ( $attribute->attribute('data_type_string') == 'cjwnewsletterlist' )
+            if ( $attribute->attribute( 'data_type_string' ) == 'cjwnewsletterlist' or
+                 $attribute->attribute( 'data_type_string' ) == 'cjwnewsletterlistvirtual' )
             {
                $listAttributeContent = $attribute->attribute('content');
             }
@@ -371,10 +373,10 @@ class CjwNewsletterEdition extends eZPersistentObject
      *
      * @return object
      */
-    function createNewsletterSendObject()
+    function createNewsletterSendObject($schedule = null)
     {
 
-        $sendObject = CjwNewsletterEditionSend::create( $this );
+        $sendObject = CjwNewsletterEditionSend::create( $this, $schedule );
         $sendObject->store();
 
         return $sendObject;

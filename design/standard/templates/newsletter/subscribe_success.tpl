@@ -22,7 +22,8 @@
     </p>
     <p>
         {'Please note that your subscription is only active if you clicked confirmation link in these email.'|i18n( 'cjw_newsletter/subscribe_success' )}
-        <br />
+    </p>
+    <p>
         {'You have the possibility of changing your personal profile at any time.'|i18n( 'cjw_newsletter/subscribe_success' )}
     </p>
     <p><a href="{$back_url_input}">{'back'|i18n( 'cjw_newsletter/subscribe_success' )}</a></p>

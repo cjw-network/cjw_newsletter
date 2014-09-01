@@ -19,6 +19,8 @@
      $output_format_array = $list_object['output_format_array']
      $email_sender_name = $list_object['email_sender_name']
      $email_sender = $list_object['email_sender']
+     $email_reply_to = $list_object['email_reply_to']
+     $email_return_path = $list_object['email_return_path']
      $email_receiver_test = $list_object['email_receiver_test']
      $skin_name = $list_object['skin_name']
      $auto_approve_registered_user = $list_object['auto_approve_registered_user']
@@ -83,6 +85,16 @@
 {* email_sender_name *}
 <label>{'Newsletter sender name'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}</label>
 <input type="text" class="halfbox" name="{$attribute_base}_CjwNewsletterList_EmailSenderName_{$attribute.id}" value="{$email_sender_name}" />
+
+{* email_reply_to*}
+<label>{'Email reply-to'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}</label>
+<input type="text" class="halfbox" name="{$attribute_base}_CjwNewsletterList_EmailReplyTo_{$attribute.id}" value="{$email_reply_to}" />
+
+{* email_return_path *}
+<label>{'Email return-path'|i18n('cjw_newsletter/datatype/cjwnewsletterlist')}</label>
+<input type="text" class="halfbox" name="{$attribute_base}_CjwNewsletterList_EmailReturnPath_{$attribute.id}" value="{$email_return_path}" />
+
+
 
 <hr>
 {* email_reciever_test *}

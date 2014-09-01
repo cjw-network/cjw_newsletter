@@ -1,0 +1,10 @@
+Changes from 1.0.0 to 1.1.0
+
+*Bugs*
+
+- fixed bug: jac#910 Boucing - bounce mails not detect as bounce
+- fixed bug: jac#911 Mailbox collect failed
+
+*Enhancements*
+
+*Refactoring*

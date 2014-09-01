@@ -2,7 +2,7 @@
 /**
  * File containing the CjwNewsletterMail class
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -54,6 +54,17 @@ class CjwNewsletterMail
      */
     private $HeaderLineEnding = null;
 
+
+    /**
+     *
+     * The MailEncoding Values from ezcMail Konstants
+     *
+     * 7bit | 8bit | binary | quoted-printable | base64
+     *
+     * @var string
+     */
+    private $ContentTransferEncoding = ezcMail::EIGHT_BIT;
+
     /**
      * Constructor
      *
@@ -63,6 +74,7 @@ class CjwNewsletterMail
     {
         $this->setHeaderLineEndingFromIni();
         $this->resetExtraMailHeaders();
+        $this->setContentTransferEncodingFromIni();
         //include_once( dirname( __FILE__ ).'/CjwNewsletterErrorHandler.php' );
     }
 
@@ -86,12 +98,16 @@ class CjwNewsletterMail
         $versionId = $objectVersion->attribute('version');
         $emailSender = $listAttributeContent->attribute('email_sender');
         $emailSenderName = $listAttributeContent->attribute('email_sender_name');
+        $emailReplyTo = $listAttributeContent->attribute('email_reply_to');
+        $emailReturnPath = $listAttributeContent->attribute('email_return_path');
 
         foreach ( $outputFormatArray as $outputFormatId => $outputName )
         {
             $newsletterContentArray = CjwNewsletterEdition::getOutput( $editionContentObjectId, $versionId, $outputFormatId, $mainSiteAccess, $skinName, $forceSettingImageIncludeTo );
             $newsletterContentArray['email_sender'] = $emailSender;
             $newsletterContentArray['email_sender_name'] = $emailSenderName;
+            $newsletterContentArray['email_reply_to'] = $emailReplyTo;
+            $newsletterContentArray['email_return_path'] = $emailReturnPath;
 
             $outputFormatTextArray[ $outputName ] = $newsletterContentArray;
         }
@@ -129,7 +145,10 @@ class CjwNewsletterMail
                                         $emailReceiverName = 'Tester ',
                                         $outputFormat['subject'],
                                         $outputFormat['body'],
-                                        $isPreview = true
+                                        $isPreview = true,
+                                        'utf-8',
+                                        $outputFormat['email_reply_to'],
+                                        $outputFormat['email_return_path']
                                          );
 
             $sendResult[ $outputFormat['output_format'] ] = $result;
@@ -157,19 +176,54 @@ class CjwNewsletterMail
                         $emailSubject,
                         $emailBodyArray,
                         $isPreview = false,
-                        $emailCharset = 'utf-8'
+                        $emailCharset = 'utf-8',
+                        $emailReplyTo = false,
+                        $emailReturnPath = false
                          )
     {
 
         $transportMethod = $this->transportMethod;
         //$mail = new ezcMailComposer();
         $mail = new CjwNewsletterMailComposer();
+
+
+        // Encode the UTF-8 as base64 or QUOTED_PRINTABLE for 7 bit MTAs
+        // $mail->encoding = ezcMail::BASE64;
+        // $mail->encoding = ezcMail::QUOTED_PRINTABLE;
+
+        $mail->encoding = $this->ContentTransferEncoding;
+
         $mail->charset = $emailCharset;
         $mail->subjectCharset = $emailCharset;
         // from and to addresses, and subject
-        $mail->from = new ezcMailAddress( trim( $emailSender ), $emailSenderName );
+        $mail->from = new ezcMailAddress( trim( $emailSender ),
+                                          $emailSenderName,
+                                          $mail->charset );
         // returnpath for email bounces
-        $mail->returnPath = new ezcMailAddress( trim( $emailSender ) );
+        if ( !( $emailReturnPath && $emailReturnPath != '' ) )
+        {
+            $mail->returnPath = $mail->from;
+        }
+        else
+        {
+            $mail->returnPath = new ezcMailAddress( trim( $emailReturnPath ),
+                                                    '',
+                                                    $mail->charset );
+        }
+        $mail->setHeader( 'Errors-To', $mail->returnPath );
+
+        // reply-to
+        if ( !( $emailReplyTo && $emailReplyTo != '' ) )
+        {
+            $mail->setHeader( 'Reply-To', $mail->from );
+        }
+        else
+        {
+            $mail->setHeader( 'Reply-To', new ezcMailAddress( trim( $emailReplyTo ),
+                                                         '',
+                                                         $mail->charset ) );
+        }
+
 
         if ( $isPreview )
         {
@@ -179,13 +233,17 @@ class CjwNewsletterMail
                 // check if email
                 if ( $receiver != '' )
                 {
-                    $mail->addTo( new ezcMailAddress( trim( $receiver ), 'NL Test Receiver'. $index ) );
+                    $mail->addTo( new ezcMailAddress( trim( $receiver ),
+                                                      'NL Test Receiver'. $index,
+                                                       $mail->charset ) );
                 }
             }
         }
         else
         {
-            $mail->addTo( new ezcMailAddress( trim( $emailReceiver ), $emailReceiverName ) );
+            $mail->addTo( new ezcMailAddress( trim( $emailReceiver ),
+                                              $emailReceiverName,
+                                              $mail->charset ) );
         }
 
         if ( array_key_exists( 'html', $emailBodyArray ) == false )
@@ -241,7 +299,7 @@ class CjwNewsletterMail
         // set 'x-cjwnl-' mailheader
         foreach( $this->ExtraEmailHeaderItemArray as $key => $value )
         {
-            $mail->setHeader( $key, $value );
+            $mail->setHeader( $key, $value, $mail->charset );
         }
 
         $mail->build();
@@ -256,13 +314,36 @@ class CjwNewsletterMail
                              'email_charset' => $emailCharset,
                              'transport_method' => $transportMethod );
         // ok
-        if ( $sendResult )
+        if ( $sendResult === true )
         {
             CjwNewsletterLog::writeInfo( 'email send ok', 'CjwNewsletterMail', 'sendEmail', $emailResult );
         }
         else
         {
-            CjwNewsletterLog::writeError( 'email send failed', 'CjwNewsletterMail', 'sendEmail', $emailResult );
+            // An error occured while sending or receiving mail. RCPT TO failed with error: 450 4.1.2
+            // <xxxr@domain.de>: Recipient address rejected: Domain not found
+            // is string ' 450 ' included in emailResult
+            $searchString = ' 450 ';
+            $addErrorMessage = '';
+            if ( strpos( $sendResult, $searchString ) !== false )
+            {
+                // check if we found an email nl user for emailReceiver
+                $nlUserToBounce = CjwNewsletterUser::fetchByEmail( $emailReceiver );
+                if ( is_object( $nlUserToBounce ) )
+                {
+                    // hardbounce user
+                    // alle active element will be aborted, too
+                    $nlUserToBounce->setBounced( true );
+                    $emailResult[ 'nluser_id' ] = $nlUserToBounce->attribute( 'id' );
+                    $addErrorMessage = ' - HARD BOUNCE (450)';
+                }
+                else
+                {
+                    $addErrorMessage = ' - NL User for email not found';
+                }
+            }
+            CjwNewsletterLog::writeError( 'email send failed to ' . $emailReceiver . $addErrorMessage , 'CjwNewsletterMail', 'sendEmail', $emailResult );
+
         }
         // $LogFile->write( $message, $logName, $logFolder );
         return $emailResult;
@@ -332,6 +413,51 @@ class CjwNewsletterMail
 
         return $this->transportMethod;
     }
+
+
+    /**
+    * Read ini and set $contentTransferEncoding
+    *
+    * @return unknown_type
+    */
+    function setContentTransferEncodingFromIni()
+    {
+        $cjwNewsletterINI = eZINI::instance( 'cjw_newsletter.ini' );
+        $contentTransferEncoding = $cjwNewsletterINI->variable( 'NewsletterMailSettings', 'ContentTransferEncoding' );
+
+        switch ( $contentTransferEncoding )
+        {
+
+            case '8bit':
+                $this->ContentTransferEncoding = ezcMail::EIGHT_BIT;
+                break;
+
+            case 'quoted-printable':
+                $this->ContentTransferEncoding = ezcMail::QUOTED_PRINTABLE;
+                break;
+
+            case '7bit':
+                $this->ContentTransferEncoding = ezcMail::SEVEN_BIT;
+                break;
+
+            case 'base64':
+                $this->ContentTransferEncoding = ezcMail::BASE64;
+                break;
+
+            case 'binary':
+                $this->ContentTransferEncoding = ezcMail::BINARY;
+                break;
+
+            // default contentEncoding is 8bit
+            default:
+                $this->ContentTransferEncoding = ezcMail::EIGHT_BIT;
+            break;
+        }
+
+        return $this->ContentTransferEncoding;
+    }
+
+
 
      /**
      * Read ini and set transport

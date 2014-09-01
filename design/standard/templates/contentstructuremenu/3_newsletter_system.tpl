@@ -1,15 +1,20 @@
 {* 3_newsletter_system.tpl
     Zeigt ein system an mit alle listen
 *}
-    {let $newsletter_root_node_id = $newsletter_system_node.node_id
-         children       = fetch( 'content', 'tree', hash('parent_node_id', $newsletter_root_node_id,
+
+
+    {let newsletter_root_node_id = $newsletter_system_node.node_id
+         nl_list_class_filter_array = array( 'cjw_newsletter_list',
+                                              'cjw_newsletter_list_virtual' )
+         children       = fetch( 'content', 'list', hash('parent_node_id', $newsletter_root_node_id,
                                                         'class_filter_type', 'include',
                                                         'class_filter_array',
-                                                        array('cjw_newsletter_list') ))
-         numChildren    = fetch( 'content', 'tree_count', hash('parent_node_id', $newsletter_root_node_id,
+                                                         $nl_list_class_filter_array
+                                                         ))
+         numChildren    = fetch( 'content', 'list_count', hash('parent_node_id', $newsletter_root_node_id,
                                                         'class_filter_type', 'include',
                                                         'class_filter_array',
-                                                        array('cjw_newsletter_list') ))
+                                                        $nl_list_class_filter_array ))
          haveChildren   = $numChildren|gt(0)
          showToolTips   = ezini( 'TreeMenu', 'ToolTips' , 'contentstructuremenu.ini' )
          translation    = ezini( 'URLTranslator', 'Translation', 'site.ini' )

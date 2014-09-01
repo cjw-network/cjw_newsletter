@@ -151,7 +151,7 @@
             <div class="block" id="nl-salutation">
                 <label>{"Salutation"|i18n( 'cjw_newsletter/subscribe' )}:</label>
                 {foreach $available_salutation_array as $salutation_id => $salutation_name}
-                    <input type="radio" name="Subscription_Salutation" value="{$salutation_id|wash}"{if and( is_set( $subscription_data_array['salutation'] ), $subscription_data_array['salutation']|eq( $salutation_id ) )} checked="checked"{/if} title="{$salutation_name|wash}" />{$salutation_name|wash}&nbsp;
+                    <input type="radio" name="Subscription_Salutation" value="{$salutation_id|wash}"{if and( is_set( $subscription_data_array['salutation'] ), $subscription_data_array['salutation']|eq( $salutation_id ) )} checked="checked"{/if} title="{$salutation_name|wash}" /> {$salutation_name|wash}&nbsp;
                 {/foreach}
             </div>
 

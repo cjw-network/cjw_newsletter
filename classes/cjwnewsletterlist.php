@@ -2,7 +2,7 @@
 /**
  * File containing the CjwNewsletterList class
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -21,14 +21,15 @@ class CjwNewsletterList extends eZPersistentObject
 {
 
     /**
-     * Initializes a new GeoadressData alias
+     * Initializes a new newsletter list class
      *
-     * @param unknown_type $row
+     * @param array $row
      * @return void
      */
     function CjwNewsletterList( $row = array() )
     {
         $this->eZPersistentObject( $row );
+        $this->setAttribute( 'is_virtual', 0 );
     }
 
     /**
@@ -73,6 +74,14 @@ class CjwNewsletterList extends eZPersistentObject
                                                                    'datatype' => 'string',
                                                                    'default' => '',
                                                                    'required' => true ),
+                                         'email_reply_to' => array( 'name' => 'EmailReplyTo',
+                                                                   'datatype' => 'string',
+                                                                   'default' => '',
+                                                                   'required' => true ),
+                                         'email_return_path' => array( 'name' => 'EmailReturnPath',
+                                                                   'datatype' => 'string',
+                                                                   'default' => '',
+                                                                   'required' => true ),
                                          'email_receiver_test' => array( 'name' => 'EmailReceiverTest',
                                                                    'datatype' => 'string',
                                                                    'default' => '',
@@ -93,6 +102,14 @@ class CjwNewsletterList extends eZPersistentObject
                                                                   'datatype' => 'string',
                                                                   'default' => '',
                                                                   'required' => false ),
+                                         'is_virtual' => array( 'name' => 'IsVirtual',
+                                                                          'datatype' => 'integer',
+                                                                          'default' => 0,
+                                                                          'required' => false ),
+                                         'virtual_filter' => array( 'name' => 'VirtualFilter',
+                                                                              'datatype' => 'string',
+                                                                              'default' => '',
+                                                                              'required' => false ),
 
                                                                     ),
                       'keys' => array( 'contentobject_attribute_id', 'contentobject_attribute_version' ),
@@ -140,10 +157,54 @@ class CjwNewsletterList extends eZPersistentObject
     // ######################################
 
     /**
+     * Spezific function to fetch NL list
+     * if it is an Virtual List return a CjwNewsletterListVirtual object
+     * otherwise CjwNewsletterList
+     *
+     * @param int $listContentObjectId
+     * @param int $listContentObjectVersion
+     */
+    static function fetchByListObjectVersion( $listContentObjectId, $listContentObjectVersion )
+    {
+        if ( (int) $listContentObjectVersion == 0 )
+        {
+            $listContentObject = eZContentObject::fetch( $listContentObjectId, true );
+            if ( !is_object( $listContentObject ) )
+            {
+                return false;
+            }
+            $listContentObjectVersion = $listContentObject->attribute( 'current' );
+        }
+        else
+        {
+            $listContentObjectVersion = eZContentObjectVersion::fetchVersion( $listContentObjectVersion, $listContentObjectId );
+        }
+
+        if ( is_object( $listContentObjectVersion ) )
+        {
+            $dataMap = $listContentObjectVersion->attribute( 'data_map' );
+            if ( isset( $dataMap[ 'newsletter_list' ] ) )
+            {
+                $newsletterListAttribute = $dataMap['newsletter_list'];
+                $newsletterListAttributeContent = $newsletterListAttribute->attribute('content');
+                return $newsletterListAttributeContent;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
      * Used in datatype cjwnewsletter_list
      *
      * @param integer $attributeId
-     * @param unknown_type $version
+     * @param integer $version
      * @return array
      */
     static function fetch( $attributeId, $version )
@@ -182,8 +243,7 @@ class CjwNewsletterList extends eZPersistentObject
     function getAvailableSkinArray()
     {
         $cjwNewsletterIni = eZINI::instance('cjw_newsletter.ini');
-        $availableSkinArray = $cjwNewsletterIni->variable('NewsletterSettings', 'AvailableSkinArray' );
-
+        $availableSkinArray = array_unique($cjwNewsletterIni->variable('NewsletterSettings', 'AvailableSkinArray' ));
         return $availableSkinArray;
     }
 
@@ -196,7 +256,7 @@ class CjwNewsletterList extends eZPersistentObject
     function getOutputFormatArray()
     {
         $availableOutputFormatArray = CjwNewsletterList::getAvailableOutputFormatArray();
-        $outputFormatArray = CjwNewsletterList::stringToArray( eZPersistentObject::attribute( 'output_format_array_string' ) );
+        $outputFormatArray = CjwNewsletterList::stringToArray( $this->attribute( 'output_format_array_string' ) );
 
         $newOutputFormatArrayWithNames = array();
         foreach ( $outputFormatArray as $outputFormatId )
@@ -213,7 +273,7 @@ class CjwNewsletterList extends eZPersistentObject
      */
     function getSiteaccessArray()
     {
-        return $this->stringToArray( eZPersistentObject::attribute( 'siteaccess_array_string' ) );
+        return $this->stringToArray( $this->attribute( 'siteaccess_array_string' ) );
     }
 
     /**
@@ -233,6 +293,42 @@ class CjwNewsletterList extends eZPersistentObject
         return $siteAccessIniArray;
     }
 
+    /**
+    * @see cjwnewslettereditionsend::getSubscriptionObjectArray
+    * should handle the correct fetch of subscripers static + virtual
+    *
+    */
+
+    /**
+     * get all subscriptions of current this static list
+     *
+     * @param integer $status e.g. @param integer $status e.g. CjwNewsletterSubscription::STATUS_APPROVED
+     * @param integer $limit
+     * @param integer $offset
+     * @param boolean $asObject
+     * @return Ambigous <multitype:, NULL, unknown, multitype:unknown >
+     */
+    function getSubscriptionObjectArray( $status, $limit = 0, $offset = 0, $asObject = true )
+    {
+        // if static list
+        //$listContentObjectId = $this->attribute( 'contentobject_id' );
+        $subscriptionObjectList = CjwNewsletterSubscription::fetchSubscriptionListByListId( $this, $status, $limit, $offset, $asObject  );
+        return $subscriptionObjectList;
+    }
+
+    /**
+     *
+     * get count of subscription for this static list
+     * @param integer $status e.g. CjwNewsletterSubscription::STATUS_APPROVED
+     * @return number
+     */
+    function getSubscriptionObjectCount( $status )
+    {
+        //$listContentObjectId = $this->attribute( 'contentobject_id' );
+        $subscriptionObjectListCount = CjwNewsletterSubscription::fetchSubscriptionListByListIdCount( $this, $status );
+        return $subscriptionObjectListCount;
+    }
+
      /**
      * Return array of list subscribers groub by status
      *
@@ -240,7 +336,7 @@ class CjwNewsletterList extends eZPersistentObject
      */
     function getUserCountStatistic()
     {
-        $userCountStatisticArray = CjwNewsletterSubscription::fetchSubscriptionListStatistic( $this->attribute('contentobject_id') );
+        $userCountStatisticArray = CjwNewsletterSubscription::fetchSubscriptionListStatistic( $this );
         return $userCountStatisticArray;
     }
 
@@ -251,7 +347,7 @@ class CjwNewsletterList extends eZPersistentObject
      */
     function getUserCount()
     {
-        $userCount = CjwNewsletterSubscription::fetchSubscriptionListByListIdCount( $this->attribute('contentobject_id') );
+        $userCount = CjwNewsletterSubscription::fetchSubscriptionListByListIdCount( $this  );
         return $userCount;
     }
 

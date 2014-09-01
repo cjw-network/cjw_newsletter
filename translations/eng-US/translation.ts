@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0">
 <context>
     <name>cjw_newsletter</name>
     <message>
@@ -33,10 +35,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Blacklist add item</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
@@ -56,16 +54,8 @@
 <context>
     <name>cjw_newsletter/blacklist_item_list</name>
     <message>
-        <source>Add an email to blacklist</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Create a new blacklist entry.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Blacklist items [%children_count]</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Invert selection</source>
@@ -84,10 +74,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Newsletter user</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Created</source>
         <translation type="unfinished"></translation>
     </message>
@@ -102,18 +88,6 @@
     <message>
         <source>Select items for removal</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Blacklist item list</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Blacklist overview</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>If you want that a user with a special email do not get any newsletter from this newsletter system you can blacklist him!</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Manage blacklist</source>
@@ -137,6 +111,14 @@
     </message>
     <message>
         <source>Blacklists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove the selected items from the list above.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -277,6 +259,10 @@
     <name>cjw_newsletter/cjw_newsletter_list</name>
     <message>
         <source>Create newsletter here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create filter here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -661,6 +647,10 @@
         <source>Changes saved</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No newsletters available.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cjw_newsletter/contentstructuremenu</name>
@@ -669,32 +659,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>User</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Draft</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Send</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Archive</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Abort</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Subscriptions</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sent</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Archived</source>
@@ -890,6 +860,11 @@
         <comment>Datatype name</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>CJW Newsletter List Virtual</source>
+        <comment>Datatype name</comment>
+        <translation type="unfinished"></translation>
+    </message>    
 </context>
 <context>
     <name>cjw_newsletter/design/admin/node/view/full</name>
@@ -916,16 +891,8 @@
 <context>
     <name>cjw_newsletter/import_list</name>
     <message>
-        <source>Import overview</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Here you find a list of all data imports!</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import items [%children_count]</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Invert selection</source>
@@ -960,10 +927,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import list</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Imported subscription count</source>
         <translation type="unfinished"></translation>
     </message>
@@ -993,6 +956,10 @@
     </message>
     <message>
         <source>Imports</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports (%import_list_count) </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1051,10 +1018,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import list</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Imported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1110,42 +1073,6 @@
 <context>
     <name>cjw_newsletter/index</name>
     <message>
-        <source>Structure</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>SYSTEM</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>SYSTEM is parent of LIST</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>LIST is parent of OUTPUT</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>OUTPUT is parent of SEND OUTPUT</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Newsletter SYSTEM</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Newsletter LIST</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>OUTPUT</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Newsletter Drafts</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Mails</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1159,10 +1086,6 @@
     </message>
     <message>
         <source>Last actions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Opened</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1217,10 +1140,6 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add new Mailbox </source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Email</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1249,24 +1168,12 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Deleted Mails from Server</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Activated</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Store Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Discard</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>mailbox edit</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Add new mail account</source>
@@ -1304,20 +1211,12 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%parsed_mails_count mails parsed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Collect all mails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Parse mails</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mailbox items [%children_count]</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Invert selection</source>
@@ -1380,14 +1279,6 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>mailbox item list</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Mailbox item list</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>ID</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1404,15 +1295,7 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Here you will find all collected emails and you can try to dectect bounce mails.</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Manage bounces</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Collect Emails from bounce accounts and parse them. You may then accept the detected bounce status or manually adjust it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1425,6 +1308,14 @@ To edit your newsletter settings please visit the following link:
     </message>
     <message>
         <source>Bounces</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collect emails from bounce accounts and parse them. You may then accept the detected bounce status or manually adjust it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E-mails parsed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1478,60 +1369,8 @@ To edit your newsletter settings please visit the following link:
 <context>
     <name>cjw_newsletter/mailbox_list</name>
     <message>
-        <source>Mailbox list</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Here you can set up mailboxes which will collect mails for bouncehandling.</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Items</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Invert selection</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>email</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>server</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>port</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>user</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>password</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>type</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>is_activated</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>is_ssl</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>delete_mails_from_server</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>last_server_connect</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Select subscriber for removal</source>
@@ -1550,16 +1389,8 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add Mailbox</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Add new mailbox.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>mailbox list</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>ID</source>
@@ -1591,46 +1422,6 @@ To edit your newsletter settings please visit the following link:
     <message>
         <source>Settings</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Overview</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Registration form</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>User list</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Mailbox item list</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Mailbox list</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Blacklist</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Systems</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Import list</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Hide</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Show</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Administer</source>
@@ -1751,20 +1542,12 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Result of the test sending of the newsletter</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Nr</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Result</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Subjekt</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Email Sender</source>
@@ -1775,100 +1558,16 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Already in the sending process!</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Send Newsletter</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Process</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Archive</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Abort</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Newsletter Details</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Edit Newsletter</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Send out Newsletter</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Send out Newsletter to this Users - Count:</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Number</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Email</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Newsletter - Sent out Emails</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Sent out Emails</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Not Sent out Emails</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Newsletter Preview</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Email Receiver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Newsletter send objects</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Back</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Newsletter overview</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Last ten actions</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Content Type</source>
@@ -1967,10 +1666,6 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>To unsubscribe your newsletter please visit the following link</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>To unsubscribe from this newsletter please visit the following link</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2062,11 +1757,11 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Subscribe to newsletter</source>
-        <translation type="obsolete"></translation>
+        <source>Subscription form</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Subscription form</source>
+        <source>No newsletters available.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2268,36 +1963,12 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Creator</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Published</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Modified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Short description</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Subscriped user statistic</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Import CSV</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Subscriber list</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Invert selection</source>
@@ -2372,15 +2043,7 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>List Subscription List</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>ID</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>eZ ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2412,14 +2075,6 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SID</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Subscription Id</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Subscriptions statistic</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2445,6 +2100,18 @@ To edit your newsletter settings please visit the following link:
     </message>
     <message>
         <source>Blacklisted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>eZ Publish User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Approve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Approve subscription</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2490,14 +2157,6 @@ To edit your newsletter settings please visit the following link:
 <context>
     <name>cjw_newsletter/subscription_list_csvimport</name>
     <message>
-        <source>Subscription list CSV import</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Subscription import with CSV</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Upload file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2536,10 +2195,6 @@ To edit your newsletter settings please visit the following link:
     <message>
         <source>Cancel subscription import.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import subscriptions</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Invert selection</source>
@@ -2617,13 +2272,17 @@ To edit your newsletter settings please visit the following link:
         <source>CSV import</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unsupported CSV delimiter. Please use one of the following: &quot;,&quot;, &quot;;&quot;, &quot;|&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(supported CSV delimiters: &quot;,&quot;, &quot;;&quot;, &quot;|&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cjw_newsletter/subscription_view</name>
-    <message>
-        <source>Newsletter subscription view</source>
-        <translation type="obsolete"></translation>
-    </message>
     <message>
         <source>Subscription Id</source>
         <translation type="unfinished"></translation>
@@ -2639,10 +2298,6 @@ To edit your newsletter settings please visit the following link:
     <message>
         <source>Status</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Outputformat</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Created</source>
@@ -2689,24 +2344,12 @@ To edit your newsletter settings please visit the following link:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Approve subscription by admin</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Remove subscription by admin</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Subscription successfully approved!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Subscription successfully removed!</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Newsletter Subscription view</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Newsletter subscription</source>
@@ -2828,10 +2471,6 @@ you have to confirm this page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Create new newsletter user</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2863,10 +2502,6 @@ you have to confirm this page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit newsletter user</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Creating new newsletter user</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2878,20 +2513,20 @@ you have to confirm this page.</source>
         <source>Can not edit newsletter user because he is blacklisted</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>auto approve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modified</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cjw_newsletter/user_list</name>
     <message>
-        <source>User list</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Email</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>search</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Edit current subscription list.</source>
@@ -2900,10 +2535,6 @@ you have to confirm this page.</source>
     <message>
         <source>Import CSV</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sub items [%children_count]</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Invert selection</source>
@@ -2938,36 +2569,8 @@ you have to confirm this page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>eZ User</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Select subscriber for removal</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove selected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove selected subscription.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New subscription</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Create a new subscription.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Newsletter user list</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>ID</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Name</source>
@@ -2992,10 +2595,6 @@ you have to confirm this page.</source>
     <message>
         <source>UID</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Newsletter User Id</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Manage users</source>
@@ -3023,6 +2622,18 @@ you have to confirm this page.</source>
     </message>
     <message>
         <source>Bounce count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subscription details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3074,10 +2685,6 @@ you have to confirm this page.</source>
     <message>
         <source>Status</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ez user</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Creator</source>
@@ -3136,36 +2743,12 @@ you have to confirm this page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Subscription items [%subscription_count]</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Edition send items [%edition_send_item_count]</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Send item Id</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Edition send id</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Outputformat</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Processed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Newsletter user</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add this user to blacklist</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Name</source>
@@ -3190,10 +2773,6 @@ you have to confirm this page.</source>
     <message>
         <source>Edit by admin</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove from database</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Delete newsletter user and all subscriptions from database</source>
@@ -3236,8 +2815,12 @@ you have to confirm this page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>User</source>
-        <translation type="obsolete"></translation>
+        <source>External user id</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from blacklist</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3314,10 +2897,6 @@ you have to confirm this page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use these checkboxes to select items for removal. Click the &quot;Remove selected&quot; button to  remove the selected items.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3340,38 +2919,6 @@ you have to confirm this page.</source>
     <message>
         <source>Up one level.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sub items (%children_count)</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Display sub items using a simple list.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thumbnail</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display sub items using a detailed list.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Detailed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display sub items as thumbnails.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The current item does not contain any sub items.</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Remove selected</source>
@@ -3494,36 +3041,8 @@ you have to confirm this page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>List of sub items of current node, with controlls to edit, remove and move them directly.</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Invert selection.</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>(disabled)</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>(locked)</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Use the priority fields to control the order in which the items appear. You can use both positive and negative integers. Click the &quot;Update priorities&quot; button to apply the changes.</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>You are not allowed to update the priorities because you do not have permission to edit &lt;%node_name&gt;.</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
         <source>Edit &lt;%child_name&gt;.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You do not have permission to edit %child_name.</source>
-        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Copy</source>
@@ -3531,14 +3050,6 @@ you have to confirm this page.</source>
     </message>
     <message>
         <source>Create a copy of &lt;%child_name&gt;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show preview of content.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tab is disabled, enable on dashboard.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3571,6 +3082,26 @@ you have to confirm this page.</source>
     </message>
     <message>
         <source>Relations (%count)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tab is disabled, enable with toggler to the left of these tabs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show simplified view of content.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ordering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show published ordering overview.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3629,6 +3160,17 @@ you have to confirm this page.</source>
     </message>
 </context>
 <context>
+    <name>design/admin/parts/my/menu</name>
+    <message>
+        <source>Enable &amp;quot;Tabs&amp;quot; by default while browsing content.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable &amp;quot;Tabs&amp;quot; by default while browsing content.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>design/admin/rss/edit_import</name>
     <message>
         <source>Edit</source>
@@ -3639,6 +3181,13 @@ you have to confirm this page.</source>
     <name>kernel/navigationpart</name>
     <message>
         <source>CJW Newsletter</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cjw_newsletter/filtertypes</name>
+    <message>
+        <source>Salutation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

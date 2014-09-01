@@ -2,7 +2,7 @@
 /**
  * File containing the CjwNewsletterEditionSendItem class
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -88,7 +88,9 @@ class CjwNewsletterEditionSendItem extends eZPersistentObject
                       'increment_key' => 'id',
                       'function_attributes' => array( 'newsletter_user_object' => 'getNewsletterUserObject',
                                                       'newsletter_subscription_object' => 'getNewsletterSubscriptionObject',
-                                                      'status_string' => 'getStatusString' ),
+                                                      'newsletter_edition_object' => 'getNewsletterEditionObject',
+                                                      'status_string' => 'getStatusString',
+                                                      'is_subscription_virtual' => 'isSubscriptionVirtual' ),
                       'class_name' => 'CjwNewsletterEditionSendItem',
                       'name' => 'cjwnl_edition_send_item' );
     }
@@ -194,6 +196,19 @@ class CjwNewsletterEditionSendItem extends eZPersistentObject
         }
 
         return $statusString;
+    }
+
+    /**
+     * true- If subscription Id is 0 than it is a virtual subscription
+     *
+     * @return boolean
+     */
+    function isSubscriptionVirtual()
+    {
+        if ( $this->attribute( 'subscription_id' ) > 0 )
+            return false;
+        else
+            return true;
     }
 
 
@@ -435,16 +450,39 @@ class CjwNewsletterEditionSendItem extends eZPersistentObject
     }
 
     /**
-     *
-     * @return unknown_type
+     * if subscriptionId = 0 the subscription is came from virtual list
+     * @return object CjwNewsletterSubscription or CjwNewsletterSubscriptionVirtual
      */
     function getNewsletterSubscriptionObject()
     {
-        return CjwNewsletterSubscription::fetch( $this->attribute('subscription_id') );
+        if ( $this->attribute( 'is_subscription_virtual' ) )
+        {
+            $subscriptionObject = CjwNewsletterSubscriptionVirtual::createByUserIdAndEditionSendId( $this->attribute( 'newsletter_user_id' ),
+                                                                                                    $this->attribute( 'edition_send_id' ) );
+        }
+        else
+        {
+            $subscriptionObject = CjwNewsletterSubscription::fetch( $this->attribute( 'subscription_id' ) );
+        }
+        return $subscriptionObject;
     }
 
     /**
-     * fetcht edition_send_item object from hash code
+     * fetch edition object
+     *
+     * @return object / boolean
+     */
+    function getNewsletterEditionObject()
+    {
+        $tmp = CjwNewsletterEditionSend::fetch($this->attribute('edition_send_id'));
+        $obj = eZContentObject::fetch( $tmp->attribute('edition_contentobject_id') );
+        return $obj;
+    }
+
+
+
+    /**
+     * fetch edition_send_item object from hash code
      *
      * @param string $hashCode
      * @return object / boolean
@@ -491,6 +529,26 @@ class CjwNewsletterEditionSendItem extends eZPersistentObject
         }
         return count( $sendItemList );
     }
+
+    /**
+    * this is called if an email could not send
+    * if a user bounced all active items ( STATUS_NEW ) should be set to abort
+    *
+    * @param int $newsletterUserId
+    * @return int count of sendItems which are aborted
+    */
+    static function setAllActiveItemsToStatusAbortAndBouncedByNewsletterUserId( $newsletterUserId )
+    {
+        // fetch all items which are not send out by user
+        $sendItemList = self::fetchListByNewsletterUserIdAndStatus( 200, 0, $newsletterUserId, self::STATUS_NEW, true );
+        foreach ( $sendItemList as $sendItem )
+        {
+            $sendItem->setAttribute( 'status' , self::STATUS_ABORT );
+            $sendItem->setAttribute( 'bounced', time() );
+        }
+        return count( $sendItemList );
+    }
+
 }
 
 ?>

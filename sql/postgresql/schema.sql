@@ -242,6 +242,7 @@ CREATE TABLE cjwnl_user (
   removed integer NOT NULL DEFAULT 0,
   bounced integer NOT NULL DEFAULT 0,
   blacklisted integer NOT NULL DEFAULT 0,
+  external_user_id integer NOT NULL DEFAULT 0,
   note text,
   remote_id character varying(255) DEFAULT NULL::character varying,
   import_id integer,

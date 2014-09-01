@@ -5,7 +5,7 @@
  * import csv data to a subscription list
  * if an nl user with email of csv already exists => override existing data with csv data if it is not empty
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -28,13 +28,66 @@ if ( !$listNode )
 $listContentObjectId = $listNode->attribute( 'contentobject_id' );
 $systemNode = $listNode->attribute( 'parent' );
 
+$cjwNewsletterIni = eZINI::instance( 'cjw_newsletter.ini' );
+
 $csvDataArray = array();
+
+$utf8Encode = false;
+if ( $cjwNewsletterIni->hasVariable( 'NewsletterCsvImportSettings', 'DefaultUtf8Encode' ) )
+{
+    if ( $cjwNewsletterIni->variable( 'NewsletterCsvImportSettings', 'DefaultUtf8Encode' ) == 'true' )
+    {
+        $utf8Encode = true;
+    }
+}
+
 $csvDelimiter = ';';
-$csvSupportedDelims = array( ',', ';', '|' );
+if ( $cjwNewsletterIni->hasVariable( 'NewsletterCsvImportSettings', 'DefaultCsvDelimiter' ) )
+{
+    $csvDelimiter = $cjwNewsletterIni->variable( 'NewsletterCsvImportSettings', 'DefaultCsvDelimiter' );
+}
+
+$firstRowIsLabel = false;
+if ( $cjwNewsletterIni->hasVariable( 'NewsletterCsvImportSettings', 'DefaultFirstRowIsLabel' ) )
+{
+    if ( $cjwNewsletterIni->variable( 'NewsletterCsvImportSettings', 'DefaultFirstRowIsLabel' ) == 'true' )
+    {
+        $firstRowIsLabel = true;
+    }
+}
+
+$csvFieldMappingArray = array( 'email'      => '',
+                               'first_name' => '',
+                               'last_name'  => '',
+                               'salutation' => '' );
+
+if ( $cjwNewsletterIni->hasVariable( 'NewsletterCsvImportSettings', 'CsvFieldMappingArray' ) )
+{
+    $csvFieldMappingArrayOverride = $cjwNewsletterIni->variable( 'NewsletterCsvImportSettings', 'CsvFieldMappingArray' );
+    if ( array_key_exists ( 'email', $csvFieldMappingArrayOverride ) )
+    {
+        $csvFieldMappingArray = array();
+
+        foreach ( $csvFieldMappingArrayOverride as $key => $item )
+        {
+            $csvFieldMappingArray[ $key ] = $item;
+        }
+    }
+}
+
+$csvImportHasPrio = false;
+if ( $cjwNewsletterIni->hasVariable( 'NewsletterCsvImportSettings', 'CsvImportHasPrio' ) )
+{
+    if ( $cjwNewsletterIni->variable( 'NewsletterCsvImportSettings', 'CsvImportHasPrio' ) == 'true' )
+    {
+        $csvImportHasPrio = true;
+    }
+}
+
+$csvSupportedDelims = array( ',', ';', '\t', '|' );
 $csvFilePath = false;
 $importCsvFile = false;
 $selectedOutputFormatArray = array( 0 );
-$firstRowIsLabel = false;
 $listSubscriptionArray = array();
 $note = '';
 $importObject = false;
@@ -145,58 +198,74 @@ else
 if ( file_exists( getImportResultFilePath( $importId ) ) )
 {
     $listSubscriptionArray = getImportResultFromFile( $importId );
-    $csvParserObject = new CjwNewsletterCsvParser( $csvFilePath, $csvDelimiter, $firstRowIsLabel );
-    $csvDataArray = $csvParserObject->getCsvDataArray();
+    $csvParserObject       = new CjwNewsletterCsvParser( $csvFilePath, $csvDelimiter, $firstRowIsLabel, $csvFieldMappingArray, $utf8Encode );
+    $csvDataArray          = $csvParserObject->getCsvDataArray();
 }
 else
 {
     if ( file_exists( $csvFilePath )  )
     {
-        $csvParserObject = new CjwNewsletterCsvParser( $csvFilePath, $csvDelimiter, $firstRowIsLabel );
-        $csvDataArray = $csvParserObject->getCsvDataArray();
+        $csvParserObject = new CjwNewsletterCsvParser( $csvFilePath, $csvDelimiter, $firstRowIsLabel, $csvFieldMappingArray, $utf8Encode );
+        $csvDataArray    = $csvParserObject->getCsvDataArray();
     }
 }
+
 // read csv data
 
 
 //if ( file_exists( $csvFilePath )  )
 //{
-    //$csvParserObject = new CjwNewsletterCsvParser( $csvFilePath, $csvDelimiter, $firstRowIsLabel );
+    //$csvParserObject = new CjwNewsletterCsvParser( $csvFilePath, $csvDelimiter, $firstRowIsLabel, $csvFieldMappingArray, $utf8Encode );
     //$csvDataArray = $csvParserObject->getCsvDataArray();
 
     // start data import
-    if ( $importCsvFile == true )
+    if ( $importCsvFile === TRUE )
     {
-        CjwNewsletterLog::writeNotice(
-                                            'subscription_list_csvimport',
-                                            'import',
-                                            'start',
-                                             array( 'import_id' => $importObject->attribute( 'id' ),
-                                                    'csv_array_count' => count( $csvDataArray ),
-                                                    'current_user' => eZUser::currentUserID() ) );
-
+        CjwNewsletterLog::writeNotice( 'subscription_list_csvimport',
+                                       'import',
+                                       'start',
+                                       array( 'import_id'       => $importObject->attribute( 'id' ),
+                                              'csv_array_count' => count( $csvDataArray ),
+                                              'current_user'    => eZUser::currentUserID() )
+                                     );
 
         foreach ( $csvDataArray as $rowId => $item )
         {
+            $remote_id = false;
+            if( isset( $item[ 'remote_id' ] ) )
+                $remote_id = trim( $item[ 'remote_id' ] );
+
+            $email = '';
             if( isset( $item[ 'email' ] ) )
                 $email = trim( $item[ 'email' ] );
-            else
-                $email = '';
 
+            $salutation = 0;
             if( isset( $item[ 'salutation' ] ) )
                 $salutation = (int) $item[ 'salutation' ];
-            else
-                $salutation = 0;
 
+            $firstName = '';
             if( isset( $item[ 'first_name' ] ) )
                 $firstName = $item[ 'first_name' ];
-            else
-                $firstName = '';
 
+            $lastName = '';
             if( isset( $item[ 'last_name' ] ) )
                 $lastName = $item[ 'last_name' ];
-            else
-                $lastName = '';
+
+            $customDataText1 = '';
+            if( isset( $item[ 'custom_data_text_1' ] ) )
+                $customDataText1 = $item[ 'custom_data_text_1' ];
+
+            $customDataText2 = '';
+            if( isset( $item[ 'custom_data_text_2' ] ) )
+                $customDataText2 = $item[ 'custom_data_text_2' ];
+
+            $customDataText3 = '';
+            if( isset( $item[ 'custom_data_text_3' ] ) )
+                $customDataText3 = $item[ 'custom_data_text_3' ];
+
+            $customDataText4 = '';
+            if( isset( $item[ 'custom_data_text_4' ] ) )
+                $customDataText4 = $item[ 'custom_data_text_4' ];
 
             $eZUserId = false;
             $newsletterUserId = 0;
@@ -220,13 +289,50 @@ else
             }
             else
             {
-                 $emailOk = 1;
+                $emailOk = 1;
 
-                // 1. check if an nl user for email already exists
-                //    no   -> create new one with status """confirmed"""
-                //         -> subscribe to nl list with status """approved"""
-                //    yes  -> subscribe to nl list with status """approved"""
-                $existingNewsletterUserObject = CjwNewsletterUser::fetchByEmail( $email );
+                if ( $csvImportHasPrio == false )
+                {
+                    // 1. check if an nl user for email already exists
+                    //    no   -> create new one with status """confirmed"""
+                    //         -> subscribe to nl list with status """approved"""
+                    //    yes  -> subscribe to nl list with status """approved"""
+                    $existingNewsletterUserObject = CjwNewsletterUser::fetchByEmail( $email );
+                }
+                else
+                {
+                    // user wurde bereits importiert?
+                    // zuerst nach remote_id suchen
+                    $existingNewsletterUserObject = CjwNewsletterUser::fetchByRemoteId( $remote_id );
+                    if ( is_object( $existingNewsletterUserObject ) )
+                    {
+                        // sicherstellen, dass wir keine duplicate emails haben
+                        if ( $email != $existingNewsletterUserObject->attribute( 'email') )
+                        {
+                            $tmpUserObject = CjwNewsletterUser::fetchByEmail( $email );
+                            if ( is_object( $tmpUserObject ) )
+                            {
+                                // houston, we've got a problem - $tmpUserObject löschen???
+// ToDo
+                                CjwNewsletterLog::writeError(
+                                                        'CSV Import: duplicate E-Mail Adress',
+                                                        'user',
+                                                        'email',
+                                                         array(
+                                                                'email_cur' => $existingNewsletterUserObject->attribute( 'email'),
+                                                                'email_imp' => $email,
+                                                                'remote_id' => $remoteId )
+                                                          );
+                            }
+                        }
+                    }
+                    // user hat sich selbst per subscription angelegt?
+                    // sonst nach email suchen
+                    if ( !is_object( $existingNewsletterUserObject ) )
+                    {
+                        $existingNewsletterUserObject = CjwNewsletterUser::fetchByEmail( $email );
+                    }
+                }
 
                 // update existing
                 if ( is_object( $existingNewsletterUserObject ) )
@@ -253,17 +359,33 @@ else
                         // updated
                         $createNewUser = 2;
 
+                        if ( $csvImportHasPrio && $userObject->attribute( 'email' ) != $email )
+                            $userObject->setAttribute( 'email', $email );
+
                         if ( $salutation != 0 )
                             $userObject->setAttribute( 'salutation', $salutation );
                         if ( $firstName != '' )
                             $userObject->setAttribute( 'first_name', $firstName );
                         if ( $lastName != '' )
                             $userObject->setAttribute( 'last_name', $lastName );
+                        if ( $customDataText1 != '' )
+                            $userObject->setAttribute( 'custom_data_text_1', $customDataText1 );
+                        if ( $customDataText2 != '' )
+                            $userObject->setAttribute( 'custom_data_text_2', $customDataText2 );
+                        if ( $customDataText3 != '' )
+                            $userObject->setAttribute( 'custom_data_text_3', $customDataText3 );
+                        if ( $customDataText4 != '' )
+                            $userObject->setAttribute( 'custom_data_text_4', $customDataText4 );
 
                         $userObject->setAttribute( 'status', CjwNewsletterUser::STATUS_CONFIRMED );
                         $userObject->setAttribute( 'import_id', $importId );
+                        
                         // set new remote_id
-                        $userObject->setAttribute( 'remote_id', 'cjwnl:csvimport:'. CjwNewsletterUtils::generateUniqueMd5Hash( $userObject->attribute( 'id' ) ) );
+                        if ( $remote_id !== false )
+                            $userObject->setAttribute( 'remote_id', $remote_id );
+                        else
+                            $userObject->setAttribute( 'remote_id', 'cjwnl:csvimport:'. CjwNewsletterUtils::generateUniqueMd5Hash( $userObject->attribute( 'id' ) ) );
+                        
                         $userObject->store();
 
                         $newUserStatus = $userObject->attribute('status');
@@ -278,10 +400,20 @@ else
                                                              $firstName,
                                                              $lastName,
                                                              $eZUserId,
-                                                             CjwNewsletterUser::STATUS_CONFIRMED );
+                                                             CjwNewsletterUser::STATUS_CONFIRMED,
+                                                            'default',
+                                                             $customDataText1,
+                                                             $customDataText2,
+                                                             $customDataText3,
+                                                             $customDataText4 );
                     $userObject->setAttribute( 'import_id', $importId );
+                    
                     // set new remote_id
-                    $userObject->setAttribute( 'remote_id', 'cjwnl:csvimport:'. CjwNewsletterUtils::generateUniqueMd5Hash( $userObject->attribute( 'id' ) ) );
+                    if ( $remote_id !== false )
+                        $userObject->setAttribute( 'remote_id', $remote_id );
+                    else
+                        $userObject->setAttribute( 'remote_id', 'cjwnl:csvimport:'. CjwNewsletterUtils::generateUniqueMd5Hash( $userObject->attribute( 'id' ) ) );
+                    
                     $userObject->store();
                     $newUserStatus = $userObject->attribute('status');
                 }
@@ -380,7 +512,9 @@ $tpl->setVariable( 'import_object', $importObject );
 $tpl->setVariable( 'selected_output_format_array', $selectedOutputFormatArray );
 $tpl->setVariable( 'csv_data_array', $csvDataArray );
 $tpl->setVariable( 'list_subscription_array', $listSubscriptionArray );
+$tpl->setVariable( 'csv_field_mapping_array', $csvFieldMappingArray );
 $tpl->setVariable( 'csv_delimiter', $csvDelimiter );
+$tpl->setVariable( 'csv_supported_delims', $csvSupportedDelims );
 $tpl->setVariable( 'csv_file_path', $csvFilePath );
 $tpl->setVariable( 'first_row_is_label', $firstRowIsLabel );
 $tpl->setVariable( 'note', $note );

@@ -62,7 +62,6 @@
     {set $status = $view_parameters.status}
 {/if}
 
-
 {def $subscription_list = fetch('newsletter', 'subscription_list', hash( 'list_contentobject_id', $node.contentobject_id,
                                                                          'offset', $view_parameters.offset,
                                                                          'status', $status,
@@ -76,7 +75,7 @@
 
 <div class="context-block">
 {* DESIGN: Header START *}<div class="box-header"><div class="box-tc"><div class="box-ml"><div class="box-mr"><div class="box-tl"><div class="box-tr">
-<h1 class="context-title"><img src={'images/newsletter/icons/crystal-newsletter/32x32/newsletter_user.png'|ezdesign} width="32" height="32" /> {'Subscription list <%subscription_list_name>'|i18n( 'cjw_newsletter/subscription_list',, hash( '%subscription_list_name', $newsletter_list_node.name ) )|wash}</h1>
+<h1 class="context-title"><img src={'images/newsletter/icons/crystal-newsletter/32x32/newsletter_user.png'|ezdesign} width="32" height="32" alt="" /> {'Subscription list <%subscription_list_name>'|i18n( 'cjw_newsletter/subscription_list',, hash( '%subscription_list_name', $newsletter_list_node.name ) )|wash}</h1>
 
 {* DESIGN: Mainline *}<div class="header-mainline"></div>
 
@@ -255,7 +254,6 @@
 
     {* Subscription list table. *}
     <div class="box-content">
-
         <table class="list" cellspacing="0">
         <tr>
         {*
@@ -271,7 +269,6 @@
             <th>{'Modified'|i18n( 'cjw_newsletter/subscription_list' )}</th>
             <th class="tight">&nbsp;</th>
         </tr>
-
 
         {foreach $subscription_list as $subscription sequence array( bglight, bgdark ) as $style}
 
@@ -330,15 +327,16 @@
 {*
     <input class="button" type="submit" name="RemoveSubscriptionButton" value="{'Remove selected'|i18n( 'cjw_newsletter/subscription_list' )}" title="{'Remove selected subscription.'|i18n( 'cjw_newsletter/subscription_list' )}" />
     <input class="button" type="submit" name="CreateSubscriptionButton" value="{'New subscription'|i18n( 'cjw_newsletter/subscription_list' )}" title="{'Create a new subscription.'|i18n( 'cjw_newsletter/subscription_list' )}" />
-*}
+
 </form>
+*}
     </div>
 {* DESIGN: Control bar END *}</div></div></div></div></div></div>
     </div>
-{* DESIGN: Content END *}</div></div></div>
+{* DESIGN: Content END *}{*</div></div></div>
 
 
-</div>
+</div>*}
 
 
 {else}

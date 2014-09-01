@@ -3,3 +3,4 @@
 .buildpath
 _build/bin
 .svn
+.idea

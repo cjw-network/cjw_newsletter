@@ -1,0 +1,71 @@
+Changes from 1.1.0 to 2.0.0
+
+*Bugs*
+
+- fixed bug #1287                  ie8/ie9 view problem admin2 list draft list
+- fixed bug #1418                  Mailheader is not RFC-compatible => set correct charset utf-8
+- fixed bug #1559 CJW Newsletter - Ez users have status pending after subscribe => now will get STATUS Confirmed
+- fixed bug #2189 CJW Newsletter - Benutzerliste reagiert nicht auf Filter nach bestehenden Benutzern
+- fixed bug #2394 nl send out - not finished - not all mails are send out with smtp status code 450
+- fixed bug #2438 cjw_newsletter_mailqueue_process.php SMTP mails which can not deliver keep statu new instead of abort
+                  => set status abort and bounce nl user
+- fixed bug #2741 newsletter list csv export > 40000 not finishing
+
+- fixed bug #2851 NewsletterUser activation over eZPublish User Registration
+                      stops if more than 50 ezusers have not activate their accounts
+
+             now the limit is set to 10000
+             php runcronjobs.php cjw_newsletter_mailqueue_create
+
+
+*Enhancements*
+
+- new db field cjwnl_user:external_user_id default NULL
+      => db filed change: cjwnl_subscription:newsletter_user_id default NULL
+
+- ts file update for all languages
+      + add new language file nor-NO TODO translation
+
+- #1231 User segmentation / virtual newsletter lists
+      + adding filtertypes
+
+      CjwNewsletterFilterTypeSalutation : Filter by salutation [equal|not equal]
+      CjwNewsletterFilterTypeEmail      : Filter by email      [equal|contains]
+
+
+- #908 new List fields for email ReturnPath / ReplyTo
+
+      if ReturnPath or ReplyTo not defined => EmailSender (From) is used
+
+          2 new db fields  cjwnl_list: email_reply_to, email_return_path
+          2 new db fields  cjwnl_edition_send: email_reply_to, email_return_path
+
+      new cjw_newsletter.ini setting:
+
+          [NewsletterMailSettings]
+          # Set if you want define a special Reply-To for emails send out by subscribe, unsubscribe
+          EmailReplyTo=
+          # Set if you want define a special Return-Path for emails send out by subscribe, unsubscribe
+          EmailReturnPath=
+
+- #2388 Content-Transfer-Encoding set in cjw_newsletter.ini
+
+        new ini setting to set the mail content transer encoding
+
+        [NewsletterMailSettings]
+        # email encoding default is 8bit
+        # 7bit | 8bit | binary | quoted-printable | base64
+        ContentTransferEncoding=8bit
+
+
+
+  bugfix in trunk:
+  #2335 Errors-To, Return-Path, Reply-To has wrong format if set by default
+
+
+- #2147 csv field <-> db key mapping
+      => new db fields custom_data_text_1, custom_data_text_2, custom_data_text_3, custom_data_text_4
+      => controlled in cjw_newsletter.ini
+
+*Refactoring*
+

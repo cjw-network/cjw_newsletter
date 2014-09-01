@@ -2,7 +2,7 @@
 /**
  * File containing CjwNewsletterEditionFilter class
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -83,6 +83,7 @@ class CjwNewsletterEditionFilter
                                  WHERE e.id = c.edition_contentobject_id
                                  AND e.current_version = c.edition_contentobject_version
                                  AND ( c.status = ". CjwNewsletterEditionSend::STATUS_WAIT_FOR_PROCESS .
+                                 " OR c.status = ". CjwNewsletterEditionSend::STATUS_WAIT_FOR_SCHEDULE .
                                  " OR c.status = ". CjwNewsletterEditionSend::STATUS_MAILQUEUE_CREATED .
                                  " OR c.status = ". CjwNewsletterEditionSend::STATUS_MAILQUEUE_PROCESS_STARTED .
                                  " )";

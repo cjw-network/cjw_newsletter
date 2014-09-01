@@ -159,8 +159,30 @@
     <input type="hidden" name="RedirectUrlActionStore" value="{$node.url_alias}" />
     <input class="button" type="submit" name="NewSubscriptionButton" value="{'Create new Subscription'|i18n( 'cjw_newsletter/subscription_list' )}" />
 </form>
+
+
+
 </div>
 
+</div>
+
+<div class="button-right">
+<div class="block">
+{* virtual list create button *}
+
+{if $node.can_create}
+<br />
+<form action={'content/action'|ezurl()} name="CreateNewNewsletterListVirtual" method="post">
+    <input type="hidden" value="{ezini( 'RegionalSettings', 'ContentObjectLocale' )}" name="ContentLanguageCode"/>
+    <input type="hidden" value="{$node.node_id}" name="ContentNodeID"/>
+    <input type="hidden" value="{$node.node_id}" name="NodeID"/>
+    <input type="hidden" value="cjw_newsletter_list_virtual" name="ClassIdentifier"/>
+    <input class="button" type="submit" name="NewButton" value="{'Create filter here'|i18n( 'cjw_newsletter/cjw_newsletter_list' )}" />
+</form>
+{else}
+<input class="button-disabled" type="button" name="NewButton" value="{'Create filter here'|i18n( 'cjw_newsletter/cjw_newsletter_list' )}" />
+{/if}
+</div>
 </div>
 
 <div class="float-break"></div>

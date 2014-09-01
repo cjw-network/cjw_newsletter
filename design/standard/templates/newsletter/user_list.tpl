@@ -16,14 +16,22 @@ nur nodeobject vom type  cjw_newsletter_list aktzeptieren
         {/case}
     {/switch}
 {/if}
-{def $user_list = fetch('newsletter', 'user_list',
-                        hash( 'offset', $view_parameters.offset,
-                              'limit', $limit,
-                              'email_search', $view_parameters.search_user_email,
-                              'sort_by', hash('created', 'desc' ) ))
-     $user_list_count = fetch('newsletter', 'user_list_count',
+    {*
+
+    {def $user_list = fetch('newsletter', 'user_list',
+                            hash( 'offset', $view_parameters.offset,
+                                  'limit', $limit,
+                                  'email_search', $view_parameters.search_user_email,
+                                  'sort_by', hash('created', 'desc' ) ))
+                                  }
+
+    {def $user_list_count = fetch('newsletter', 'user_list_count',
                                hash('email_search', $view_parameters.search_user_email ))
      $page_uri = 'newsletter/user_list'}
+
+    *}
+
+    {def $page_uri = 'newsletter/user_list'}
 
     <div class="context-block">
     {* DESIGN: Header START *}

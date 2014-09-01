@@ -4,7 +4,7 @@
  *
  * export subscription data to  csv
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -33,6 +33,10 @@ $arrDisplayItems = array(
                            'first_name',
                            'last_name',
                            'salutation',
+                           'custom_data_text_1',
+                           'custom_data_text_2',
+                           'custom_data_text_3',
+                           'custom_data_text_4',
                            's_status',
                            's_created',
                            's_confirmed',
@@ -69,17 +73,23 @@ if ( $http->hasVariable( 'CsvDelimiter' ) && $http->variable( 'CsvDelimiter' ) !
  * CSV Preview
  */
 // preview for csv data export, fetch data with limit
-$arrPreviewCsvData = getDataForCsv( $listContentObjectId, 10 );
+$arrPreviewCsvData = getDataForCsv( $listContentObjectId, 10, $module );
 
 // create csv string for preview
-$objCjwNLCsvPreview = new CjwNewsletterCsvExport( $arrPreviewCsvData, $delimiter, $arrDisplayItems );
 
-// write csv string
-$resWrite = $objCjwNLCsvPreview->writeCsv();
+if ( $arrPreviewCsvData !== FALSE )
+{
+    $objCjwNLCsvPreview = new CjwNewsletterCsvExport( $arrPreviewCsvData, $delimiter, $arrDisplayItems );
 
-// save csv string ( if exists ) in local var
-if ( isset( $objCjwNLCsvPreview->CsvResult ) && $objCjwNLCsvPreview->CsvResult != '' )
-    $strPreviewCsvData = $objCjwNLCsvPreview->CsvResult;
+    // write csv string
+    $resWrite = $objCjwNLCsvPreview->writeCsv();
+
+    // save csv string ( if exists ) in local var
+    if ( isset( $objCjwNLCsvPreview->CsvResult ) && $objCjwNLCsvPreview->CsvResult != '' )
+    {
+        $strPreviewCsvData = $objCjwNLCsvPreview->CsvResult;
+    }
+}
 
 /**
  * Actions
@@ -100,20 +110,26 @@ elseif ( $http->hasPostVariable( 'ExportButton' ) )
      * Export
      */
     // fetch data
-    $arrCsvData = getDataForCsv( $listContentObjectId );
+    $arrCsvData = getDataForCsv( $listContentObjectId, 0, $module );
 
-    // export data in csv format for download in webbrowser
-    $objCjwNLCsvExport = new CjwNewsletterCsvExport( $arrCsvData, $delimiter, $arrDisplayItems );
+    if ( $arrCsvData !== FALSE )
+    {
+        //export data in csv format for download in webbrowser
+        $objCjwNLCsvExport = new CjwNewsletterCsvExport( $arrCsvData, $delimiter, $arrDisplayItems );
 
-    // write csv string => $objCjwNLCsvExport->CsvResult
-    $resWrite = $objCjwNLCsvExport->writeCsv();
+        // write csv string => $objCjwNLCsvExport->CsvResult
+        $resWrite = $objCjwNLCsvExport->writeCsv();
 
-    // create download csv file
-    if ( $objCjwNLCsvExport->CsvResult != '' )
-        $resExport = $objCjwNLCsvExport->downloadCsvFile( $listContentObjectId );
+        // create download csv file
+        if ( $objCjwNLCsvExport->CsvResult != '' )
+            $resExport = $objCjwNLCsvExport->downloadCsvFile( $listContentObjectId );
+        else
+            return $module->handleError( eZError::KERNEL_ACCESS_DENIED, 'kernel' );
+    }
     else
+    {
         return $module->handleError( eZError::KERNEL_ACCESS_DENIED, 'kernel' );
-
+    }
 }
 
 $viewParameters = array(
@@ -159,7 +175,7 @@ $Result['path'] =  array( array( 'url'  => 'newsletter/index',
  * @param integer $listContentObjectId
  * @return array with data
  */
-function getDataForCsv( $listContentObjectId, $limit = 0 )
+function getDataForCsv( $listContentObjectId, $limit = 0, $module = false )
 {
     if ( isset( $listContentObjectId ) )
     {
@@ -180,6 +196,10 @@ function getDataForCsv( $listContentObjectId, $limit = 0 )
                               u.last_name,
                               u.salutation,
                               u.status as u_status,
+                              u.custom_data_text_1,
+                              u.custom_data_text_2,
+                              u.custom_data_text_3,
+                              u.custom_data_text_4,
                               s.status as s_status,
                               s.created as s_created,
                               s.modified as s_modified,
@@ -211,7 +231,7 @@ function getDataForCsv( $listContentObjectId, $limit = 0 )
         // error
         else
         {
-          return $module->handleError( eZError::KERNEL_ACCESS_DENIED, 'kernel' );
+          return false;
         }
     }
 }

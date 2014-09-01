@@ -9,7 +9,7 @@
  * -php extension/cjw_newsletter/bin/php/createoutput.php --object_id=102 --object_version=5 --output_format_id=0 --current_hostname=admin.jac-example.de.jac400.fw.lokal --www_dir=tmp/ --skin_name=default -s jac-example_user<br>
  * - --current_hostname :  only important for preview ( in testsystem )
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter

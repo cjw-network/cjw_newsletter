@@ -2,7 +2,7 @@
 /**
  * File containing cjw_newsletterInfo class
  *
- * @copyright Copyright (C) 2007-2010 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -16,7 +16,7 @@
 class cjw_newsletterInfo
 {
     // set manually - is used in email header, and in file header @version
-    const SOFTWARE_VERSION = '1.0.0.201102111706';
+    const SOFTWARE_VERSION = '2.0.0.201308160914';
 
     static function info()
     {
