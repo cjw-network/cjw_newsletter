@@ -19,6 +19,8 @@
 [CronjobSettings]
 ExtensionDirectories[]=cjw_newsletter
 ScriptDirectories[]=cronjobs
+# If running this extension in eZ Platform legacy mode comment out the above line and uncomment the below
+# ScriptDirectories[]=extension/cjw_newsletter/cronjobs
 
 #Scripts[]=cjw_newsletter_mailqueue_create.php
 #Scripts[]=cjw_newsletter_mailqueue_process.php
