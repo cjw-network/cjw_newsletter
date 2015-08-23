@@ -1,0 +1,15 @@
+Changes from 2.0.0 to 3.0.0
+
+3.0 is the first version which will work in ezp5 with ezpublish_legacy
+
+
+*Bugs*
+
+- fixed bug: jac#4251 user/register newsletter subscription in newsletterdatatype is broken on ez 4.7
+- fixed bug: jac#4586 cronjob cjw_newsletter_mailqueue_process failed if newsletter_user_id of nl_send_item not exits anymore
+
+*Enhancements*
+
+
+*Refactoring*
+

@@ -16,13 +16,13 @@
 class cjw_newsletterInfo
 {
     // set manually - is used in email header, and in file header @version
-    const SOFTWARE_VERSION = '2.0.0.201308160914';
+    const SOFTWARE_VERSION = '3.0.0.201507011411';
 
     static function info()
     {
         return array( 'Name'             => 'CJW Newsletter - Multi Channel Marketing',
                       'Version'          => self::SOFTWARE_VERSION,
-                      'eZ version'       => '4.x',
+                      'eZ version'       => '5.x',
                       'Copyright'        => '(C) 2007-' . date( 'Y' ) . ' <a href="http://www.cjw-network.com">CJW Network</a> [ <a href="http://www.coolscreen.de">coolscreen.de - enterprise internet</a> &amp; <a href="http://www.jac-systeme.de">JAC Systeme</a> &amp; <a href="http://www.webmanufaktur.ch">Webmanufaktur</a> ]',
                       'License'          => 'GNU General Public License v2.0',
                       'More Information' => '<a href="http://projects.ez.no/cjw_newsletter">http://projects.ez.no/cjw_newsletter</a>'

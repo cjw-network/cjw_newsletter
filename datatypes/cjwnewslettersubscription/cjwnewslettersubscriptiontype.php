@@ -2,7 +2,7 @@
 /**
  * File containing the CjwNewsletterSubscriptionType class
  *
- * @copyright Copyright (C) 2007-2012 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
+ * @copyright Copyright (C) 2007-2015 CJW Network - Coolscreen.de, JAC Systeme GmbH, Webmanufaktur. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package cjw_newsletter
@@ -97,13 +97,6 @@ class CjwNewsletterSubscriptionType extends eZDataType
         }
 
         return false;
-    }
-
-    /**
-     * Store the content.
-     */
-    function storeObjectAttribute( $attribute )
-    {
     }
 
     function isIndexable()
@@ -217,7 +210,23 @@ class CjwNewsletterSubscriptionType extends eZDataType
      */
     function onPublish( $contentObjectAttribute, $contentObject, $publishedNodes )
     {
+        $version   = $contentObjectAttribute->attribute( 'version' );
         $dataArray = $this->fetchCurrentContentObjectData( $contentObjectAttribute );
+
+        // ez version 47 user register is handle in other way than in 44
+        // and first version could be user/register
+        // in 47 onpublish is only called if the user click the activationEmail
+        // this publish the user and creat a node in 44 the node is created just after user/register
+        if ( $version == 1 )
+        {
+            $storedDataArray = unserialize( $contentObjectAttribute->attribute( 'data_text' ) );
+
+            if ( isset( $storedDataArray[ 'subscription_data_array' ] ) )
+            {
+                $dataArray = $storedDataArray;
+            }
+        }
+
         if ( isset( $dataArray[ 'subscription_data_array' ] ) )
         {
             $context = 'datatype_edit';
@@ -353,7 +362,7 @@ class CjwNewsletterSubscriptionType extends eZDataType
         $contentObject = $contentObjectAttribute->attribute( 'object' );
 
         $contentObjectCurrentVersionId = (int) $contentObjectAttribute->attribute( 'version' );
-        $contentObjectIsPublished = $contentObject->attribute( 'is_published' );
+        $contentObjectStatus = $contentObject->attribute( 'status' );
 
         // only for user/register  if version = 1 and published = false
         // don't fetch existing nl user because
@@ -361,7 +370,7 @@ class CjwNewsletterSubscriptionType extends eZDataType
         $isNewObjectDraft = false;
 
         if( $contentObjectCurrentVersionId == 1 &&
-            $contentObjectIsPublished == false )
+            $contentObjectStatus == eZContentObject::STATUS_DRAFT )
         {
             $isNewObjectDraft = true;
         }
@@ -375,7 +384,8 @@ class CjwNewsletterSubscriptionType extends eZDataType
                                           'first_name'  => '',
                                           'last_name'   => '',
                                           'id_array'    => array(),
-                                          'list_array'  => array()
+                                          'list_array'  => array(),
+                                          'list_output_format_array' => array()
                                           );
         if( isset( $dataMap[ 'user_account' ] ) )
         {
@@ -466,11 +476,31 @@ class CjwNewsletterSubscriptionType extends eZDataType
                               'existing_newsletter_user' => $existingNewsletterUser,
                                );
 
-      // var_dump( $returnArray );
-
         return $returnArray;
     }
+
+
+    /**
+     * Store the content. Since the content has been stored in function
+       fetchObjectAttributeHTTPInput(), this function is with empty code.
+     */
+    function storeObjectAttribute( $contentObjectAttribute )
+    {
+        $subscriptionContent = $contentObjectAttribute->attribute( 'content' );
+
+        if ( is_array( $subscriptionContent ) )
+        {
+            $serializeContent = serialize( $subscriptionContent );
+            $contentObjectAttribute->setAttribute( 'data_text', $serializeContent );
+
+            return true;
+        }
+
+        return false;
+    }
+
 }
 
 eZDataType::register( CjwNewsletterSubscriptionType::DATA_TYPE_STRING, 'CjwNewsletterSubscriptionType' );
+
 ?>

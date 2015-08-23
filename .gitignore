@@ -1,6 +1,6 @@
 .project
 .settings
 .buildpath
-_build/bin
+_build
 .svn
 .idea

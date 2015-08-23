@@ -1,6 +1,6 @@
 name: cjw_newsletter
-version: 2.0.0.201308160914
-files_count: 270
+version: 3.0.0.201507011411
+files_count: 271
 
 196fd93f41c852325b2992f7e2bd440e  CHANGELOG
 90ef4496589ac9dd18ee5e5d98e0bb4c  FAQ
@@ -42,7 +42,7 @@ d01abafc31e9701a72862c6ab0fbfdb3  cronjobs/cjw_newsletter_mailqueue_create.php
 033877ee9271c49c58dabecd06784384  datatypes/cjwnewsletteredition/cjwnewslettereditiontype.php
 6a34bee879cd042e625392c9dd6c8daf  datatypes/cjwnewsletterlist/cjwnewsletterlisttype.php
 92d2676a7de76981e85916aa0e0dcfcb  datatypes/cjwnewsletterlistvirtual/cjwnewsletterlistvirtualtype.php
-18a234b8b5fce9cb8c3bb260e73f2a74  datatypes/cjwnewslettersubscription/cjwnewslettersubscriptiontype.php
+a9bd8883e1218b38482ec8786b133861  datatypes/cjwnewslettersubscription/cjwnewslettersubscriptiontype.php
 6e8c923562443d906b907b020275ca97  design/admin2/override/templates/node/view/full/cjw_newsletter_edition.tpl
 27237ca75ee5133cc5c58635ca636178  design/admin2/override/templates/node/view/full/cjw_newsletter_list.tpl
 b601c272eaf65bb21bf794ade51539e1  design/admin2/override/templates/node/view/full/cjw_newsletter_list_virtual.tpl
@@ -203,14 +203,15 @@ d9de6432265679a25b6fc34a0d9dec1e  design/standard/templates/parts/websitetoolbar
 73ba8830edee1d1d8f15578672ca12b4  doc/changelogs/1.0/CHANGELOG-0.1.3-to-1.0.0
 1f6ed8f850025964d55dd2f181df79b4  doc/changelogs/1.1/CHANGELOG-1.0.0-to-1.1.0
 3eb1e0a43c4972b3a3210e10fc647e28  doc/changelogs/2.0/CHANGELOG-1.1.0-to-2.0.0
+ae01e98ee9a1601ef004ae3b872dbd0f  doc/changelogs/3.0/CHANGELOG-2.0.0-to-3.0.0
 d1f3777b537d1c6f585617c71c4e9a9a  doc/cjw_newsletter_documentation.pdf
 c3ce0df8bc798c5ce10b4e0d5332b1fb  doc/uml/cjw_newsletter_dbschema.mwb
 cf1036b2d3360f8e36d7462c0c58eaa8  doc/uml/cjw_newsletter_dbschema_v1.0.0.png
 71f4165c0974cba8273f21381b2a7031  doc/uml/class_diagram.svg
 fc0b891ae50b0fdf6ee85a11071ef97e  extendedattributefilter/cjwnewslettereditionfilter.php
 99555e39768ca9638b1a1d1df1cfbba5  extendedattributefilter/cjwnewsletterlistfilter.php
-d2ad82d400c74f5f82aceea1e5e8c976  extension.xml
-1bdfc18c51eab01af68d66018f69715b  ezinfo.php
+7b96796d0da4bc13c94b130fb17ab34d  extension.xml
+fe4bca9a01262ee2b9a70a102396fcc6  ezinfo.php
 6b014c5395bc5720c866f3226dc95a27  modules/newsletter/archive.php
 bbe17a90e304d829f1c6d9dc532e8d86  modules/newsletter/blacklist_item_add.php
 57cd61512fd7faaa1cfb27adf13863c4  modules/newsletter/blacklist_item_list.php

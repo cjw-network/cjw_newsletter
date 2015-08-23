@@ -99,104 +99,132 @@ foreach ( $sendObjectList as $sendObject )
                 $newsletterUnsubscribeHash = $newsletterSubscriptionObject->attribute('hash');
 
                 // ### get newsletter user data through send_item_object
-                $newsletterUserObject = $sendItem->attribute('newsletter_user_object');
-                $emailReceiver = $newsletterUserObject->attribute('email');
-                $emailReceiverName = $newsletterUserObject->attribute('email_name');
+                $newsletterUserObject = $sendItem->attribute( 'newsletter_user_object' );
 
-                // ### configure hash
-                $newsletterConfigureHash = $newsletterUserObject->attribute('hash');
-
-                // fetch html & text content of parsed outputxml from senmdobject
-                // data of outputformate
-                $outputStringArray = $outputFormatStringArray[ $outputFormatId ]['body'];
-                $emailSubject = $outputFormatStringArray[ $outputFormatId ]['subject'];
-
-                // parsed text and replace vars
-                // TODO parse extra variables
-
-                // START, add more hash keys
-                $searchArray =  array( '#_hash_unsubscribe_#',
-                                       '#_hash_configure_#','#_hash_item_#', '#_hash_edition_#' );
-
-                $replaceArray =  array( $newsletterUnsubscribeHash,
-                                        $newsletterConfigureHash, $sendItem->attribute('hash'), $sendObject->attribute( 'hash' ) );
-                // END
-
-                if( $personalizeContent === 1 )
+                if ( is_object( $newsletterUserObject ) )
                 {
-                    $searchArray = array_merge( $searchArray,
-                                                array(
-                                                   '[[name]]',
-                                                   '[[salutation_name]]',
-                                                   '[[first_name]]',
-                                                   '[[last_name]]'
-                                                ));
-                    $replaceArray = array_merge( $replaceArray,
-                                                 array(
-                                                        $newsletterUserObject->attribute( 'name' ),
-                                                        $newsletterUserObject->attribute( 'salutation_name' ),
-                                                        $newsletterUserObject->attribute( 'first_name' ),
-                                                        $newsletterUserObject->attribute( 'last_name' )
-                                                      ));
+                    $emailReceiver = $newsletterUserObject->attribute( 'email' );
+                    $emailReceiverName = $newsletterUserObject->attribute( 'email_name' );
+
+                    // ### configure hash
+                    $newsletterConfigureHash = $newsletterUserObject->attribute( 'hash' );
+
+                    // fetch html & text content of parsed outputxml from senmdobject
+                    // data of outputformate
+                    $outputStringArray = $outputFormatStringArray[$outputFormatId]['body'];
+                    $emailSubject = $outputFormatStringArray[$outputFormatId]['subject'];
+
+                    // parsed text and replace vars
+                    // TODO parse extra variables
+
+                    // START, add more hash keys
+                    $searchArray = array(
+                        '#_hash_unsubscribe_#',
+                        '#_hash_configure_#',
+                        '#_hash_item_#',
+                        '#_hash_edition_#'
+                    );
+
+                    $replaceArray = array(
+                        $newsletterUnsubscribeHash,
+                        $newsletterConfigureHash,
+                        $sendItem->attribute( 'hash' ),
+                        $sendObject->attribute( 'hash' )
+                    );
+                    // END
+
+                    if ( $personalizeContent === 1 )
+                    {
+                        $searchArray = array_merge( $searchArray,
+                            array(
+                                '[[name]]',
+                                '[[salutation_name]]',
+                                '[[first_name]]',
+                                '[[last_name]]'
+                            ) );
+                        $replaceArray = array_merge( $replaceArray,
+                            array(
+                                $newsletterUserObject->attribute( 'name' ),
+                                $newsletterUserObject->attribute( 'salutation_name' ),
+                                $newsletterUserObject->attribute( 'first_name' ),
+                                $newsletterUserObject->attribute( 'last_name' )
+                            ) );
+                    }
+
+                    $outputStringArrayNew = array( 'html' => '', 'text' => '' );
+                    foreach ( $outputStringArray as $index => $string )
+                    {
+                        $outputStringArrayNew[$index] = str_replace( $searchArray,
+                            $replaceArray,
+                            $string );
+                    }
+
+                    // START, replace in subject
+                    $emailSubject = str_replace( $searchArray, $replaceArray, $emailSubject );
+                    // END
+
+                    // set x-cjwnl header
+                    $cjwMail->resetExtraMailHeaders();
+                    $cjwMail->setExtraMailHeadersByNewsletterSendItem( $sendItem );
+
+                    $resultArray = $cjwMail->sendEmail( $emailSender,
+                        $emailSenderName,
+                        $emailReceiver,
+                        $emailReceiverName,
+                        $emailSubject,
+                        $outputStringArrayNew,
+                        false,
+                        'utf-8',
+                        $emailReplyTo,
+                        $emailReturnPath );
+
+                    $sendResult = $resultArray['send_result'];
+
+                    if ( $sendResult === true )
+                    {
+                        // emal was send
+                        $progressMonitor->addEntry( "[SEND] $itemCounter/$itemsNotSend",
+                            "Newsletter send item {$id} processed. " );
+
+                        // wenn ok als versendet markieren
+                        $sendItem->setAttribute( 'status',
+                            CjwNewsletterEditionSendItem::STATUS_SEND );
+                        $sendItem->store();
+                    }
+                    else
+                    {
+                        // error execption
+                        $exception = $resultArray['send_result'];
+                        $progressMonitor->addEntry( "[FAILED] $itemCounter/$itemsNotSend",
+                            "Newsletter send item {$id} failed, abort and bounce newsletter user." );
+                        // abort item if mail returns directly e.g. mailbox not found
+                        $sendItem->setAttribute( 'status',
+                            CjwNewsletterEditionSendItem::STATUS_ABORT );
+                        $sendItem->store();
+
+                        // bounce send Item
+                        $sendItem->setBounced();
+
+                        // bounc nl user
+                        $newsletterUser = $sendItem->attribute( 'newsletter_user_object' );
+                        if ( is_object( $newsletterUser ) )
+                        {
+                            $isHardBounce = false;
+                            // bounce nl user
+                            $newsletterUser->setBounced( $isHardBounce );
+                        }
+
+                    }
                 }
 
-                $outputStringArrayNew = array('html' => '', 'text' => '');
-                foreach ( $outputStringArray as $index => $string )
-                {
-                    $outputStringArrayNew[ $index ] = str_replace( $searchArray, $replaceArray, $string );
-                }
-
-                // START, replace in subject
-                $emailSubject = str_replace( $searchArray, $replaceArray, $emailSubject);
-                // END
-
-                // set x-cjwnl header
-                $cjwMail->resetExtraMailHeaders();
-                $cjwMail->setExtraMailHeadersByNewsletterSendItem( $sendItem );
-
-                $resultArray = $cjwMail->sendEmail( $emailSender,
-                                                    $emailSenderName,
-                                                    $emailReceiver,
-                                                    $emailReceiverName,
-                                                    $emailSubject,
-                                                    $outputStringArrayNew,
-                                                    false,
-                                                    'utf-8',
-                                                    $emailReplyTo,
-                                                    $emailReturnPath);
-
-                $sendResult = $resultArray['send_result'];
-
-                if ( $sendResult === true )
-                {
-                    // emal was send
-                    $progressMonitor->addEntry( "[SEND] $itemCounter/$itemsNotSend", "Newsletter send item {$id} processed. " );
-
-                    // wenn ok als versendet markieren
-                    $sendItem->setAttribute('status', CjwNewsletterEditionSendItem::STATUS_SEND );
-                    $sendItem->store();
-                }
+                // newsletter user object not available anymore => abort
                 else
                 {
-                    // error execption
-                    $exception = $resultArray['send_result'];
-                    $progressMonitor->addEntry( "[FAILED] $itemCounter/$itemsNotSend", "Newsletter send item {$id} failed, abort and bounce newsletter user." );
+                    // if object is not available anymore because of removal got to next item
+                    $progressMonitor->addEntry( "[FAILED] $itemCounter/$itemsNotSend", "Newsletter send item {$id} failed - newsletter_user_object not available aborting. " );
                     // abort item if mail returns directly e.g. mailbox not found
                     $sendItem->setAttribute( 'status', CjwNewsletterEditionSendItem::STATUS_ABORT );
                     $sendItem->store();
-
-                    // bounce send Item
-                    $sendItem->setBounced();
-
-                    // bounc nl user
-                    $newsletterUser = $sendItem->attribute( 'newsletter_user_object' );
-                    if ( is_object( $newsletterUser ) )
-                    {
-                        $isHardBounce = false;
-                        // bounce nl user
-                        $newsletterUser->setBounced( $isHardBounce );
-                    }
-
                 }
 
             }
