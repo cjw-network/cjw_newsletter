@@ -9,7 +9,7 @@ Webmanufaktur - http://www.webmanufaktur.ch
 
 System requirements:
 ====================
- - ez 4.x
+ - ez 4.x / 5.x (legacy mode)
  - ezComponents
  - php ( php 5 cli version )
 
@@ -132,6 +132,8 @@ Steps for installing the newsletter:
 (18.) Sending out all mails which are in the mail queue create by (15.)
 
     php runcronjobs.php -s siteaccess cjw_newsletter_mailqueue_process
+
+* When running in ez 5.x legacy mode remember to change ScriptDirectories[] in settings/cronjob.ini.append.php
 
 
 Enjoy :-)
