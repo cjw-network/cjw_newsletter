@@ -13,7 +13,7 @@
 {/if}
 
 
-    {def $newsletter_root_node_id = 2
+    {def $newsletter_root_node_id = ezini( 'NewsletterSettings', 'RootFolderNodeId', 'cjw_newsletter.ini' )
          $available_output_formats = 2} {* settings for html table *}
 
 
