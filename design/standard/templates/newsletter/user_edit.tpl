@@ -136,7 +136,7 @@
                                 {* list subscribe, remove *}
 
                                  {* fetch all available newsletter systems *}
-                                    {def $newsletter_root_node_id = 2
+                                    {def $newsletter_root_node_id = ezini( 'NewsletterSettings', 'RootFolderNodeId', 'cjw_newsletter.ini' )
                                          $newsletter_system_node_list = fetch( 'content', 'tree', hash('parent_node_id', $newsletter_root_node_id,
                                                                                             'class_filter_type', 'include',
                                                                                             'class_filter_array', array( 'cjw_newsletter_system' ),
