@@ -175,6 +175,15 @@
                  edition_node_list = $children
                  edition_node_list_count = $children_count
                  show_actions_colum = true()}
+    
+    <div class="context-toolbar subitems-context-toolbar">
+        {include  name = 'Navigator'
+                  uri = 'design:navigator/google.tpl'
+                  page_uri = $node.url_alias
+                  item_count = $children_count
+                  view_parameters = $view_parameters
+                  item_limit = $number_of_items}
+    </div>
 
         {def $viewmode_newsletter=true()}
 
